@@ -11,8 +11,8 @@
 #' @return An object of class \code{\link[httr:response]{response}}
 #' @examples
 #' \dontrun{
-#' library(gateway)
-#' fn <- file.path(path.package("gateway"), "testdata", "client3.json")
+#' library(james.client)
+#' fn <- file.path(path.package("james.client"), "testdata", "client3.json")
 #' resp <- get_bds_chart(fn)
 #' resp
 #' }
@@ -20,7 +20,7 @@
 #' @export
 get_bds_chart <- function(fn = NULL,
                        url = "http://54.93.78.215") {
-  path <- "ocpu/library/gateway/R/draw_bds_chart"
+  path <- "ocpu/library/james/R/draw_bds_chart"
   dat <- upload_file(fn)
   resp <- POST(url = url, path = path, body = list(txt = dat))
 

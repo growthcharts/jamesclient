@@ -49,7 +49,7 @@ and converted into `JSON` format. The JAMES server contains the
 following example:
 
 ```{bash}
-curl http://54.93.78.215/ocpu/library/gateway/testdata/client3.json
+curl http://54.93.78.215/ocpu/library/james/testdata/client3.json
 ```
 
 Save this file as `client3.json` on your local system, and upload it
@@ -57,7 +57,7 @@ to JAMES to convert it from BDS format into an `R` object of S4 class
 `minihealth::individual` as
 
 ```{bash, eval = FALSE}
-curl http://54.93.78.215/ocpu/library/gateway/R/bds_to_individual \
+curl http://54.93.78.215/ocpu/library/james/R/convert_bds_ind \
   -d "txt=list(path='client3.json',type='application/json')"
 ```
 
@@ -66,9 +66,10 @@ alternative (but via `httr` package in `R`) is
 
 ```{r}
   library(httr)
+  library(james.client)
   url <- "http://54.93.78.215"
   fn <- "client3.json"
-  path <- "ocpu/library/gateway/R/bds_to_individual"
+  path <- "ocpu/library/james/R/convert_bds_ind"
   dat <- upload_file(fn)
   resp <- POST(url = url, path = path, body = list(txt = dat))
   resp
@@ -78,7 +79,8 @@ alternative (but via `httr` package in `R`) is
 We may now see the standard output of the conversion as (also in `R`)
 
 ```{r}
-z <- gateway::get_result(resp, "stdout")[[1]]
+url <- extract_return(resp)
+z <- GET(url)
 content(z)
 ```
 

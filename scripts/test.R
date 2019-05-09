@@ -1,8 +1,8 @@
-library(gateway)
+library(james.client)
 library(groeivoorspeller)
 library(grid)
 
-fn <- file.path(path.package("gateway"), "testdata", "client3.json")
+fn <- file.path(path.package("james.client"), "testdata", "client3.json")
 p <- bds_to_individual(fn)
 
 

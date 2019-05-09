@@ -24,8 +24,8 @@ file keys on the server.
 }
 \examples{
 \dontrun{
-library(gateway)
-fn <- file.path(path.package("gateway"), "testdata", "client3.json")
+library(james.client)
+fn <- file.path(path.package("james.client"), "testdata", "client3.json")
 resp <- get_bds_chart(fn)
 resp
 }

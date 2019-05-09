@@ -26,8 +26,8 @@ in a two-step communication.
 }
 \examples{
 \dontrun{
-library(gateway)
-fn <- file.path(path.package("gateway"), "testdata", "client3.json")
+library(james.client)
+fn <- file.path(path.package("james.client"), "testdata", "client3.json")
 resp <- post_bds_file(fn)
 resp
 get_result(resp, pattern = "stdout")
