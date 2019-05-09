@@ -1,0 +1,93 @@
+---
+title: "JAMES: Joint Anthropometric Measurement and Evaluation Server"
+author: "Stef van Buuren"
+date: "7-5-2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## JAMES
+
+The Joint Anthropometric Measurement and Evaluation Server (JAMES) is
+an experimental online resource for creating growth charts. The
+resource can be used by anyone interested in high-quality charts for
+monitoring and evaluating childhood growth.
+
+This document explains how to set up communications with JAMES and
+provides some guidance in its use.
+
+## Architecture
+
+The growth charts in JAMES are programmed in `R`. JAMES makes these
+available through the [OpenCPU](https://www.opencpu.org) system for
+scientific computing and reproducuble research. The system allows for
+easy integration of growth charts into any `HTTP` compliant client by
+means of OpenCPU's [API](https://www.opencpu.org/api.html).
+
+## Access
+
+JAMES is currently located at IP `54.93.78.215`. The server has
+currently no registered name, so we temporarily use the raw IP. The
+sections below use `curl` for illustration, but any `HTTP` client will
+work.
+
+In order to check whether JAMES is running, try generating some random 
+numbers by calling `stats::rnorm()`, as follows:
+
+```{bash}
+curl http://54.93.78.215/ocpu/library/stats/R/rnorm/json --data n=5
+```
+
+## Posting child's data to JAMES
+
+Suppose that the child's data are coded according to the specification
+[BDS JGZ 3.2.5](https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12),
+and converted into `JSON` format. The JAMES server contains the
+following example:
+
+```{bash}
+curl http://54.93.78.215/ocpu/library/gateway/testdata/client3.json
+```
+
+Save this file as `client3.json` on your local system, and upload it
+to JAMES to convert it from BDS format into an `R` object of S4 class
+`minihealth::individual` as
+
+```{bash, eval = FALSE}
+curl http://54.93.78.215/ocpu/library/gateway/R/bds_to_individual \
+  -d "txt=list(path='client3.json',type='application/json')"
+```
+
+NOTE: The above `curl` command does not yet work. A working
+alternative (but via `httr` package in `R`) is
+
+```{r}
+  library(httr)
+  url <- "http://54.93.78.215"
+  fn <- "client3.json"
+  path <- "ocpu/library/gateway/R/bds_to_individual"
+  dat <- upload_file(fn)
+  resp <- POST(url = url, path = path, body = list(txt = dat))
+  resp
+```
+
+
+We may now see the standard output of the conversion as (also in `R`)
+
+```{r}
+z <- gateway::get_result(resp, "stdout")[[1]]
+content(z)
+```
+
+Other types of output can be downloaded by changing the second
+argument.
+
+## Further work
+
+The procedure is still somewhat slow, presumably because a large
+number of libraries need to be called for each call.
+
+Next steps is to generate a graph based on the data.
