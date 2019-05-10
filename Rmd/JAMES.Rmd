@@ -1,7 +1,7 @@
 ---
 title: "JAMES: Joint Anthropometric Measurement and Evaluation Server"
 author: "Stef van Buuren"
-date: "7-5-2019"
+date: "10-05-2019"
 output: html_document
 ---
 
@@ -76,7 +76,7 @@ alternative (but via `httr` package in `R`) is
 ```
 
 
-We may now see the standard output of the conversion as (also in `R`)
+We may now see the function return of `convert_bds_ind()` as (also in `R`)
 
 ```{r}
 url <- extract_return(resp)
@@ -84,8 +84,42 @@ z <- GET(url)
 content(z)
 ```
 
-Other types of output can be downloaded by changing the second
-argument.
+Other types of output can also be downloaded.
+
+## Requesting a growth chart
+
+There are two server-side functions for generating a growth chart with the child's data: `draw_chart_bds()` and `draw_chart_ind()`. The difference is in the input. `draw_chart_bds()` takes the BDS-data, convert to `individual` and return the requested chart. 
+
+```{r}
+  path <- "ocpu/library/james/R/draw_chart_bds"
+  resp2 <- POST(url = url, path = path, body = list(txt = dat))
+  resp2
+```
+
+The growth chart can be obtained as 
+
+```{r eval=FALSE}
+browseURL(extract_svg(resp2))
+```
+
+`draw_chart_ind()` loads the `individual` data stored on the server in a previous call, and return the requested chart. 
+
+```{r}
+# extract where the converted data are stored on server
+loc <- extract_location(resp)
+
+# request chart with chartcode for week 36
+resp3 <- req_chart(location = loc, chartcode = "PJAAN36")
+resp3
+```
+
+The growth chart can be obtained as 
+
+```{r eval=FALSE}
+browseURL(extract_svg(resp3))
+```
+
+See <https://github.com/stefvanbuuren/james.client> for more detail.
 
 ## Further work
 
