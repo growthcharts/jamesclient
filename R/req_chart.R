@@ -13,7 +13,7 @@
 req_chart <- function(location, chartcode = NULL,
                       curve_interpolation = TRUE) {
   url <- "http://54.93.78.215"
-  path <- "ocpu/library/james/R/chart"
+  path <- "ocpu/library/james/R/draw_chart_ind"
   resp <- POST(url = url, path = path,
                body = list(location = location,
                            chartcode = chartcode,
