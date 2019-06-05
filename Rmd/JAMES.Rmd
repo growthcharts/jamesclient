@@ -1,7 +1,7 @@
 ---
 title: "JAMES: Joint Anthropometric Measurement and Evaluation Server"
 author: "Stef van Buuren"
-date: "10-05-2019"
+date: "05-06-2019"
 output: html_document
 ---
 
@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ## JAMES
 
 The Joint Anthropometric Measurement and Evaluation Server (JAMES) is
-an experimental online resource for creating growth charts. The
+an **experimental** online resource for creating growth charts. The
 resource can be used by anyone interested in high-quality charts for
 monitoring and evaluating childhood growth.
 
@@ -29,16 +29,15 @@ means of OpenCPU's [API](https://www.opencpu.org/api.html).
 
 ## Access
 
-JAMES is currently located at IP `54.93.78.215`. The server has
-currently no registered name, so we temporarily use the raw IP. The
+JAMES is located at url `groeidiagrammen.nl`. The
 sections below use `curl` for illustration, but any `HTTP` client will
 work.
 
 In order to check whether JAMES is running, try generating some random 
-numbers by calling `stats::rnorm()`, as follows:
+numbers by calling `stats::rnorm()`, in a terminal window as follows,
 
 ```{bash}
-curl http://54.93.78.215/ocpu/library/stats/R/rnorm/json --data n=5
+curl http://groeidiagrammen.nl/ocpu/library/stats/R/rnorm/json --data n=5
 ```
 
 ## Posting child's data to JAMES
@@ -49,81 +48,183 @@ and converted into `JSON` format. The JAMES server contains the
 following example:
 
 ```{bash}
-curl http://54.93.78.215/ocpu/library/james/testdata/client3.json
+curl http://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json
 ```
 
-Save this file as `client3.json` on your local system, and upload it
-to JAMES to convert it from BDS format into an `R` object of S4 class
-`minihealth::individual` as
+Save this file as `client3.json` on your local system by
+
+```{bash eval=FALSE}
+curl http://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json -O
+```
+
+which produces a file called `client3.json` in the work directory. 
+
+You may now change its values (but not the file structure), and
+re-upload it to JAMES. Convert the file from BDS format into an `R`
+object of S4 class `minihealth::individual` as
 
 ```{bash, eval = FALSE}
-curl http://54.93.78.215/ocpu/library/james/R/convert_bds_ind \
+# NOT YET FUNCTIONAL CURL
+curl http://groeidiagrammen.nl/ocpu/library/james/R/convert_bds_ind \
   -d "txt=list(path='client3.json',type='application/json')"
 ```
 
-NOTE: The above `curl` command does not yet work. A working
-alternative (but via `httr` package in `R`) is
+NOTE: The above `curl` command does not yet work. 
 
-```{r}
-  library(httr)
-  library(james.client)
-  url <- "http://54.93.78.215"
-  fn <- "client3.json"
-  path <- "ocpu/library/james/R/convert_bds_ind"
-  dat <- upload_file(fn)
-  resp <- POST(url = url, path = path, body = list(txt = dat))
-  resp
+A working alternative in `R` (via the `httr` package) is as follows.
+Download the example file to the working directory as
+
+```{r downloadexample}
+library("httr")
+url <- "http://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
+GET(url, write_disk("client3.json", overwrite = TRUE))
 ```
 
+Let us now re-upload and convert the local BDS-formatted file
+`client3.json` into the JAMES format (defined as S4 class
+`minihealth::individual`) by
 
-We may now see the function return of `convert_bds_ind()` as (also in `R`)
+```{r postfilehttr}
+url <- "http://groeidiagrammen.nl"
+path <- "ocpu/library/james/R/convert_bds_ind"
+dat <- upload_file("client3.json")
+resp <- POST(url = url, path = path, body = list(txt = dat))
+resp
+```
+
+The [james.client](https://github.com/stefvanbuuren/james.client) package
+contains a few utility functions to extract url's for further processing. 
+The following code blocks installs the packages, if not yet available.
 
 ```{r}
-url <- extract_return(resp)
-z <- GET(url)
+if (!"remotes" %in% rownames(installed.packages())) 
+  install.packages("remotes")
+if (!"james.client" %in% rownames(installed.packages())) 
+  remotes::install_github("stefvanbuuren/james.client")
+```
+
+The return value of the server-side function `convert_bds_ind()` can
+now be downloaded as
+
+```{r postfilehttrreturn}
+suppressPackageStartupMessages(library("james.client"))
+url_ret <- get_url(resp, "return")
+url_ret
+z <- GET(url_ret)
 content(z)
 ```
 
-Other types of output can also be downloaded.
+While this result by itsels is not in a particularly friendly form, it
+confirms that the function `convert_bds_ind()` did in fact produce the
+intended output. For example, after some searching we may find that
+the gestional age (\code{"ga"}) of this child is 27 weeks.
+
+The text version of the help file for `convert_bds_ind()` is at 
+
+```{r postfilehelp}
+GET("http://groeidiagrammen.nl/ocpu/library/james/man/convert_bds_ind")
+```
+
+Alternatively, paste the following url into your browser, or start a browser 
+window from your `R` session to watch the `html` version in your browser by
+
+```{r eval=FALSE}
+browseURL("http://groeidiagrammen.nl/ocpu/library/james/man/convert_bds_ind/html")
+```
 
 ## Requesting a growth chart
 
-There are two server-side functions for generating a growth chart with the child's data: `draw_chart_bds()` and `draw_chart_ind()`. The difference is in the input. `draw_chart_bds()` takes the BDS-data, convert to `individual` and return the requested chart. 
+### BDS-data as input
+
+The server-side function `james::draw_chart_bds()` generates a growth
+chart with the child's BDS-data. It performs three actions: convert
+the BDS-data into individual data, select a chart based on the input
+data, and draw the chart.
 
 ```{r}
-  path <- "ocpu/library/james/R/draw_chart_bds"
-  resp2 <- POST(url = url, path = path, body = list(txt = dat))
-  resp2
+path <- "ocpu/library/james/R/draw_chart_bds"
+resp2 <- POST(url = url, path = path, body = list(txt = dat))
+resp2
 ```
 
-The growth chart can be obtained as 
+The produced height chart for this child can be added to a markdown document as 
+
+```{r}
+url_svg <- get_url(resp2, "svg")
+url_svg
+tmp <- tempfile(fileext = ".svg")
+GET(url_svg, write_disk(tmp))
+knitr::include_graphics(tmp)
+```
+
+We may display it in a browser as
 
 ```{r eval=FALSE}
-browseURL(extract_svg(resp2))
+browseURL(url_svg)
 ```
 
-`draw_chart_ind()` loads the `individual` data stored on the server in a previous call, and return the requested chart. 
+### Data on server as input 
+
+The `draw_chart_ind()` function also draws charts, but takes its input
+data from a server-side url that contains the already converted
+individual data. Hence, conversion of the BDS-data need to be done
+only once. More specifically, `draw_chart_ind()` loads the
+`individual` data stored on the server in a previous call, and return
+the requested chart. It works as follows:
 
 ```{r}
-# extract where the converted data are stored on server
-loc <- extract_location(resp)
-
-# request chart with chartcode for week 36
-resp3 <- req_chart(location = loc, chartcode = "PJAAN36")
+# request preterm chart with all measures for boys, week 25
+path <- "ocpu/library/james/R/draw_chart_ind"
+resp3 <- POST(url = url, path = path,
+              body = list(location = get_url(resp, "location"),
+                          chartcode = "PMAAN25",
+                          curve_interpolation = TRUE),
+              encode = "json")
 resp3
 ```
 
-The growth chart can be obtained as 
+This growth chart can displayed in the same way as before:
 
-```{r eval=FALSE}
-browseURL(extract_svg(resp3))
+```{r}
+tmp <- tempfile(fileext = ".svg")
+url_svg <- get_url(resp3, "svg", pad = "?width=10&height=12")
+GET(url_svg, write_disk(tmp))
+knitr::include_graphics(tmp)
 ```
 
-See <https://github.com/stefvanbuuren/james.client> for more detail.
+Note that the reference chart for height has changed (since we asked
+for week 25 instead of week 27), and the child's measurements are
+identical.
 
-## Further work
+We can also view it by pasting the url in the browser:
 
-The procedure is still somewhat slow, presumably because a large
-number of libraries need to be called for each call.
+```{r}
+url_svg
+```
 
-Next steps is to generate a graph based on the data.
+Note that these url's are temporary, and will disappear from the server 
+after 24 hours.
+
+## A client in `R`
+
+If `R` is your analysis environment, then you can use the
+`james.client` package to achieve the same result in an easier way.
+The functions `upload_bds()` and `request_chart()` in `james.client`
+have simple syntax, and automate the steps outlined above. See
+<https://github.com/stefvanbuuren/james.client> for more detail.
+
+## Next steps
+
+The next step is to extend the system so that individual data can 
+be easily plotted and manipulated using a simple app. A first version
+(one that does not yet use individual plotting, and that uses 
+Dutch growth reference primarily) is on
+<http://groeidiagrammen.nl/ocpu/library/james/www/>.
+
+## About
+
+Work in progress. Suggestions and inquiries to Stef van Buuren
+(stef.vanbuuren at tno.nl), <https://stefvanbuuren.name>, <https://github.com/stefvanbuuren>.
+
+
+
