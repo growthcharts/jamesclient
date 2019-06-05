@@ -1,17 +1,18 @@
-#' Request chart from server
+#' Update chart using data stored on server
 #'
 #' This function assumes that the data are stored on the server.
 #' @param location     An url pointing the server-side data from
-#' upload.
+#' data upload. The result of a \code{POST} call.
 #' @param chartcode The code of the requested growth chart. If not
 #' specified, the server will automatically plot child height for
 #' the most recent age period.
 #' @inheritParams groeidiagrammen::draw_plot
 #' @return An object of class \code{\link[httr:response]{response}}
+#' @seealso \code{\link[james]{draw_chart_ind}}, \code{\link[httr]{POST}}
 #' @keywords client
 #' @export
-req_chart <- function(location, chartcode = NULL,
-                      curve_interpolation = TRUE) {
+update_chart <- function(location, chartcode = NULL,
+                         curve_interpolation = TRUE) {
   url <- "http://groeidiagrammen.nl"
   path <- "ocpu/library/james/R/draw_chart_ind"
   resp <- POST(url = url, path = path,
