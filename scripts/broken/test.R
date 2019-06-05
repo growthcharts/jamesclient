@@ -3,14 +3,14 @@ library(groeivoorspeller)
 library(grid)
 
 fn <- file.path(path.package("james.client"), "testdata", "client3.json")
-p <- bds_to_individual(fn)
+p <- james::convert_bds_ind(fn)
 
 
 yname <- "hgt"
 current.visit <- 3
 target.visit <- 9
 current.week <- p@ga
-vpn <- get.viewport("NJAA", yname)
+vpn <- chartbox::get_viewport("NJAA", yname)
 g <- groeivoorspeller:::create.visit.lines(yname = yname, dnr = "smocc", design = "A",
                         tx = function(x) x * 12,
                         visits = c(current.visit, target.visit),

@@ -16,6 +16,6 @@ resp2 <- req_chart(location = loc, chartcode = "PJAAN27")
 browseURL(extract_svg(resp2, width = 10, height = 12))
 
 # list the available charts
-POST(paste0(resp$url
+# POST(paste0(resp$url
 
 # use function that uploads and process data
