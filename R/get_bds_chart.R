@@ -3,7 +3,7 @@
 #' Uploads a JSON file with \code{bds} to server, parses its contents
 #' into an object of class \linkS4class{individual}, and returns the
 #' file keys on the server.
-#' @param fn      File name of data. The variable specification are
+#' @param file      File name of data. The variable specification are
 #'   expected to be according specification
 #'   \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS
 #'    JGZ 3.2.5}, and converted to JSON.
@@ -11,15 +11,15 @@
 #' @return An object of class \code{\link[httr:response]{response}}
 #' @examples
 #' library(james.client)
-#' fn <- file.path(path.package("james.client"), "testdata", "client3.json")
-#' resp <- get_bds_chart(fn)
+#' file <- file.path(path.package("james.client"), "testdata", "client3.json")
+#' resp <- get_bds_chart(file)
 #' resp
 #' @keywords client
 #' @export
-get_bds_chart <- function(fn = NULL,
+get_bds_chart <- function(file = NULL,
                           url = "http://groeidiagrammen.nl") {
-  path <- "ocpu/library/james/R/draw_bds_chart"
-  dat <- upload_file(fn)
+  path <- "ocpu/library/james/R/draw_chart_bds"
+  dat <- upload_file(file)
   resp <- POST(url = url, path = path, body = list(txt = dat))
 
   if (http_error(resp)) {

@@ -13,8 +13,8 @@
 #'   not found.
 #' @examples
 #' library(james.client)
-#' fn <- file.path(path.package("james.client"), "testdata", "client3.json")
-#' resp <- upload_bds(fn)
+#' file <- file.path(path.package("james.client"), "testdata", "client3.json")
+#' resp <- upload_bds(file)
 #' resp
 #' get_result(resp, pattern = "stdout")
 #' @export

@@ -4,10 +4,10 @@
 \alias{get_bds_chart}
 \title{Upload and parse BDS file to ocpu server}
 \usage{
-get_bds_chart(fn = NULL, url = "http://groeidiagrammen.nl")
+get_bds_chart(file = NULL, url = "http://groeidiagrammen.nl")
 }
 \arguments{
-\item{fn}{File name of data. The variable specification are
+\item{file}{File name of data. The variable specification are
 expected to be according specification
 \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS
  JGZ 3.2.5}, and converted to JSON.}
@@ -24,8 +24,8 @@ file keys on the server.
 }
 \examples{
 library(james.client)
-fn <- file.path(path.package("james.client"), "testdata", "client3.json")
-resp <- get_bds_chart(fn)
+file <- file.path(path.package("james.client"), "testdata", "client3.json")
+resp <- get_bds_chart(file)
 resp
 }
 \keyword{client}

@@ -1,8 +1,9 @@
-#' Update chart using data stored on server
+#' Request a growth chart from groeidiagrammen.nl
 #'
-#' This function assumes that the data are stored on the server.
-#' @param location     An url pointing the server-side data from
-#' data upload.
+#' This function requests a growth chart from \code{groeidiagrammen.nl}.
+#' The function assumes that the data are stored on the server.
+#' @param location     An url pointing the server-side data of
+#' class `individual`.
 #' @param chartcode The code of the requested growth chart. If not
 #' specified, the server will automatically plot child height for
 #' the most recent age period.
@@ -12,14 +13,14 @@
 #' @keywords client
 #' @examples
 #' library("james.client")
-#' fn <- file.path(path.package("james.client"), "testdata", "client3.json")
-#' resp <- upload_bds(fn)
+#' file <- file.path(path.package("james.client"), "testdata", "client3.json")
+#' resp <- upload_bds(file)
 #' loc <- extract_location(resp)
-#' resp2 <- update_chart(loc, "NJAA")
+#' resp2 <- request_chart(loc, "NJAA")
 #' resp2
 #' @export
-update_chart <- function(location, chartcode = NULL,
-                         curve_interpolation = TRUE) {
+request_chart <- function(location, chartcode = NULL,
+                          curve_interpolation = TRUE) {
   url <- "http://groeidiagrammen.nl"
   path <- "ocpu/library/james/R/draw_chart_ind"
   resp <- POST(url = url, path = path,

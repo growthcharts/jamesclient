@@ -2,30 +2,35 @@
 % Please edit documentation in R/upload_bds.R
 \name{upload_bds}
 \alias{upload_bds}
-\title{Upload and parse BDS file to ocpu server}
+\title{Upload and parse BDS file to groeidiagrammen.nl}
 \usage{
-upload_bds(fn = NULL, url = "http://groeidiagrammen.nl")
+upload_bds(file, url = "http://groeidiagrammen.nl")
 }
 \arguments{
-\item{fn}{File name of data. The variable specification are
+\item{file}{File name of data. The variable specification are
 expected to be according specification
 \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS
  JGZ 3.2.5}, and converted to JSON.}
 
-\item{url}{The \code{url} of the server}
+\item{url}{The \code{url} of the server, which defaults to
+\code{http://groeidiagrammen.nl}.}
 }
 \value{
 An object of class \code{\link[httr:response]{response}}
+that can be used as input for \code{request_chart()}
 }
 \description{
 Uploads a JSON file with \code{bds} to server, parses its contents
 into an object of class \linkS4class{individual}, and returns the
-file keys on the server.
+result urls on the server.
+}
+\note{
+At present there is only minimal error checking on the BDS file.
 }
 \examples{
 library(james.client)
-fn <- file.path(path.package("james.client"), "testdata", "client3.json")
-resp <- upload_bds(fn)
+file <- file.path(path.package("james.client"), "testdata", "client3.json")
+resp <- upload_bds(file)
 resp
 }
 \keyword{client}
