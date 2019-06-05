@@ -2,7 +2,7 @@
 % Please edit documentation in R/request_chart.R
 \name{request_chart}
 \alias{request_chart}
-\title{Request a growth chart from groeidiagrammen.nl}
+\title{Request a growth chart from JAMES}
 \usage{
 request_chart(file = NULL, ssd = NULL, chartcode = NULL,
   curve_interpolation = TRUE)

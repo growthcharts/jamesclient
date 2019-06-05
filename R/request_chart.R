@@ -1,4 +1,4 @@
-#' Request a growth chart from groeidiagrammen.nl
+#' Request a growth chart from JAMES
 #'
 #' This function requests a growth chart from
 #' \code{groeidiagrammen.nl}. The function can upload a JSON file
@@ -55,7 +55,7 @@ request_chart <- function(file = NULL,
   if (is.null(file)) {
     stopifnot(!is.null(ssd))
     path <- "ocpu/library/james/R/draw_chart_ind"
-    location <- extract_location(ssd)
+    location <- get_url(ssd, "location")
     resp <- POST(url = url, path = path,
                  body = list(location = location,
                              chartcode = chartcode,

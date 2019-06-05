@@ -1,4 +1,4 @@
-#' Upload and parse BDS file to groeidiagrammen.nl
+#' Upload and parse BDS file to JAMES
 #'
 #' Uploads a JSON file with \code{bds} to server, parses its contents
 #' into an object of class \linkS4class{individual}, and returns the

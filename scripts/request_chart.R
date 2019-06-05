@@ -5,15 +5,15 @@ library(james.client)
 library(httr)
 file <- file.path(path.package("james.client"), "testdata", "client3.json")
 resp <- upload_bds(file)
-loc <- extract_location(resp)
+loc <- get_url(resp, "location")
 
 # create the chart
 
 resp2 <- req_chart(location = loc, chartcode = "WMAH")
-browseURL(extract_svg(resp2))
+browseURL(get_url(resp2, "svg"))
 
 resp2 <- req_chart(location = loc, chartcode = "PJAAN27")
-browseURL(extract_svg(resp2, width = 10, height = 12))
+browseURL(get_url(resp2, "svg", pad="?width=10&height=12"))
 
 # list the available charts
 # POST(paste0(resp$url

@@ -2,7 +2,7 @@
 % Please edit documentation in R/upload_bds.R
 \name{upload_bds}
 \alias{upload_bds}
-\title{Upload and parse BDS file to groeidiagrammen.nl}
+\title{Upload and parse BDS file to JAMES}
 \usage{
 upload_bds(file, url = "http://groeidiagrammen.nl")
 }
