@@ -4,7 +4,7 @@
 \alias{get_bds_chart}
 \title{Upload and parse BDS file to ocpu server}
 \usage{
-get_bds_chart(fn = NULL, url = "http://54.93.78.215")
+get_bds_chart(fn = NULL, url = "http://groeidiagrammen.nl")
 }
 \arguments{
 \item{fn}{File name of data. The variable specification are

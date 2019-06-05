@@ -19,7 +19,7 @@
 #' @keywords client
 #' @export
 get_bds_chart <- function(fn = NULL,
-                       url = "http://54.93.78.215") {
+                          url = "http://groeidiagrammen.nl") {
   path <- "ocpu/library/james/R/draw_bds_chart"
   dat <- upload_file(fn)
   resp <- POST(url = url, path = path, body = list(txt = dat))

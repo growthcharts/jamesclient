@@ -1,4 +1,4 @@
-run_remote <- function(hostname = "54.93.78.215",
+run_remote <- function(hostname = "groeidiagrammen.nl",
                        scheme = "http",
                        pkg = "stats",
                        func = "rnorm",
