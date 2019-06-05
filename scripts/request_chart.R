@@ -3,8 +3,8 @@
 # first upload and translate the child growth data
 library(james.client)
 library(httr)
-fn <- file.path(path.package("james.client"), "testdata", "client3.json")
-resp <- upload_bds(fn)
+file <- file.path(path.package("james.client"), "testdata", "client3.json")
+resp <- upload_bds(file)
 loc <- extract_location(resp)
 
 # create the chart

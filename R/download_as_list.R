@@ -1,11 +1,11 @@
-#' Get result from ocpu server
+#' Download results from ocpu server as a list
 #'
-#' Obtains the contents of one or more url's from a server response
-#' in a two-step communication.
+#' Obtains the contents of one or more url's from the OpenCPU server response
+#' in a list.
 #' @param resp    An object of class
 #'   \code{\link[httr:response]{response}}, typically returned by a
 #'   previous call to \code{httr::POST} to the server.
-#' @param pattern A string with the trailing part of the requested
+#' @param pattern A character vector with the trailing part of the requested
 #'   url, e.g. \code{"R/.val"} or \code{"stdout"}. Use \code{""} to
 #'   obtain all results.
 #' @return A list with the contents under the url's that match
@@ -16,9 +16,9 @@
 #' file <- file.path(path.package("james.client"), "testdata", "client3.json")
 #' resp <- upload_bds(file)
 #' resp
-#' get_result(resp, pattern = "stdout")
+#' download_as_list(resp, pattern = "stdout")
 #' @export
-get_result <- function(resp, pattern = "R/.val") {
+download_as_list <- function(resp, pattern = "R/.val") {
   parsed <- parse_url(resp$url)
   paths <- strsplit(content(resp, "text"), "\n")[[1L]]
   idx <- grep(pattern, paths)

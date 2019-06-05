@@ -2,8 +2,8 @@ library(james.client)
 library(groeivoorspeller)
 library(grid)
 
-fn <- file.path(path.package("james.client"), "testdata", "client3.json")
-p <- james::convert_bds_ind(fn)
+file <- file.path(path.package("james.client"), "testdata", "client3.json")
+p <- james::convert_bds_ind(file)
 
 
 yname <- "hgt"
