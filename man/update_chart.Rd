@@ -8,7 +8,7 @@ update_chart(location, chartcode = NULL, curve_interpolation = TRUE)
 }
 \arguments{
 \item{location}{An url pointing the server-side data from
-data upload. The result of a \code{POST} call.}
+data upload.}
 
 \item{chartcode}{The code of the requested growth chart. If not
 specified, the server will automatically plot child height for
@@ -21,6 +21,14 @@ An object of class \code{\link[httr:response]{response}}
 }
 \description{
 This function assumes that the data are stored on the server.
+}
+\examples{
+library("james.client")
+fn <- file.path(path.package("james.client"), "testdata", "client3.json")
+resp <- upload_bds(fn)
+loc <- extract_location(resp)
+resp2 <- update_chart(loc, "NJAA")
+resp2
 }
 \seealso{
 \code{\link[james]{draw_chart_ind}}, \code{\link[httr]{POST}}

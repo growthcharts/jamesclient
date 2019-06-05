@@ -23,11 +23,9 @@ into an object of class \linkS4class{individual}, and returns the
 file keys on the server.
 }
 \examples{
-\dontrun{
 library(james.client)
 fn <- file.path(path.package("james.client"), "testdata", "client3.json")
 resp <- upload_bds(fn)
 resp
-}
 }
 \keyword{client}

@@ -10,12 +10,10 @@
 #' @param url     The \code{url} of the server
 #' @return An object of class \code{\link[httr:response]{response}}
 #' @examples
-#' \dontrun{
 #' library(james.client)
 #' fn <- file.path(path.package("james.client"), "testdata", "client3.json")
 #' resp <- upload_bds(fn)
 #' resp
-#' }
 #' @keywords client
 #' @export
 upload_bds <- function(fn = NULL,

@@ -12,13 +12,11 @@
 #'   \code{pattern}. The result has length 0 if the pattern was
 #'   not found.
 #' @examples
-#' \dontrun{
 #' library(james.client)
 #' fn <- file.path(path.package("james.client"), "testdata", "client3.json")
-#' resp <- post_bds_file(fn)
+#' resp <- upload_bds(fn)
 #' resp
 #' get_result(resp, pattern = "stdout")
-#' }
 #' @export
 get_result <- function(resp, pattern = "R/.val") {
   parsed <- parse_url(resp$url)

@@ -25,11 +25,9 @@ Obtains the contents of one or more url's from a server response
 in a two-step communication.
 }
 \examples{
-\dontrun{
 library(james.client)
 fn <- file.path(path.package("james.client"), "testdata", "client3.json")
-resp <- post_bds_file(fn)
+resp <- upload_bds(fn)
 resp
 get_result(resp, pattern = "stdout")
-}
 }
