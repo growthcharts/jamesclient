@@ -4,7 +4,7 @@
 \alias{upload_bds}
 \title{Upload and parse BDS file to ocpu server}
 \usage{
-upload_bds(fn = NULL, url = "http://54.93.78.215")
+upload_bds(fn = NULL, url = "http://groeidiagrammen.nl")
 }
 \arguments{
 \item{fn}{File name of data. The variable specification are
@@ -24,7 +24,7 @@ file keys on the server.
 }
 \examples{
 \dontrun{
-library(james.clieny)
+library(james.client)
 fn <- file.path(path.package("james.client"), "testdata", "client3.json")
 resp <- upload_bds(fn)
 resp

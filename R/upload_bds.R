@@ -11,7 +11,7 @@
 #' @return An object of class \code{\link[httr:response]{response}}
 #' @examples
 #' \dontrun{
-#' library(james.clieny)
+#' library(james.client)
 #' fn <- file.path(path.package("james.client"), "testdata", "client3.json")
 #' resp <- upload_bds(fn)
 #' resp
@@ -19,8 +19,8 @@
 #' @keywords client
 #' @export
 upload_bds <- function(fn = NULL,
-                       url = "http://54.93.78.215") {
-  path <- "ocpu/library/james/R/bds_to_individual"
+                       url = "http://groeidiagrammen.nl") {
+  path <- "ocpu/library/james/R/convert_bds_ind"
   dat <- upload_file(fn)
   resp <- POST(url = url, path = path, body = list(txt = dat))
 
