@@ -57,7 +57,7 @@ request_chart <- function(file = NULL,
     path <- "ocpu/library/james/R/draw_chart_ind"
     location <- get_url(ssd, "location")
     resp <- POST(url = url, path = path,
-                 body = list(location = location,
+                 body = list(ind_loc = location,
                              chartcode = chartcode,
                              curve_interpolation = curve_interpolation),
                  encode = "json")
