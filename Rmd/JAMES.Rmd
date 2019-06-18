@@ -1,7 +1,7 @@
 ---
 title: "JAMES: Joint Anthropometric Measurement and Evaluation Server"
 author: "Stef van Buuren"
-date: "15-06-2019"
+date: "18-06-2019"
 bibliography: [groeidiagrammen.bib]
 output: html_document
 ---
@@ -106,6 +106,8 @@ keys and their url's on the JAMES server will be removed after 24
 hours.
 
 ## Posting BDS data to JAMES
+
+### Sending the child's data as a JSON file
 
 Suppose that the child's data are coded according to the specification
 [BDS JGZ 3.2.5](https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12),
@@ -321,6 +323,27 @@ Broken stick model not found.
 
 The child's data on the server may be used for plotting on growth charts.
 
+### Sending the child's data as a JSON string
+
+If desired, the child's data may be sent by a JSON string instead of 
+a file. The following code assumes that utility `jq` is installed.
+
+First, make the json file into a JSON string, with double quotes (`"`)
+properly escaped.
+
+```{bash}
+var=$(jq '.' client3.json | jq -sR '.')
+echo $var
+```
+
+Then paste into into the call to the OpenCPU server: 
+
+```{bash}
+curl http://groeidiagrammen.nl/ocpu/library/james/R/convert_bds_ind -d "txt=$var"
+```
+
+The results of the string- and file-methods are identical.
+
 ## Request a dedicated url to the chart site
 
 The child's data can be plotted on any of the available charts using 
@@ -457,6 +480,10 @@ Still many things on the wish list:
 - add functionality to test for Dutch guidelines for referral
 - add functionality to predict individual growth curves
 - extend functionality to include the $D$-score charts
+
+## Known problems
+
+- Older versions of Edge (before 44.11763.1.0) do not display charts
 
 ## Resources
 
