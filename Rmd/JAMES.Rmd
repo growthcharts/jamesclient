@@ -1,7 +1,7 @@
 ---
 title: "JAMES: Joint Anthropometric Measurement and Evaluation Server"
 author: "Stef van Buuren"
-date: "18-06-2019"
+date: "19-06-2019"
 bibliography: [groeidiagrammen.bib]
 output: html_document
 ---
@@ -493,6 +493,7 @@ Still many things on the wish list:
 - https://www.tno.nl/groei and https://www.tno.nl/growth
 - https://github.com/stefvanbuuren/james
 - https://github.com/stefvanbuuren/james.client
+- https://github.com/stefvanbuuren/minihealth
 - https://github.com/stefvanbuuren/brokenstick
 
 ## About
