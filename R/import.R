@@ -1,5 +1,10 @@
-#' @importFrom httr       POST http_error http_type content
-#'   message_for_status upload_file GET parse_url build_url headers
-#' @importFrom jsonlite   fromJSON
+#' @importFrom curl         curl
+#' @importFrom httr         build_url content GET headers http_error
+#'                          http_type message_for_status parse_url
+#'                          POST upload_file
+#' @importFrom james        select_chart
+#' @importFrom jsonlite     fromJSON
 #' @importClassesFrom minihealth individual
 NULL
+
+globalVariables(".val")

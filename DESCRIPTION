@@ -13,7 +13,10 @@ Description: This package contains the client-side functions for the
 License: AGPL
 Encoding: UTF-8
 LazyData: true
-Imports: httr,
+Imports: 
+  curl, 
+  httr,
+  james,
   jsonlite,
   minihealth
 RoxygenNote: 6.1.1
