@@ -28,8 +28,8 @@ result urls on the server.
 At present there is only minimal error checking on the BDS file.
 }
 \examples{
-library(james.client)
-file <- file.path(path.package("james.client"), "testdata", "client3.json")
+library(jamesclient)
+file <- file.path(path.package("jamesclient"), "testdata", "client3.json")
 resp <- upload_bds(file)
 resp
 }

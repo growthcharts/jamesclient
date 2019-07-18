@@ -13,8 +13,8 @@
 #' @return An object of class \code{\link[httr:response]{response}}
 #' that can be used as input for \code{request_chart()}
 #' @examples
-#' library(james.client)
-#' file <- file.path(path.package("james.client"), "testdata", "client3.json")
+#' library(jamesclient)
+#' file <- file.path(path.package("jamesclient"), "testdata", "client3.json")
 #' resp <- upload_bds(file)
 #' resp
 #' @keywords client

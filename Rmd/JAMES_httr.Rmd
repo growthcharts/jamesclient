@@ -341,22 +341,22 @@ resp <- POST(url = url, path = path, body = list(txt = dat))
 resp
 ```
 
-The [james.client](https://github.com/stefvanbuuren/james.client) package
+The [jamesclient](https://github.com/stefvanbuuren/jamesclient) package
 contains a few utility functions to extract url's for further processing. 
 The following code blocks installs the packages, if not yet available.
 
 ```{r}
 if (!"remotes" %in% rownames(installed.packages())) 
   install.packages("remotes")
-if (!"james.client" %in% rownames(installed.packages())) 
-  remotes::install_github("stefvanbuuren/james.client")
+if (!"jamesclient" %in% rownames(installed.packages())) 
+  remotes::install_github("stefvanbuuren/jamesclient")
 ```
 
 The return value of the server-side function `convert_bds_ind()` can
 now be downloaded as
 
 ```{r postfilehttrreturn}
-suppressPackageStartupMessages(library("james.client"))
+suppressPackageStartupMessages(library("jamesclient"))
 url_ret <- get_url(resp, "return")
 url_ret
 z <- GET(url_ret)
@@ -457,10 +457,10 @@ after 24 hours.
 ## A client in `R`
 
 If `R` is your analysis environment, then you can use the
-`james.client` package to achieve the same result in an easier way.
-The functions `upload_bds()` and `request_chart()` in `james.client`
+`jamesclient` package to achieve the same result in an easier way.
+The functions `upload_bds()` and `request_chart()` in `jamesclient`
 have simple syntax, and automate the steps outlined above. See
-<https://github.com/stefvanbuuren/james.client> for more detail.
+<https://github.com/stefvanbuuren/jamesclient> for more detail.
 
 ## Next steps
 

@@ -25,8 +25,8 @@ Obtains the contents of one or more url's from the OpenCPU server response
 in a list.
 }
 \examples{
-library(james.client)
-file <- file.path(path.package("james.client"), "testdata", "client3.json")
+library(jamesclient)
+file <- file.path(path.package("jamesclient"), "testdata", "client3.json")
 resp <- upload_bds(file)
 resp
 download_as_list(resp, pattern = "stdout")

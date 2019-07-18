@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="Stef van Buuren" />
@@ -343,18 +344,6 @@ summary {
 }
 </style>
 
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
 <!-- code folding -->
 
 
@@ -676,7 +665,7 @@ echo $var</code></pre>
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100  3080    0  3080    0     0  34233      0 --:--:-- --:--:-- --:--:-- 34606
+100  3080    0  3080    0     0  34061      0 --:--:-- --:--:-- --:--:-- 34222
 ## draw_chart                package:james                R Documentation
 ## 
 ## Draw growth chart
@@ -808,7 +797,7 @@ echo $var</code></pre>
 </div>
 <div id="a-client-in-r" class="section level2">
 <h2>A client in <code>R</code></h2>
-<p>If <code>R</code> is your analysis environment, then you can use the <code>james.client</code> package to achieve the same result in an easier way. The functions <code>upload_bds()</code> and <code>request_chart()</code> in <code>james.client</code> have simple syntax, and automate the steps outlined above. See <a href="https://github.com/stefvanbuuren/james.client" class="uri">https://github.com/stefvanbuuren/james.client</a> for more detail.</p>
+<p>If <code>R</code> is your analysis environment, then you can use the <code>jamesclient</code> package to achieve the same result in an easier way. The functions <code>upload_bds()</code> and <code>request_chart()</code> in <code>jamesclient</code> have simple syntax, and automate the steps outlined above. See <a href="https://github.com/stefvanbuuren/jamesclient" class="uri">https://github.com/stefvanbuuren/jamesclient</a> for more detail.</p>
 </div>
 <div id="next-steps" class="section level2">
 <h2>Next steps</h2>
@@ -836,7 +825,7 @@ echo $var</code></pre>
 <li><a href="https://www.w3schools.com/js/" class="uri">https://www.w3schools.com/js/</a></li>
 <li><a href="https://www.tno.nl/groei" class="uri">https://www.tno.nl/groei</a> and <a href="https://www.tno.nl/growth" class="uri">https://www.tno.nl/growth</a></li>
 <li><a href="https://github.com/stefvanbuuren/james" class="uri">https://github.com/stefvanbuuren/james</a></li>
-<li><a href="https://github.com/stefvanbuuren/james.client" class="uri">https://github.com/stefvanbuuren/james.client</a></li>
+<li><a href="https://github.com/stefvanbuuren/jamesclient" class="uri">https://github.com/stefvanbuuren/jamesclient</a></li>
 <li><a href="https://github.com/stefvanbuuren/minihealth" class="uri">https://github.com/stefvanbuuren/minihealth</a></li>
 <li><a href="https://github.com/stefvanbuuren/brokenstick" class="uri">https://github.com/stefvanbuuren/brokenstick</a></li>
 </ul>
@@ -871,6 +860,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

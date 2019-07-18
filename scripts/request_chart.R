@@ -1,9 +1,9 @@
 # script to request growth chart from server
 
 # first upload and translate the child growth data
-library(james.client)
+library(jamesclient)
 library(httr)
-file <- file.path(path.package("james.client"), "testdata", "client3.json")
+file <- file.path(path.package("jamesclient"), "testdata", "client3.json")
 r0 <- upload_bds(file)
 
 # default: height on PMAHN27

@@ -41,8 +41,8 @@ are given, a non-NULL \code{file} takes precedence over \code{resp}.
 }
 \examples{
 # example with separate upload
-library("james.client")
-file <- file.path(path.package("james.client"), "testdata", "client3.json")
+library("jamesclient")
+file <- file.path(path.package("jamesclient"), "testdata", "client3.json")
 data <- upload_bds(file)
 resp1 <- request_chart(ssd = data, chartcode = "NJAA")
 

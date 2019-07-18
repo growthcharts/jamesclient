@@ -1,8 +1,8 @@
-library(james.client)
+library(jamesclient)
 library(groeivoorspeller)
 library(grid)
 
-file <- file.path(path.package("james.client"), "testdata", "client3.json")
+file <- file.path(path.package("jamesclient"), "testdata", "client3.json")
 p <- james::convert_bds_ind(file)
 
 

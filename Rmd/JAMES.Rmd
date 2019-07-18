@@ -465,10 +465,10 @@ special cases. When they are integrated in future versions of
 ## A client in `R`
 
 If `R` is your analysis environment, then you can use the
-`james.client` package to achieve the same result in an easier way.
-The functions `upload_bds()` and `request_chart()` in `james.client`
+`jamesclient` package to achieve the same result in an easier way.
+The functions `upload_bds()` and `request_chart()` in `jamesclient`
 have simple syntax, and automate the steps outlined above. See
-<https://github.com/stefvanbuuren/james.client> for more detail.
+<https://github.com/stefvanbuuren/jamesclient> for more detail.
 
 ## Next steps
 
@@ -492,7 +492,7 @@ Still many things on the wish list:
 - https://www.w3schools.com/js/
 - https://www.tno.nl/groei and https://www.tno.nl/growth
 - https://github.com/stefvanbuuren/james
-- https://github.com/stefvanbuuren/james.client
+- https://github.com/stefvanbuuren/jamesclient
 - https://github.com/stefvanbuuren/minihealth
 - https://github.com/stefvanbuuren/brokenstick
 
