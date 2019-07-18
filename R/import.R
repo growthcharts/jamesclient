@@ -6,5 +6,3 @@
 #' @importFrom jsonlite     fromJSON
 #' @importClassesFrom minihealth individual
 NULL
-
-globalVariables(".val")
