@@ -17,9 +17,9 @@
 #' @param chartcode The code of the requested growth chart. If not
 #' specified, the server will automatically plot child height for
 #' the most recent age period.
-#' @inheritParams groeidiagrammen::draw_plot
+#' @inheritParams james::draw_chart
 #' @return An object of class \code{\link[httr:response]{response}}
-#' @seealso \code{\link[james]{draw_chart_bds}}, \code{\link[james]{draw_chart_ind}},
+#' @seealso \code{\link[james]{draw_chart}},
 #' \code{\link{upload_bds}}.
 #' @keywords client
 #' @details

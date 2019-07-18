@@ -22,7 +22,8 @@ created by a call to \code{upload_bds()}.}
 specified, the server will automatically plot child height for
 the most recent age period.}
 
-\item{curve_interpolation}{A logical indicating whether curve interpolation shoud be applied.}
+\item{curve_interpolation}{A logical indicating whether curve
+interpolation shoud be applied.}
 }
 \value{
 An object of class \code{\link[httr:response]{response}}
@@ -50,7 +51,7 @@ resp1 <- request_chart(ssd = data, chartcode = "NJAA")
 resp2 <- request_chart(file = file)
 }
 \seealso{
-\code{\link[james]{draw_chart_bds}}, \code{\link[james]{draw_chart_ind}},
+\code{\link[james]{draw_chart}},
 \code{\link{upload_bds}}.
 }
 \keyword{client}
