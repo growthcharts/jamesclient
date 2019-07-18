@@ -4,7 +4,7 @@
 \alias{upload_bds}
 \title{Upload and parse BDS file to JAMES}
 \usage{
-upload_bds(file, url = "http://groeidiagrammen.nl")
+upload_bds(file, host = "http://groeidiagrammen.nl")
 }
 \arguments{
 \item{file}{File name of data. The variable specification are
@@ -12,7 +12,7 @@ expected to be according specification
 \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS
  JGZ 3.2.5}, and converted to JSON.}
 
-\item{url}{The \code{url} of the server, which defaults to
+\item{host}{The \code{url} of the server, which defaults to
 \code{http://groeidiagrammen.nl}.}
 }
 \value{

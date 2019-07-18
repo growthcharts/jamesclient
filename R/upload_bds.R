@@ -8,7 +8,7 @@
 #'   expected to be according specification
 #'   \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS
 #'    JGZ 3.2.5}, and converted to JSON.
-#' @param url     The \code{url} of the server, which defaults to
+#' @param host     The \code{url} of the server, which defaults to
 #' \code{http://groeidiagrammen.nl}.
 #' @return An object of class \code{\link[httr:response]{response}}
 #' that can be used as input for \code{request_chart()}
@@ -20,9 +20,9 @@
 #' @keywords client
 #' @export
 upload_bds <- function(file,
-                       url = "http://groeidiagrammen.nl") {
+                       host = "http://groeidiagrammen.nl") {
   dat <- upload_file(file)
-  resp <- POST(url = url,
+  resp <- POST(url = host,
                path = "ocpu/library/james/R/convert_bds_ind",
                body = list(txt = dat))
 
