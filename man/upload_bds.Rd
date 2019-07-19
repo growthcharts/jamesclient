@@ -17,7 +17,7 @@ to be according specification
 \code{http://groeidiagrammen.nl}.}
 }
 \value{
-A URL pointing to the parsed and uploaded data.
+An object of class \code{\link[httr:response]{response}}
 }
 \description{
 Uploads a JSON file or string with BDS-coded data, parses its
@@ -32,15 +32,14 @@ library(jamesclient)
 
 # upload as JSON file
 fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
-resp <- upload_bds(fn)
-get_url(resp, "return")
+r1 <- upload_bds(fn)
+get_url(r1, "return")
 
 # upload as JSON string
 data("installed.cabinets", package = "jamestest")
 ind <- installed.cabinets[[2]][[1]]
 js <- minihealth::convert_individual_bds(ind)
-resp2 <- upload_bds(js)
-get_url(resp2, "return")
-
+r2 <- upload_bds(js)
+get_url(r2, "return")
 }
 \keyword{client}

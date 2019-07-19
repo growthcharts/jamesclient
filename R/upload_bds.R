@@ -11,22 +11,21 @@
 #'    JGZ 3.2.5}, and converted to JSON.
 #' @param host     The \code{url} of the server, which defaults to
 #' \code{http://groeidiagrammen.nl}.
-#' @return A URL pointing to the parsed and uploaded data.
+#' @return An object of class \code{\link[httr:response]{response}}
 #' @examples
 #' library(jamesclient)
 #'
 #' # upload as JSON file
 #' fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
-#' resp <- upload_bds(fn)
-#' get_url(resp, "return")
+#' r1 <- upload_bds(fn)
+#' get_url(r1, "return")
 #'
 #' # upload as JSON string
 #' data("installed.cabinets", package = "jamestest")
 #' ind <- installed.cabinets[[2]][[1]]
 #' js <- minihealth::convert_individual_bds(ind)
-#' resp2 <- upload_bds(js)
-#' get_url(resp2, "return")
-#'
+#' r2 <- upload_bds(js)
+#' get_url(r2, "return")
 #' @keywords client
 #' @export
 upload_bds <- function(bds,
