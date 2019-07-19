@@ -4,11 +4,11 @@
 \alias{request_site}
 \title{Request a site personalised chart and user nagivation}
 \usage{
-request_site(txt = NULL, ssd = NULL,
+request_site(bds = NULL, ssd = NULL,
   host = "http://groeidiagrammen.nl")
 }
 \arguments{
-\item{txt}{Name of file that contains valid JSON data. The
+\item{bds}{Name of file that contains valid JSON data. The
 variable specification are expected to be according specification
 \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS
  JGZ 3.2.5}, and converted to JSON.}
@@ -46,7 +46,7 @@ site_url
 # browseURL(site_url)
 
 # into one step
-site_url <- request_site(txt = fn)
+site_url <- request_site(bds = fn)
 site_url
 }
 \seealso{

@@ -5,7 +5,7 @@
 #' function can take child data in two forms: 1) a JSON file with
 #' BDS-formatted child data or, 2) a URL with child data on a
 #' previously stored server location on the server.
-#' @param txt Name of file that contains valid JSON data. The
+#' @param bds Name of file that contains valid JSON data. The
 #'   variable specification are expected to be according specification
 #'   \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS
 #'    JGZ 3.2.5}, and converted to JSON.
@@ -34,25 +34,18 @@
 #' # browseURL(site_url)
 #'
 #' # into one step
-#' site_url <- request_site(txt = fn)
+#' site_url <- request_site(bds = fn)
 #' site_url
 #' @export
-request_site <- function(txt = NULL,
+request_site <- function(bds = NULL,
                          ssd  = NULL,
                          host = "http://groeidiagrammen.nl") {
   app <- paste(host, "ocpu/library/james/www/", sep = "/")
 
   # upload the data if needed, and get url to individual data
-  if (!is.null(txt)) {
-    resp <- upload_bds(txt, host)
-    if (http_error(resp)) {
-      message_for_status(resp)
-      content(resp, "text")
-      return(FALSE)
-    }
-    if (http_type(resp) != "text/plain")
-      stop("API did not return text/plain", call. = FALSE)
-    ssd <- get_url(resp, "location")
+  if (!is.null(bds)) {
+    resp <- upload_bds(bds, host)
+    if (!http_error(resp)) ssd <- get_url(resp, "location")
   }
 
   stopifnot(!is.null(ssd))
