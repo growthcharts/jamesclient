@@ -4,7 +4,8 @@
 \alias{upload_bds}
 \title{Upload and parse BDS file to JAMES}
 \usage{
-upload_bds(bds, host = "http://groeidiagrammen.nl")
+upload_bds(bds, host = "http://groeidiagrammen.nl",
+  path = "ocpu/library/james")
 }
 \arguments{
 \item{bds}{File name or a string referring to the data (in JSON
@@ -15,6 +16,8 @@ to be according specification
 
 \item{host}{The \code{url} of the server, which defaults to
 \code{http://groeidiagrammen.nl}.}
+
+\item{path}{Path to application on JAMES server.}
 }
 \value{
 An object of class \code{\link[httr:response]{response}}
@@ -37,7 +40,7 @@ get_url(r1, "return")
 
 # upload as JSON string
 data("installed.cabinets", package = "jamestest")
-ind <- installed.cabinets[[2]][[1]]
+ind <- installed.cabinets[[3]][[4]]
 js <- minihealth::convert_individual_bds(ind)
 r2 <- upload_bds(js)
 get_url(r2, "return")

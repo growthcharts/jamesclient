@@ -13,6 +13,7 @@
 #' by \code{get_url(resp, "location")}, where \code{resp} is the
 #' object returned by OpenCPU server.
 #' @param host A url of the JAMES server host.
+#' @param path Path to application on JAMES server.
 #' @inheritParams james::draw_chart
 #' @return An object of class \code{\link[httr:response]{response}}
 #' @seealso \code{\link[james]{draw_chart}},
@@ -39,12 +40,14 @@
 #' @export
 request_site <- function(bds = NULL,
                          ssd  = NULL,
-                         host = "http://groeidiagrammen.nl") {
-  app <- paste(host, "ocpu/library/james/www/", sep = "/")
+                         host = "http://groeidiagrammen.nl",
+                         path = "ocpu/library/james") {
+  app <- paste(host, path, "www/", sep = "/")
+  # http://localhost:5656/ocpu/apps/stefvanbuuren/james
 
   # upload the data if needed, and get url to individual data
   if (!is.null(bds)) {
-    resp <- upload_bds(bds, host)
+    resp <- upload_bds(bds, host, path)
     if (!http_error(resp)) ssd <- get_url(resp, "location")
   }
 

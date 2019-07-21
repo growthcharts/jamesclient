@@ -5,7 +5,7 @@
 \title{Request a site personalised chart and user nagivation}
 \usage{
 request_site(bds = NULL, ssd = NULL,
-  host = "http://groeidiagrammen.nl")
+  host = "http://groeidiagrammen.nl", path = "ocpu/library/james")
 }
 \arguments{
 \item{bds}{Name of file that contains valid JSON data. The
@@ -18,6 +18,8 @@ by \code{get_url(resp, "location")}, where \code{resp} is the
 object returned by OpenCPU server.}
 
 \item{host}{A url of the JAMES server host.}
+
+\item{path}{Path to application on JAMES server.}
 }
 \value{
 An object of class \code{\link[httr:response]{response}}
