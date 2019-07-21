@@ -14,18 +14,19 @@ to be according specification
 \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS
  JGZ 3.2.5}, and converted to JSON.}
 
-\item{host}{The \code{url} of the server, which defaults to
+\item{host}{String with URL of the JAMES host machine. Defaults to
 \code{http://groeidiagrammen.nl}.}
 
-\item{path}{Path to application on JAMES server.}
+\item{path}{Path to JAMES application on host. Defaults to
+\code{ocpu/library/james}.}
 }
 \value{
 An object of class \code{\link[httr:response]{response}}
 }
 \description{
 Uploads a JSON file or string with BDS-coded data, parses its
-contents into an object of class \linkS4class{individual}, and
-returns the url of the location of the uploaded data.
+contents into an object of class \linkS4class{individual}. The
+function returns various url's on the uploaded data.
 }
 \note{
 At present there is only minimal error checking on the BDS file.
@@ -44,5 +45,9 @@ ind <- installed.cabinets[[3]][[4]]
 js <- minihealth::convert_individual_bds(ind)
 r2 <- upload_bds(js)
 get_url(r2, "return")
+}
+\seealso{
+\code{\link[minihealth]{convert_bds_individual}},
+\code{\link{request_site}}, \code{\link[httr:response]{response}}
 }
 \keyword{client}

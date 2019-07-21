@@ -1,27 +1,33 @@
-#' Request a site personalised chart and user nagivation
+#' Request site containing personalised charts
 #'
-#' This function requests an URL to a site that shows a personalised
-#' growth chart plus essential user nagivation from JANES. The
-#' function can take child data in two forms: 1) a JSON file with
-#' BDS-formatted child data or, 2) a URL with child data on a
-#' previously stored server location on the server.
-#' @param bds Name of file that contains valid JSON data. The
-#'   variable specification are expected to be according specification
+#' This function constructs a URL to a site that shows a personalised
+#' growth chart. The site includes a nagivation bar so that the end
+#' user can tweak chart choice.
+#' @param bds File name or a string referring to the data (in JSON
+#'   format) to be uploaded. The variable specification are expected
+#'   to be according specification
 #'   \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS
 #'    JGZ 3.2.5}, and converted to JSON.
 #' @param ssd Server-side data location, for example, as obtained
 #' by \code{get_url(resp, "location")}, where \code{resp} is the
-#' object returned by OpenCPU server.
-#' @param host A url of the JAMES server host.
-#' @param path Path to application on JAMES server.
-#' @inheritParams james::draw_chart
-#' @return An object of class \code{\link[httr:response]{response}}
-#' @seealso \code{\link[james]{draw_chart}},
-#' \code{\link{upload_bds}}.
+#' \code{\link[httr:response]{response}} object returned OpenCPU.
+#' @param host String with URL of the JAMES host machine. Defaults to
+#' \code{http://groeidiagrammen.nl}.
+#' @param path Path to JAMES application on host. Defaults to
+#' \code{ocpu/library/james}.
+#' @return URL composed of JAMES server and query string starting
+#' with \code{?ind=...}, which indicates the URL of the uploaded
+#' child data
+#' @seealso \code{\link{upload_bds}}, \code{\link{get_url}}
 #' @keywords client
 #' @details
-#' One of \code{txt} or \code{resp} need to be specified. If both
-#' are given, a non-NULL \code{txt} takes precedence over \code{resp}.
+#' The function can take child data in two forms: 1) a JSON file with
+#' BDS-formatted child data (argument \code{bds}) or, 2) a URL with
+#' child data on a previously stored server location on the server
+#' (argument \code{ssd}).
+#'
+#' One of \code{bds} or \code{ssd} need to be specified. If both
+#' are given, \code{bds} takes precedence.
 #' @examples
 #' library("jamesclient")
 #' fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
