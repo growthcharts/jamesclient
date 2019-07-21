@@ -23,7 +23,6 @@
 #' One of \code{txt} or \code{resp} need to be specified. If both
 #' are given, a non-NULL \code{txt} takes precedence over \code{resp}.
 #' @examples
-#' # example with separate upload
 #' library("jamesclient")
 #' fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
 #'
@@ -40,10 +39,30 @@
 #'
 #' \dontrun{
 #' # using localhost
+#' # request_site does not work on localhost, presumably
+#' # because the local machine does not run a full webserver
+#' # however, if file is uploaded to groeidiagrammen.nl,
+#' # then the localhost can download data from there
+#'
+#' # --- this does not work
 #' r1 <- upload_bds(fn,
 #'                  host = "http://localhost:5656",
 #'                  path = "ocpu/apps/stefvanbuuren/james")
-#' get_url(r1, "return")
+#' ssd <- get_url(r1, "location")
+#' site_url <- request_site(ssd = ssd,
+#'                          host = "http://localhost:5656",
+#'                          path = "ocpu/apps/stefvanbuuren/james")
+#' site_url
+#' # browseURL(site_url)
+#'
+#' # --- this will work
+#' r1 <- upload_bds(fn)
+#' ssd <- get_url(r1, "location")
+#' site_url <- request_site(ssd = ssd,
+#'                          host = "http://localhost:5656",
+#'                          path = "ocpu/apps/stefvanbuuren/james")
+#' site_url
+#' # browseURL(site_url)
 #'}
 #' @export
 request_site <- function(bds = NULL,
