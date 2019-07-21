@@ -50,6 +50,14 @@ site_url
 # into one step
 site_url <- request_site(bds = fn)
 site_url
+
+\dontrun{
+# using localhost
+r1 <- upload_bds(fn,
+                 host = "http://localhost:5656",
+                 path = "ocpu/apps/stefvanbuuren/james")
+get_url(r1, "return")
+}
 }
 \seealso{
 \code{\link[james]{draw_chart}},

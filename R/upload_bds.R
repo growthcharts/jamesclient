@@ -33,6 +33,7 @@ upload_bds <- function(bds,
                        host = "http://groeidiagrammen.nl",
                        path = "ocpu/library/james") {
 
+  browser()
   if (file.exists(bds)) {  # file
     dat <- upload_file(bds)
     resp <- POST(url = host,

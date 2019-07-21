@@ -37,13 +37,20 @@
 #' # into one step
 #' site_url <- request_site(bds = fn)
 #' site_url
+#'
+#' \dontrun{
+#' # using localhost
+#' r1 <- upload_bds(fn,
+#'                  host = "http://localhost:5656",
+#'                  path = "ocpu/apps/stefvanbuuren/james")
+#' get_url(r1, "return")
+#'}
 #' @export
 request_site <- function(bds = NULL,
                          ssd  = NULL,
                          host = "http://groeidiagrammen.nl",
                          path = "ocpu/library/james") {
   app <- paste(host, path, "www/", sep = "/")
-  # http://localhost:5656/ocpu/apps/stefvanbuuren/james
 
   # upload the data if needed, and get url to individual data
   if (!is.null(bds)) {
