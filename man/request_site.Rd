@@ -43,6 +43,11 @@ child data on a previously stored server location on the server
 One of \code{bds} or \code{ssd} need to be specified. If both
 are given, \code{bds} takes precedence.
 }
+\note{
+We upload the data to groeidiagrammen.nl (the default)
+since localhost does not handle url's to local uploads.
+See examples.
+}
 \examples{
 library("jamesclient")
 fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")

@@ -28,6 +28,9 @@
 #'
 #' One of \code{bds} or \code{ssd} need to be specified. If both
 #' are given, \code{bds} takes precedence.
+#' @note We upload the data to groeidiagrammen.nl (the default)
+#' since localhost does not handle url's to local uploads.
+#' See examples.
 #' @examples
 #' library("jamesclient")
 #' fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
@@ -79,7 +82,7 @@ request_site <- function(bds = NULL,
 
   # upload the data if needed, and get url to individual data
   if (!is.null(bds)) {
-    resp <- upload_bds(bds, host, path)
+    resp <- upload_bds(bds)
     if (!http_error(resp)) ssd <- get_url(resp, "location")
   }
 
