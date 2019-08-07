@@ -32,7 +32,7 @@ An object of class \code{\link[httr:response]{response}}
 This function requests a growth chart from
 \code{groeidiagrammen.nl}. The function can upload a JSON file
 with BDS-format to the server, parse its contents into an object of
-class \linkS4class{individual}, and draw the plot.
+class \code{individual}, and draw the plot.
 The user may skip uploading, and use a previously stored
 location on the server.
 }
@@ -51,7 +51,6 @@ resp1 <- request_chart(ssd = data, chartcode = "NJAA")
 resp2 <- request_chart(file = file)
 }
 \seealso{
-\code{\link[james]{draw_chart}},
-\code{\link{upload_bds}}.
+\code{\link[james]{draw_chart}}, \code{\link{upload_bds}}.
 }
 \keyword{client}

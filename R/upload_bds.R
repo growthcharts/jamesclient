@@ -1,7 +1,7 @@
 #' Upload and parse BDS file to JAMES
 #'
 #' Uploads a JSON file or string with BDS-coded data, parses its
-#' contents into an object of class \linkS4class{individual}. The
+#' contents into an object of class \code{individual}. The
 #' function returns various url's on the uploaded data.
 #' @note At present there is only minimal error checking on the BDS file.
 #' @inheritParams request_site
@@ -14,12 +14,14 @@
 #' r1 <- upload_bds(fn)
 #' get_url(r1, "return")
 #'
+#'\dontrun{
 #' # upload as JSON string
 #' data("installed.cabinets", package = "jamestest")
 #' ind <- installed.cabinets[[3]][[4]]
 #' js <- minihealth::convert_individual_bds(ind)
 #' r2 <- upload_bds(js)
 #' get_url(r2, "return")
+#' }
 #' @seealso \code{\link[minihealth]{convert_bds_individual}},
 #' \code{\link{request_site}}, \code{\link[httr:response]{response}}
 #' @keywords client

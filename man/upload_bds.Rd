@@ -25,7 +25,7 @@ An object of class \code{\link[httr:response]{response}}
 }
 \description{
 Uploads a JSON file or string with BDS-coded data, parses its
-contents into an object of class \linkS4class{individual}. The
+contents into an object of class \code{individual}. The
 function returns various url's on the uploaded data.
 }
 \note{
@@ -39,12 +39,14 @@ fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
 r1 <- upload_bds(fn)
 get_url(r1, "return")
 
+\dontrun{
 # upload as JSON string
 data("installed.cabinets", package = "jamestest")
 ind <- installed.cabinets[[3]][[4]]
 js <- minihealth::convert_individual_bds(ind)
 r2 <- upload_bds(js)
 get_url(r2, "return")
+}
 }
 \seealso{
 \code{\link[minihealth]{convert_bds_individual}},
