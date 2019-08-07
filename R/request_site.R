@@ -86,10 +86,8 @@ request_site <- function(bds = NULL,
     if (!http_error(resp)) ssd <- get_url(resp, "location")
   }
 
-  stopifnot(!is.null(ssd))
-
   # return url to personalised site
-  param <- paste("ind", ssd, sep = "=")
-  paste(app, param, sep = "?")
+  if (is.null(ssd)) param <- character(0)
+  else param <- paste("?ind", ssd, sep = "=")
+  paste0(app, param)
 }
-
