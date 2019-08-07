@@ -1,0 +1,13 @@
+{
+   "UrlGroeicurven":"https://tno.nl/groeicurven/2715113",
+   "Resultaten":[
+      {
+         "Code":123,
+         "Omschrijving":"Lorem ipsum"
+      },
+      {
+         "Code":111,
+         "Omschrijving":"Ispum lorem"
+      }
+   ]
+}
