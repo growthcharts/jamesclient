@@ -3,3 +3,4 @@
 ^Rmd$
 ^data-raw$
 ^scripts$
+^README\.Rmd$
