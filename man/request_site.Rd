@@ -5,7 +5,7 @@
 \title{Request site containing personalised charts}
 \usage{
 request_site(bds = NULL, ssd = NULL,
-  host = "http://groeidiagrammen.nl", path = "ocpu/library/james")
+  host = "https://groeidiagrammen.nl", path = "ocpu/library/james")
 }
 \arguments{
 \item{bds}{File name or a string referring to the data (in JSON
