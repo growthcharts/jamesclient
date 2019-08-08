@@ -76,7 +76,7 @@
 #' @export
 request_site <- function(bds = NULL,
                          ssd  = NULL,
-                         host = "http://groeidiagrammen.nl",
+                         host = "https://groeidiagrammen.nl",
                          path = "ocpu/library/james") {
   app <- paste(host, path, "www/", sep = "/")
 
