@@ -38,7 +38,7 @@ In order to check whether the JAMES server is running, try generating some rando
 numbers by calling `stats::rnorm()`, in a terminal window as follows,
 
 ```{bash}
-curl http://groeidiagrammen.nl/ocpu/library/stats/R/rnorm/json --data n=5
+curl https://groeidiagrammen.nl/ocpu/library/stats/R/rnorm/json --data n=5
 
 [2.259, 0.0538, 1.0583, 0.8665, 0.8412]
 ```
@@ -53,10 +53,10 @@ curl http://groeidiagrammen.nl/ocpu/library/stats/R/rnorm/json --data n=5
 
 ## Available growth charts 
 
-Copy the [following url](http://groeidiagrammen.nl/ocpu/lib/james/www/) into your browser to obtain an interactive overview of the available growth charts:
+Copy the [following url](https://groeidiagrammen.nl/ocpu/lib/james/www/) into your browser to obtain an interactive overview of the available growth charts:
 
 ```{bash}
-http://groeidiagrammen.nl/ocpu/lib/james/www/
+https://groeidiagrammen.nl/ocpu/lib/james/www/
 ```
 
 There are 342 different charts, each identified with a `chartcode`, 
@@ -64,13 +64,13 @@ a 4-7 character code identifying each design. The `list_charts()` function in
 JAMES function can produce a tabular overview. Obtain its help file as
 
 ```{bash}
-curl http://groeidiagrammen.nl/ocpu/lib/james/man/list_charts/text
+curl https://groeidiagrammen.nl/ocpu/lib/james/man/list_charts/text
 ```
 
 The list of growth charts can be created by the following request:
 
 ```{bash}
-curl http://groeidiagrammen.nl/ocpu/lib/james/R/list_charts -d ""
+curl https://groeidiagrammen.nl/ocpu/lib/james/R/list_charts -d ""
 
 /ocpu/tmp/x045d183eddf2f4/R/.val
 /ocpu/tmp/x045d183eddf2f4/R/list_charts
@@ -85,7 +85,7 @@ which return a list of 8 urls created by `OpenCPU`. The table can be
 download by
 
 ```{bash}
-curl http://groeidiagrammen.nl/ocpu/tmp/x045d183eddf2f4/R/.val/print
+curl https://groeidiagrammen.nl/ocpu/tmp/x045d183eddf2f4/R/.val/print
 
     chartgrp chartcode population    sex design  side language week
 1     nl2010      HJAA         HS   male      A front    dutch
@@ -110,15 +110,15 @@ and converted into `JSON` format. The JAMES server contains the
 following example:
 
 ```{bash}
-curl http://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json
+curl https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json
 ```
 
 Save the file
-[client3.json](http://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json)
+[client3.json](https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json)
 on your local system by
 
 ```{bash eval=FALSE}
-curl http://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json -O
+curl https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json -O
 ```
 
 which produces a file called `client3.json` in your work directory. 
@@ -131,7 +131,7 @@ The following `curl` command re-uploads and converts the file
 `minihealth::individual`:
 
 ```{bash, eval = FALSE}
-curl -F 'txt=@client3.json' http://groeidiagrammen.nl/ocpu/library/james/R/convert_bds_ind
+curl -F 'txt=@client3.json' https://groeidiagrammen.nl/ocpu/library/james/R/convert_bds_ind
 
 /ocpu/tmp/x06938035d05dac/R/.val
 /ocpu/tmp/x06938035d05dac/R/convert_bds_ind
@@ -146,7 +146,7 @@ curl -F 'txt=@client3.json' http://groeidiagrammen.nl/ocpu/library/james/R/conve
 An print version of the result is stored in 
 
 ```{r}
-curl http://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/R/.val/print
+curl https://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/R/.val/print
 
 An object of class "individual"
 Slot "child":
@@ -325,7 +325,7 @@ Download the example file to your working directory by
 
 ```{r downloadexample}
 library("httr")
-url <- "http://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
+url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 GET(url, write_disk("client3.json", overwrite = TRUE))
 ```
 
@@ -334,7 +334,7 @@ Let us now re-upload and convert the local BDS-formatted file
 `minihealth::individual`) by
 
 ```{r postfilehttr}
-url <- "http://groeidiagrammen.nl"
+url <- "https://groeidiagrammen.nl"
 path <- "ocpu/library/james/R/convert_bds_ind"
 dat <- upload_file("client3.json")
 resp <- POST(url = url, path = path, body = list(txt = dat))
@@ -371,14 +371,14 @@ the gestional age (\code{"ga"}) of this child is 27 weeks.
 The text version of the help file for `convert_bds_ind()` is at 
 
 ```{r postfilehelp}
-GET("http://groeidiagrammen.nl/ocpu/library/james/man/convert_bds_ind")
+GET("https://groeidiagrammen.nl/ocpu/library/james/man/convert_bds_ind")
 ```
 
 Alternatively, paste the following url into your browser, or start a browser 
 window from your `R` session to watch the `html` version in your browser by
 
 ```{r eval=FALSE}
-browseURL("http://groeidiagrammen.nl/ocpu/library/james/man/convert_bds_ind/html")
+browseURL("https://groeidiagrammen.nl/ocpu/library/james/man/convert_bds_ind/html")
 ```
 
 ## Requesting a growth chart
@@ -468,7 +468,7 @@ The next step is to extend the system so that individual data can
 be easily plotted and manipulated using a simple app. A first version
 (one that does not yet use individual plotting, and that uses 
 Dutch growth reference primarily) is on
-<http://groeidiagrammen.nl/ocpu/library/james/www/>.
+<https://groeidiagrammen.nl/ocpu/library/james/www/>.
 
 ## About
 

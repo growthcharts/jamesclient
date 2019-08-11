@@ -1,12 +1,12 @@
 # This script tests whether opencpu is running on groeidiagrammen.nl
 library(httr)
 
-start_url <- "http://groeidiagrammen.nl/ocpu/library/stats/R/rnorm?n=3"
+start_url <- "https://groeidiagrammen.nl/ocpu/library/stats/R/rnorm?n=3"
 p_url <-parse_url(start_url)
 
 # define server url
 ip <- "groeidiagrammen.nl"
-url <- paste0("http://", ip)
+url <- paste0("https://", ip)
 
 # submit GET request - list libraries
 path <- "ocpu/library"

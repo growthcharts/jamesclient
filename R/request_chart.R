@@ -38,7 +38,7 @@ request_chart <- function(file = NULL,
                           ssd  = NULL,
                           chartcode = NULL,
                           curve_interpolation = TRUE) {
-  url <- "http://groeidiagrammen.nl"
+  url <- "https://groeidiagrammen.nl"
 
   # upload the data to server and draw graph
   if (!is.null(file)) {

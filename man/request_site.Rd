@@ -19,7 +19,7 @@ by \code{get_url(resp, "location")}, where \code{resp} is the
 \code{\link[httr:response]{response}} object returned OpenCPU.}
 
 \item{host}{String with URL of the JAMES host machine. Defaults to
-\code{http://groeidiagrammen.nl}.}
+\code{https://groeidiagrammen.nl}.}
 
 \item{path}{Path to JAMES application on host. Defaults to
 \code{ocpu/library/james}.}

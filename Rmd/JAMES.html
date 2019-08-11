@@ -383,7 +383,7 @@ summary {
 <h2>Access</h2>
 <p>JAMES is currently located at url <code>groeidiagrammen.nl</code>. The sections below use <code>curl</code> for illustration, but any <code>HTTP</code> client will work.</p>
 <p>In order to check whether the JAMES server is running, try generating some random numbers by calling <code>stats::rnorm()</code>, in a terminal window as follows,</p>
-<pre class="bash"><code>curl http://groeidiagrammen.nl/ocpu/library/stats/R/rnorm/json --data n=5
+<pre class="bash"><code>curl https://groeidiagrammen.nl/ocpu/library/stats/R/rnorm/json --data n=5
 
 [2.259, 0.0538, 1.0583, 0.8665, 0.8412]</code></pre>
 </div>
@@ -400,12 +400,12 @@ summary {
 </div>
 <div id="available-growth-charts" class="section level2">
 <h2>Available growth charts</h2>
-<p>Copy the <a href="http://groeidiagrammen.nl/ocpu/lib/james/www/">following url</a> into your browser to obtain an interactive overview of the available growth charts:</p>
-<pre class="bash"><code>http://groeidiagrammen.nl/ocpu/lib/james/www/</code></pre>
+<p>Copy the <a href="https://groeidiagrammen.nl/ocpu/lib/james/www/">following url</a> into your browser to obtain an interactive overview of the available growth charts:</p>
+<pre class="bash"><code>https://groeidiagrammen.nl/ocpu/lib/james/www/</code></pre>
 <p>There are 342 different charts, each identified with a <code>chartcode</code>, a 4-7 character code identifying each design. The <code>list_charts()</code> function in JAMES function can produce a tabular overview. Obtain its help file as</p>
-<pre class="bash"><code>curl http://groeidiagrammen.nl/ocpu/lib/james/man/list_charts/text</code></pre>
+<pre class="bash"><code>curl https://groeidiagrammen.nl/ocpu/lib/james/man/list_charts/text</code></pre>
 <p>The list of growth charts can be created by the following request:</p>
-<pre class="bash"><code>curl http://groeidiagrammen.nl/ocpu/lib/james/R/list_charts -d &quot;&quot;
+<pre class="bash"><code>curl https://groeidiagrammen.nl/ocpu/lib/james/R/list_charts -d &quot;&quot;
 
 /ocpu/tmp/x045d183eddf2f4/R/.val
 /ocpu/tmp/x045d183eddf2f4/R/list_charts
@@ -415,7 +415,7 @@ summary {
 /ocpu/tmp/x045d183eddf2f4/info
 /ocpu/tmp/x045d183eddf2f4/files/DESCRIPTION</code></pre>
 <p>which return a list of 8 urls created by <code>OpenCPU</code>. The table can be download by</p>
-<pre class="bash"><code>curl http://groeidiagrammen.nl/ocpu/tmp/x045d183eddf2f4/R/.val/print
+<pre class="bash"><code>curl https://groeidiagrammen.nl/ocpu/tmp/x045d183eddf2f4/R/.val/print
 
     chartgrp chartcode population    sex design  side language week
 1     nl2010      HJAA         HS   male      A front    dutch
@@ -431,13 +431,13 @@ summary {
 <div id="sending-the-childs-data-as-a-json-file" class="section level3">
 <h3>Sending the child’s data as a JSON file</h3>
 <p>Suppose that the child’s data are coded according to the specification <a href="https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12">BDS JGZ 3.2.5</a>, and converted into <code>JSON</code> format. The JAMES server contains the following example:</p>
-<pre class="bash"><code>curl http://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json</code></pre>
-<p>Save the file <a href="http://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json">client3.json</a> on your local system by</p>
-<pre class="bash"><code>curl http://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json -O</code></pre>
+<pre class="bash"><code>curl https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json</code></pre>
+<p>Save the file <a href="https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json">client3.json</a> on your local system by</p>
+<pre class="bash"><code>curl https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json -O</code></pre>
 <p>which produces a file called <code>client3.json</code> in your work directory.</p>
 <p>For testing purposes, you may change its values (but please keep the general structure intact) and re-upload it to JAMES for analysis.</p>
 <p>The following <code>curl</code> command re-uploads and converts the file <code>client3.json</code> from BDS format into an <code>R</code> object of S4 class <code>minihealth::individual</code>:</p>
-<pre class="bash"><code>curl -F 'txt=@client3.json' http://groeidiagrammen.nl/ocpu/library/james/R/convert_bds_ind
+<pre class="bash"><code>curl -F 'txt=@client3.json' https://groeidiagrammen.nl/ocpu/library/james/R/convert_bds_ind
 
 /ocpu/tmp/x06938035d05dac/R/.val
 /ocpu/tmp/x06938035d05dac/R/convert_bds_ind
@@ -448,7 +448,7 @@ summary {
 /ocpu/tmp/x06938035d05dac/files/client3.json
 /ocpu/tmp/x06938035d05dac/files/DESCRIPTION</code></pre>
 <p>An print version of the result is stored in</p>
-<pre class="r"><code>curl http://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/R/.val/print
+<pre class="r"><code>curl https://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/R/.val/print
 
 An object of class &quot;individual&quot;
 Slot &quot;child&quot;:
@@ -625,7 +625,7 @@ Broken stick model not found.
 <pre class="bash"><code>var=$(jq '.' client3.json | jq -sR '.')
 echo $var</code></pre>
 <p>Then paste into into the call to the OpenCPU server:</p>
-<pre class="bash"><code>curl http://groeidiagrammen.nl/ocpu/library/james/R/convert_bds_ind -d &quot;txt=$var&quot;</code></pre>
+<pre class="bash"><code>curl https://groeidiagrammen.nl/ocpu/library/james/R/convert_bds_ind -d &quot;txt=$var&quot;</code></pre>
 <p>The results of the string- and file-methods are identical.</p>
 </div>
 </div>
@@ -641,14 +641,14 @@ echo $var</code></pre>
 <div id="site-with-default-chart" class="section level3">
 <h3>Site with default chart</h3>
 <p>The default chart picked by JAMES is currently hard-wired as the child’s height chart that contains the most recent measurements. If the child is a pre-term (gestational age &lt;= 36 weeks) and younger than 4 years, then JAMES chooses the appropriate preterm chart.</p>
-<p>The chart site with the default start can be started by combining the <a href="http://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/">uploaded data</a> and the main site at (<a href="http://groeidiagrammen.nl/ocpu/lib/james/www/" class="uri">http://groeidiagrammen.nl/ocpu/lib/james/www/</a>) as</p>
-<pre class="bash"><code>curl &quot;http://groeidiagrammen.nl/ocpu/lib/james/www/?ind=http://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/&quot;</code></pre>
+<p>The chart site with the default start can be started by combining the <a href="https://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/">uploaded data</a> and the main site at (<a href="https://groeidiagrammen.nl/ocpu/lib/james/www/" class="uri">https://groeidiagrammen.nl/ocpu/lib/james/www/</a>) as</p>
+<pre class="bash"><code>curl &quot;https://groeidiagrammen.nl/ocpu/lib/james/www/?ind=https://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/&quot;</code></pre>
 <p>Pasting this url in your browser starts the site with the child’s data.</p>
 </div>
 <div id="site-with-developer-specified-chart" class="section level3">
 <h3>Site with developer-specified chart</h3>
 <p>Starting the site at a given growth chart is possible by specifying the <code>chartcode</code> parameters. For example, we may initialize the site at chart <code>PMAAN27</code> by</p>
-<pre class="bash"><code>curl &quot;http://groeidiagrammen.nl/ocpu/lib/james/www/?ind=http://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/&amp;chartcode=PMAAN27&quot;</code></pre>
+<pre class="bash"><code>curl &quot;https://groeidiagrammen.nl/ocpu/lib/james/www/?ind=https://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/&amp;chartcode=PMAAN27&quot;</code></pre>
 <p>The site now starts with <code>PMAAN27</code> instead of <code>PMAHN27</code>. Any chart can be chosen. It is the responsability of the developer that the choice is sensible given the child’s data.</p>
 </div>
 <div id="site-with-user-specified-chart" class="section level3">
@@ -660,12 +660,12 @@ echo $var</code></pre>
 <h2>Requesting a single growth chart</h2>
 <p>Requesting a single growth chart can be done through the main JAMES chart drawing function is <code>draw_chart()</code>.</p>
 <p>The <code>draw_chart()</code> function does not yet support the creation of single graphs. The <code>draw_chart_bds()</code> and <code>draw_chart_ind()</code> are temporary specialty functions that can do this. The functions are documented in</p>
-<pre class="bash"><code>curl http://groeidiagrammen.nl/ocpu/lib/james/man/draw_chart/text</code></pre>
+<pre class="bash"><code>curl https://groeidiagrammen.nl/ocpu/lib/james/man/draw_chart/text</code></pre>
 <pre><code>##   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100  3080    0  3080    0     0  34061      0 --:--:-- --:--:-- --:--:-- 34222
+100  4168    0  4168    0     0  25639      0 --:--:-- --:--:-- --:--:-- 25728
 ## draw_chart                package:james                R Documentation
 ## 
 ## Draw growth chart
@@ -689,7 +689,11 @@ echo $var</code></pre>
 ##      draw_chart(bds_data = NULL, ind_loc = NULL, selector = c(&quot;derive&quot;,
 ##        &quot;data&quot;, &quot;chartcode&quot;), chartcode = NULL, chartgrp = NULL,
 ##        agegrp = NULL, sex = NULL, etn = NULL, ga = NULL, side = &quot;hgt&quot;,
-##        curve_interpolation = TRUE, ...)
+##        curve_interpolation = TRUE, dnr = c(&quot;smocc&quot;, &quot;terneuzen&quot;,
+##        &quot;lollypop.preterm&quot;, &quot;lollypop.term&quot;), lo = NULL, hi = NULL,
+##        nmatch = NULL, exact_sex = TRUE, exact_ga = FALSE,
+##        break_ties = FALSE, show_realized = FALSE, show_future = FALSE,
+##        ...)
 ##      
 ##      draw_chart_bds(txt = NULL, chartcode = NULL,
 ##        curve_interpolation = TRUE, ...)
@@ -733,6 +737,30 @@ echo $var</code></pre>
 ## curve_interpolation: A logical indicating whether curve interpolation
 ##           shoud be applied.
 ## 
+##      dnr: A string with the name of the donor data (currently available
+##           are smocc, terneuzen, lollypop.preterm or lollypop.term)
+## 
+##       lo: Value of the left visit coded as string, e.g. &quot;4w&quot; or &quot;7.5m&quot;
+## 
+##       hi: Value of the right visit coded as string, e.g. &quot;4w&quot; or &quot;7.5m&quot;
+## 
+##   nmatch: Integer. Number of matches needed. When nmatch == 0L no
+##           matches are sought.
+## 
+## exact_sex: A logical indicating whether sex should be matched exactly
+## 
+## exact_ga: A logical indicating whether gestational age should be
+##           matched exactly
+## 
+## break_ties: A logical indicating whether ties should broken randomly.
+##           The default (TRUE) breaks ties randomly.
+## 
+## show_realized: A logical indicating whether the realized growth of the
+##           target child should be drawn
+## 
+## show_future: A logical indicating whether the predicted growth of the
+##           target child should be drawn
+## 
 ##      ...: For draw_chart_bds, additional parameter passed down to
 ##           fromJSON(txt, ...), new(&quot;xyz&quot;,... ) and new(&quot;bse&quot;,... ).
 ##           Useful parameters are models = &quot;bsmodel&quot; for setting the
@@ -745,11 +773,7 @@ echo $var</code></pre>
 ## 
 ##      tbd
 ## 
-##      tbd
-## 
 ## Author(s):
-## 
-##      Stef van Buuren 2019
 ## 
 ##      Stef van Buuren 2019
 ## 
@@ -757,7 +781,7 @@ echo $var</code></pre>
 ## 
 ##      individual, select_chart
 ## 
-##      individual, select_chart draw_plot
+##      individual, select_chart process_chart
 ## 
 ## Examples:
 ## 
@@ -765,7 +789,7 @@ echo $var</code></pre>
 ##      g &lt;- draw_chart_bds(txt = fn)
 ## </code></pre>
 <p>Use <code>draw_chart_bds()</code> to draw chart directly from the BDS data file.</p>
-<pre class="r"><code>curl -F 'txt=@client3.json' http://groeidiagrammen.nl/ocpu/library/james/R/draw_chart_bds
+<pre class="r"><code>curl -F 'txt=@client3.json' https://groeidiagrammen.nl/ocpu/library/james/R/draw_chart_bds
 
 /ocpu/tmp/x0a862a7b6829a1/R/.val
 /ocpu/tmp/x0a862a7b6829a1/R/draw_chart_bds
@@ -776,11 +800,11 @@ echo $var</code></pre>
 /ocpu/tmp/x0a862a7b6829a1/files/client3.json
 /ocpu/tmp/x0a862a7b6829a1/files/DESCRIPTION</code></pre>
 <p>Download the growth chart as</p>
-<pre class="bash"><code>curl -o mychart.svg http://groeidiagrammen.nl/ocpu/tmp/x0a862a7b6829a1/graphics/1/svg</code></pre>
+<pre class="bash"><code>curl -o mychart.svg https://groeidiagrammen.nl/ocpu/tmp/x0a862a7b6829a1/graphics/1/svg</code></pre>
 <p>or view it in the browser by paste the following into the url address field:</p>
-<pre class="bash"><code>http://groeidiagrammen.nl/ocpu/tmp/x0a862a7b6829a1/graphics/1/svg</code></pre>
+<pre class="bash"><code>https://groeidiagrammen.nl/ocpu/tmp/x0a862a7b6829a1/graphics/1/svg</code></pre>
 <p>If the data are already uploaded, we may use <code>draw_chart_ind()</code>. Suppose we want to create the A4 chart for the child. We can do so by</p>
-<pre class="bash"><code>curl http://groeidiagrammen.nl/ocpu/lib/james/R/draw_chart_ind -d &quot;ind_loc='http://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/'&amp;chartcode='PMAAN27'&quot;
+<pre class="bash"><code>curl https://groeidiagrammen.nl/ocpu/lib/james/R/draw_chart_ind -d &quot;ind_loc='https://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/'&amp;chartcode='PMAAN27'&quot;
 
 /ocpu/tmp/x029e4ee555a9e1/R/.val
 /ocpu/tmp/x029e4ee555a9e1/R/draw_chart_ind
@@ -791,7 +815,7 @@ echo $var</code></pre>
 /ocpu/tmp/x029e4ee555a9e1/files/DESCRIPTION</code></pre>
 <p>where we used the data previously stored from session <code>x06938035d05dac</code>.</p>
 <p>As before, we may browse the graph by pasting the following in the address field of the browser:</p>
-<pre class="bash"><code>http://groeidiagrammen.nl/ocpu/tmp/x029e4ee555a9e1/graphics/1/svg?width=8.27&amp;height=11.69</code></pre>
+<pre class="bash"><code>https://groeidiagrammen.nl/ocpu/tmp/x029e4ee555a9e1/graphics/1/svg?width=8.27&amp;height=11.69</code></pre>
 <p>or download it the the client’s system.</p>
 <p>The functions <code>draw_chart_bds()</code> and <code>draw_chart_ind()</code> address special cases. When they are integrated in future versions of <code>draw_chart()</code>, both functions will be deprecated.</p>
 </div>

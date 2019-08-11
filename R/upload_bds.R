@@ -27,7 +27,7 @@
 #' @keywords client
 #' @export
 upload_bds <- function(bds,
-                       host = "http://groeidiagrammen.nl",
+                       host = "https://groeidiagrammen.nl",
                        path = "ocpu/library/james") {
 
   if (file.exists(bds)) {  # file

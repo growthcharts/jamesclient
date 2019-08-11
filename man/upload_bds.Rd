@@ -4,7 +4,7 @@
 \alias{upload_bds}
 \title{Upload and parse BDS file to JAMES}
 \usage{
-upload_bds(bds, host = "http://groeidiagrammen.nl",
+upload_bds(bds, host = "https://groeidiagrammen.nl",
   path = "ocpu/library/james")
 }
 \arguments{
@@ -15,7 +15,7 @@ to be according specification
  JGZ 3.2.5}, and converted to JSON.}
 
 \item{host}{String with URL of the JAMES host machine. Defaults to
-\code{http://groeidiagrammen.nl}.}
+\code{https://groeidiagrammen.nl}.}
 
 \item{path}{Path to JAMES application on host. Defaults to
 \code{ocpu/library/james}.}
