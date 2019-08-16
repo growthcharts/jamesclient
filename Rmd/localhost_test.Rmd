@@ -1,0 +1,67 @@
+---
+title: "JAMES: localhost test"
+author: "Stef van Buuren"
+date: "2019-08-16"
+bibliography: [groeidiagrammen.bib]
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE)
+```
+
+```{bash}
+curl http://localhost:5656/ocpu/library/stats/R/rnorm/json --data n=5
+curl http://localhost:5656/ocpu/lib/james/man/list_charts/text
+curl http://localhost:5656/ocpu/lib/james/R/list_charts -d ""
+```
+
+### Sending the child's data as a JSON string
+```{bash}
+curl http://localhost:5656/ocpu/library/james/testdata/client3.json
+curl http://localhost:5656/ocpu/library/james/testdata/client3.json -O
+curl -F 'txt=@client3.json' http://localhost:5656/ocpu/library/james/R/convert_bds_ind
+```
+
+### Sending the child's data as a JSON string
+
+```{bash}
+var=$(jq '.' client3.json | jq -sR '.')
+echo $var
+curl http://localhost:5656/ocpu/library/james/R/convert_bds_ind -d "txt=$var"
+```
+
+## Screen growth curves relative to the JGZ Richtlijn Lengtegroei 2019
+
+```{bash}
+var=$(jq '.' client3.json | jq -sR '.')
+echo $var
+curl http://localhost:5656/ocpu/library/james/R/screen_curves -d "txt=$var"
+```
+
+```{bash}
+curl -F 'txt=@client3.json' http://localhost:5656/ocpu/library/james/R/screen_curves
+```
+
+```{bash}
+curl http://localhost:5656/ocpu/library/james/R/screen_curves -d "location='https://groeidiagrammen.nl/ocpu/tmp/x00688eb2eddd1f/'"
+```
+
+
+## Request a dedicated url to the chart site
+
+```{bash}
+curl "http://localhost:5656/ocpu/lib/james/www/?ind=https://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/"
+curl "http://localhost:5656/ocpu/lib/james/www/?ind=https://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/&chartcode=PMAAN27"
+```
+
+## Requesting a single growth chart
+
+```{bash eval=TRUE}
+curl http://localhost:5656/ocpu/lib/james/man/draw_chart/text
+curl -F 'txt=@client3.json' http://localhost:5656/ocpu/library/james/R/draw_chart_bds
+curl -o mychart.svg http://localhost:5656/ocpu/tmp/x0a862a7b6829a1/graphics/1/svg
+curl http://localhost:5656/ocpu/lib/james/R/draw_chart_ind -d "ind_loc='https://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/'&chartcode='PMAAN27'"
+http://localhost:5656/ocpu/tmp/x029e4ee555a9e1/graphics/1/svg?width=8.27&height=11.69
+```
+
