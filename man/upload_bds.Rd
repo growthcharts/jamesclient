@@ -41,7 +41,7 @@ get_url(r1, "return")
 
 \dontrun{
 # upload as JSON string
-data("installed.cabinets", package = "jamestest")
+data("installed.cabinets", package = "groeidiagrammen")
 ind <- installed.cabinets[[3]][[4]]
 js <- minihealth::convert_individual_bds(ind)
 r2 <- upload_bds(js)

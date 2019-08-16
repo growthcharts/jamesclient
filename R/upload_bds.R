@@ -16,7 +16,7 @@
 #'
 #'\dontrun{
 #' # upload as JSON string
-#' data("installed.cabinets", package = "jamestest")
+#' data("installed.cabinets", package = "groeidiagrammen")
 #' ind <- installed.cabinets[[3]][[4]]
 #' js <- minihealth::convert_individual_bds(ind)
 #' r2 <- upload_bds(js)
@@ -30,19 +30,22 @@ upload_bds <- function(bds,
                        host = "https://groeidiagrammen.nl",
                        path = "ocpu/library/james") {
 
-  if (file.exists(bds)) {  # file
+  if (file.exists(bds[1L])) {  # file
     dat <- upload_file(bds)
     resp <- POST(url = host,
                  path = paste(path, "R/convert_bds_ind", sep = "/"),
                  body = list(txt = dat),
                  encode = "multipart")
   }
-  if (validate(bds)) {    # JSON string
+  else if (validate(bds)) {    # JSON string
     body <- list(txt = bds)
     resp <- POST(url = host,
                  path = paste(path, "R/convert_bds_ind", sep = "/"),
                  body = body,
                  encode = "json")
+  }
+  else {
+    stop("Argument `bds` not a valid file name or JSON string\n")
   }
 
   if (http_error(resp)) {
