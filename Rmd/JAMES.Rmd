@@ -365,15 +365,22 @@ var=$(jq '.' client3.json | jq -sR '.')
 curl https://groeidiagrammen.nl/ocpu/library/james/R/screen_curves -d "txt=$var"
 ```
 
-The URL ending in (`R/.val`) contain a JSON string with 1) the results 
-of the screening, and 2) the url with a dedicated web site (see below).
+The URL ending in (`R/.val`) contain a JSON string with the results 
+of the screening, as a JSON string
 
-As before, we may do the same thing by uploading the JSON file with the data:
+```{bash}
+{"UrlGroeicurven":"https://groeidiagrammen.nl/ocpu/lib/james/www/?ind=https://groeidiagrammen.nl/ocpu/tmp/x0da0eeda3260d8/","Resultaten":[{"Categorie":1,"CategorieOmschrijving":"Lengte","Code":31,"CodeOmschrijving":"Het advies volgens de JGZ-richtlijn lengtegroei is als volgt: In principe geen verwijzing nodig, naar eigen inzicht handelen.","Richtlijn":101,"Leeftijd0":"20181111","Leeftijd1":"20181211"}]}
+```
+
+Pasting the URL returned in `UrlGroeicurven` into the browser starts a 
+dedicated web site with the child data.
+
+As before, we may do the same thing by uploading the JSON file 
+(instead of a JSON string) with the data:
 
 ```{bash}
 curl -F 'txt=@client3.json' https://groeidiagrammen.nl/ocpu/library/james/R/screen_curves
 ```
-
 
 If the data is already uploaded, use the `location` arguement to point to 
 the data:

@@ -642,8 +642,10 @@ echo $var</code></pre>
 <p>The first option uploads the data and performs the growth screening. Suppose we send the data as a JSON string.</p>
 <pre class="bash"><code>var=$(jq '.' client3.json | jq -sR '.')
 curl https://groeidiagrammen.nl/ocpu/library/james/R/screen_curves -d &quot;txt=$var&quot;</code></pre>
-<p>The URL ending in (<code>R/.val</code>) contain a JSON string with 1) the results of the screening, and 2) the url with a dedicated web site (see below).</p>
-<p>As before, we may do the same thing by uploading the JSON file with the data:</p>
+<p>The URL ending in (<code>R/.val</code>) contain a JSON string with the results of the screening, as a JSON string</p>
+<pre class="bash"><code>{&quot;UrlGroeicurven&quot;:&quot;https://groeidiagrammen.nl/ocpu/lib/james/www/?ind=https://groeidiagrammen.nl/ocpu/tmp/x0da0eeda3260d8/&quot;,&quot;Resultaten&quot;:[{&quot;Categorie&quot;:1,&quot;CategorieOmschrijving&quot;:&quot;Lengte&quot;,&quot;Code&quot;:31,&quot;CodeOmschrijving&quot;:&quot;Het advies volgens de JGZ-richtlijn lengtegroei is als volgt: In principe geen verwijzing nodig, naar eigen inzicht handelen.&quot;,&quot;Richtlijn&quot;:101,&quot;Leeftijd0&quot;:&quot;20181111&quot;,&quot;Leeftijd1&quot;:&quot;20181211&quot;}]}</code></pre>
+<p>Pasting the URL returned in <code>UrlGroeicurven</code> into the browser starts a dedicated web site with the child data.</p>
+<p>As before, we may do the same thing by uploading the JSON file (instead of a JSON string) with the data:</p>
 <pre class="bash"><code>curl -F 'txt=@client3.json' https://groeidiagrammen.nl/ocpu/library/james/R/screen_curves</code></pre>
 <p>If the data is already uploaded, use the <code>location</code> arguement to point to the data:</p>
 <pre class="bash"><code>curl https://groeidiagrammen.nl/ocpu/library/james/R/screen_curves -d &quot;location='https://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/'&quot;</code></pre>
@@ -685,7 +687,7 @@ curl https://groeidiagrammen.nl/ocpu/library/james/R/screen_curves -d &quot;txt=
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100  4168    0  4168    0     0  25118      0 --:--:-- --:--:-- --:--:-- 25260
+100  4168    0  4168    0     0  26365      0 --:--:-- --:--:-- --:--:-- 26379
 ## draw_chart                package:james                R Documentation
 ## 
 ## Draw growth chart
