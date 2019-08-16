@@ -1,7 +1,7 @@
 ---
 title: "JAMES: Joint Anthropometric Measurement and Evaluation Server"
 author: "Stef van Buuren"
-date: "2019-08-12"
+date: "2019-08-16"
 bibliography: [groeidiagrammen.bib]
 output: html_document
 ---
@@ -45,14 +45,15 @@ curl https://groeidiagrammen.nl/ocpu/library/stats/R/rnorm/json --data n=5
 
 ## What JAMES can currently do
 
-JAMES can currently do four things:
+JAMES currently can do the following:
 
-1. provides access to 342 high-quality growth charts used by the Dutch youth health care;
-2. can accept child data in BDS-format;
-3. can create a personalized chart site with child's data;
-4. can create separate growth charts.
+1. provide access to 342 high-quality growth charts used by the Dutch youth health care;
+2. accept child data in BDS-format;
+3. screen growth curves according to JGZ Richtlijn Lengtegroei 2019;
+4. create a personalized chart site with child's data;
+5. create separate growth charts.
 
-I'll explain each of these action in more detail below.
+The text below explains these actions in more detail.
 
 ## Available growth charts 
 
@@ -344,6 +345,46 @@ curl https://groeidiagrammen.nl/ocpu/library/james/R/convert_bds_ind -d "txt=$va
 
 The results of the string- and file-methods are identical.
 
+## Screen growth curves relative to the JGZ Richtlijn Lengtegroei 2019
+
+The [JGZ Richtlijn Lengtegroei 2019](https://www.ncj.nl/richtlijnen/alle-richtlijnen/richtlijn/lengtegroei-2019)
+is a guideline for referral to general physician or paediatrician of 
+children with unusual height growth (short or tall). 
+
+The referral rules are implemented in the JAMES function `screen_curves()`. 
+The function takes as input either 
+
+- a JSON string or filename with the child's data (parameter `txt`)
+- the location of an already uploaded dataset (parameter `location`)
+
+The first option uploads the data and performs the growth screening. Suppose
+we send the data as a JSON string. 
+
+```{bash}
+var=$(jq '.' client3.json | jq -sR '.')
+curl https://groeidiagrammen.nl/ocpu/library/james/R/screen_curves -d "txt=$var"
+```
+
+The URL ending in (`R/.val`) contain a JSON string with 1) the results 
+of the screening, and 2) the url with a dedicated web site (see below).
+
+As before, we may do the same thing by uploading the JSON file with the data:
+
+```{bash}
+curl -F 'txt=@client3.json' https://groeidiagrammen.nl/ocpu/library/james/R/screen_curves
+```
+
+
+If the data is already uploaded, use the `location` arguement to point to 
+the data:
+
+```{bash}
+curl https://groeidiagrammen.nl/ocpu/library/james/R/screen_curves -d "location='https://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/'"
+```
+
+The current `screen_curves()` function implements height screening 
+guidelines.
+
 ## Request a dedicated url to the chart site
 
 The child's data can be plotted on any of the available charts using 
@@ -476,9 +517,9 @@ Still many things on the wish list:
 
 - transfer JAMES to url james.tno.nl
 - allow for more input formats
-- add https protocol
-- add functionality to test for Dutch guidelines for referral
-- add functionality to predict individual growth curves
+- add https protocol (DONE)
+- add functionality to test for Dutch guidelines for referral (DONE, for height)
+- add functionality to predict individual growth curves (DONE)
 - extend functionality to include the $D$-score charts
 
 ## Known problems
@@ -493,6 +534,7 @@ Still many things on the wish list:
 - https://www.tno.nl/groei and https://www.tno.nl/growth
 - https://github.com/stefvanbuuren/james
 - https://github.com/stefvanbuuren/jamesclient
+- https://github.com/stefvanbuuren/growthscreener
 - https://github.com/stefvanbuuren/minihealth
 - https://github.com/stefvanbuuren/brokenstick
 

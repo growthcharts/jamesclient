@@ -12,7 +12,7 @@
 
 <meta name="author" content="Stef van Buuren" />
 
-<meta name="date" content="2019-08-12" />
+<meta name="date" content="2019-08-16" />
 
 <title>JAMES: Joint Anthropometric Measurement and Evaluation Server</title>
 
@@ -366,7 +366,7 @@ summary {
 
 <h1 class="title toc-ignore">JAMES: Joint Anthropometric Measurement and Evaluation Server</h1>
 <h4 class="author">Stef van Buuren</h4>
-<h4 class="date">2019-08-12</h4>
+<h4 class="date">2019-08-16</h4>
 
 </div>
 
@@ -390,14 +390,15 @@ summary {
 </div>
 <div id="what-james-can-currently-do" class="section level2">
 <h2>What JAMES can currently do</h2>
-<p>JAMES can currently do four things:</p>
+<p>JAMES currently can do the following:</p>
 <ol style="list-style-type: decimal">
-<li>provides access to 342 high-quality growth charts used by the Dutch youth health care;</li>
-<li>can accept child data in BDS-format;</li>
-<li>can create a personalized chart site with child’s data;</li>
-<li>can create separate growth charts.</li>
+<li>provide access to 342 high-quality growth charts used by the Dutch youth health care;</li>
+<li>accept child data in BDS-format;</li>
+<li>screen growth curves according to JGZ Richtlijn Lengtegroei 2019;</li>
+<li>create a personalized chart site with child’s data;</li>
+<li>create separate growth charts.</li>
 </ol>
-<p>I’ll explain each of these action in more detail below.</p>
+<p>The text below explains these actions in more detail.</p>
 </div>
 <div id="available-growth-charts" class="section level2">
 <h2>Available growth charts</h2>
@@ -630,6 +631,24 @@ echo $var</code></pre>
 <p>The results of the string- and file-methods are identical.</p>
 </div>
 </div>
+<div id="screen-growth-curves-relative-to-the-jgz-richtlijn-lengtegroei-2019" class="section level2">
+<h2>Screen growth curves relative to the JGZ Richtlijn Lengtegroei 2019</h2>
+<p>The <a href="https://www.ncj.nl/richtlijnen/alle-richtlijnen/richtlijn/lengtegroei-2019">JGZ Richtlijn Lengtegroei 2019</a> is a guideline for referral to general physician or paediatrician of children with unusual height growth (short or tall).</p>
+<p>The referral rules are implemented in the JAMES function <code>screen_curves()</code>. The function takes as input either</p>
+<ul>
+<li>a JSON string or filename with the child’s data (parameter <code>txt</code>)</li>
+<li>the location of an already uploaded dataset (parameter <code>location</code>)</li>
+</ul>
+<p>The first option uploads the data and performs the growth screening. Suppose we send the data as a JSON string.</p>
+<pre class="bash"><code>var=$(jq '.' client3.json | jq -sR '.')
+curl https://groeidiagrammen.nl/ocpu/library/james/R/screen_curves -d &quot;txt=$var&quot;</code></pre>
+<p>The URL ending in (<code>R/.val</code>) contain a JSON string with 1) the results of the screening, and 2) the url with a dedicated web site (see below).</p>
+<p>As before, we may do the same thing by uploading the JSON file with the data:</p>
+<pre class="bash"><code>curl -F 'txt=@client3.json' https://groeidiagrammen.nl/ocpu/library/james/R/screen_curves</code></pre>
+<p>If the data is already uploaded, use the <code>location</code> arguement to point to the data:</p>
+<pre class="bash"><code>curl https://groeidiagrammen.nl/ocpu/library/james/R/screen_curves -d &quot;location='https://groeidiagrammen.nl/ocpu/tmp/x06938035d05dac/'&quot;</code></pre>
+<p>The current <code>screen_curves()</code> function implements height screening guidelines.</p>
+</div>
 <div id="request-a-dedicated-url-to-the-chart-site" class="section level2">
 <h2>Request a dedicated url to the chart site</h2>
 <p>The child’s data can be plotted on any of the available charts using a <em>child chart site</em>. There are three ways to choose which chart is being plotted:</p>
@@ -666,7 +685,7 @@ echo $var</code></pre>
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100  4168    0  4168    0     0  16196      0 --:--:-- --:--:-- --:--:-- 16217
+100  4168    0  4168    0     0  25118      0 --:--:-- --:--:-- --:--:-- 25260
 ## draw_chart                package:james                R Documentation
 ## 
 ## Draw growth chart
@@ -830,9 +849,9 @@ echo $var</code></pre>
 <ul>
 <li>transfer JAMES to url james.tno.nl</li>
 <li>allow for more input formats</li>
-<li>add https protocol</li>
-<li>add functionality to test for Dutch guidelines for referral</li>
-<li>add functionality to predict individual growth curves</li>
+<li>add https protocol (DONE)</li>
+<li>add functionality to test for Dutch guidelines for referral (DONE, for height)</li>
+<li>add functionality to predict individual growth curves (DONE)</li>
 <li>extend functionality to include the <span class="math inline">\(D\)</span>-score charts</li>
 </ul>
 </div>
@@ -851,6 +870,7 @@ echo $var</code></pre>
 <li><a href="https://www.tno.nl/groei" class="uri">https://www.tno.nl/groei</a> and <a href="https://www.tno.nl/growth" class="uri">https://www.tno.nl/growth</a></li>
 <li><a href="https://github.com/stefvanbuuren/james" class="uri">https://github.com/stefvanbuuren/james</a></li>
 <li><a href="https://github.com/stefvanbuuren/jamesclient" class="uri">https://github.com/stefvanbuuren/jamesclient</a></li>
+<li><a href="https://github.com/stefvanbuuren/growthscreener" class="uri">https://github.com/stefvanbuuren/growthscreener</a></li>
 <li><a href="https://github.com/stefvanbuuren/minihealth" class="uri">https://github.com/stefvanbuuren/minihealth</a></li>
 <li><a href="https://github.com/stefvanbuuren/brokenstick" class="uri">https://github.com/stefvanbuuren/brokenstick</a></li>
 </ul>
