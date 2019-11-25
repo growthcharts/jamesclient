@@ -1,3 +1,8 @@
+# jamesclient 0.6.0
+
+- Add test infrastructure
+- Add message get_url()
+
 # jamesclient 0.5.0
 
 - More robust version of `upload_bds`
