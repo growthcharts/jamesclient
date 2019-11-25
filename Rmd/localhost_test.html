@@ -271,7 +271,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -378,13 +377,14 @@ curl http://localhost:5656/ocpu/lib/james/R/list_charts -d &quot;&quot;</code></
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100    48  100    45  100     3    130      8 --:--:-- --:--:-- --:--:--   130
-## [-0.4622, -0.6788, 0.8513, -0.8281, -0.6619]
+100     3    0     0  100     3      0     14 --:--:-- --:--:-- --:--:--    14
+100    47  100    44  100     3    141      9 --:--:-- --:--:-- --:--:--   151
+## [-0.2983, 0.223, -1.3285, -0.9508, -0.4888]
 ##   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100   192  100   192    0     0  16187      0 --:--:-- --:--:-- --:--:-- 17454
+100   192  100   192    0     0  13714      0 --:--:-- --:--:-- --:--:-- 13714
 ## list_charts               package:james                R Documentation
 ## 
 ## List the available growth charts
@@ -401,14 +401,16 @@ curl http://localhost:5656/ocpu/lib/james/R/list_charts -d &quot;&quot;</code></
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100   248  100   248    0     0    445      0 --:--:-- --:--:-- --:--:--   446
-## /ocpu/tmp/x03be55a3d252b9/R/.val
-## /ocpu/tmp/x03be55a3d252b9/R/list_charts
-## /ocpu/tmp/x03be55a3d252b9/stdout
-## /ocpu/tmp/x03be55a3d252b9/source
-## /ocpu/tmp/x03be55a3d252b9/console
-## /ocpu/tmp/x03be55a3d252b9/info
-## /ocpu/tmp/x03be55a3d252b9/files/DESCRIPTION</code></pre>
+  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0
+  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0
+100   248  100   248    0     0     93      0  0:00:02  0:00:02 --:--:--    93
+## /ocpu/tmp/x029d5f4ca22fa7/R/.val
+## /ocpu/tmp/x029d5f4ca22fa7/R/list_charts
+## /ocpu/tmp/x029d5f4ca22fa7/stdout
+## /ocpu/tmp/x029d5f4ca22fa7/source
+## /ocpu/tmp/x029d5f4ca22fa7/console
+## /ocpu/tmp/x029d5f4ca22fa7/info
+## /ocpu/tmp/x029d5f4ca22fa7/files/DESCRIPTION</code></pre>
 <div id="sending-the-childs-data-as-a-json-string" class="section level3">
 <h3>Sending the child’s data as a JSON string</h3>
 <pre class="bash"><code>curl http://localhost:5656/ocpu/library/james/testdata/client3.json
@@ -418,7 +420,7 @@ curl -F 'txt=@client3.json' http://localhost:5656/ocpu/library/james/R/convert_b
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100  2308  100  2308    0     0   133k      0 --:--:-- --:--:-- --:--:--  140k
+100  2205  100  2205    0     0  15978      0 --:--:-- --:--:-- --:--:-- 15978
 ## {
 ##    &quot;Referentie&quot;:&quot;fa308134-069e-49ce-9847-ccdae380ed6f&quot;,
 ##    &quot;OrganisatieCode&quot;:1234,
@@ -434,7 +436,7 @@ curl -F 'txt=@client3.json' http://localhost:5656/ocpu/library/james/R/convert_b
 ##          },
 ##          {
 ##             &quot;Bdsnummer&quot;:82,
-##             &quot;Waarde&quot;:&quot;27&quot;
+##             &quot;Waarde&quot;:&quot;189&quot;
 ##          },
 ##          {
 ##             &quot;Bdsnummer&quot;:91,
@@ -524,84 +526,90 @@ curl -F 'txt=@client3.json' http://localhost:5656/ocpu/library/james/R/convert_b
 ##          ]
 ##       }
 ##    ]
-## }  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-##                                  Dload  Upload   Total   Spent    Left  Speed
-## 
-  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100  2308  100  2308    0     0  11700      0 --:--:-- --:--:-- --:--:-- 11715
+## }
 ##   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100  2511    0     0  100  2511      0  11909 --:--:-- --:--:-- --:--:-- 11900
-100  2808  100   297  100  2511    190   1610  0:00:01  0:00:01 --:--:--  1610
-100  2808  100   297  100  2511    190   1610  0:00:01  0:00:01 --:--:--  1609
-## /ocpu/tmp/x0a117fdf096c74/R/.val
-## /ocpu/tmp/x0a117fdf096c74/R/convert_bds_ind
-## /ocpu/tmp/x0a117fdf096c74/stdout
-## /ocpu/tmp/x0a117fdf096c74/source
-## /ocpu/tmp/x0a117fdf096c74/console
-## /ocpu/tmp/x0a117fdf096c74/info
-## /ocpu/tmp/x0a117fdf096c74/files/client3.json
-## /ocpu/tmp/x0a117fdf096c74/files/DESCRIPTION</code></pre>
+100  2205  100  2205    0     0   430k      0 --:--:-- --:--:-- --:--:--  430k
+##   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+##                                  Dload  Upload   Total   Spent    Left  Speed
+## 
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100  2408    0     0  100  2408      0   1995  0:00:01  0:00:01 --:--:--  1995
+100  2408    0     0  100  2408      0   1090  0:00:02  0:00:02 --:--:--  1090
+100  2705  100   297  100  2408     93    758  0:00:03  0:00:03 --:--:--   852
+100  2705  100   297  100  2408     93    758  0:00:03  0:00:03 --:--:--   852
+## /ocpu/tmp/x01274f7aff6d3b/R/.val
+## /ocpu/tmp/x01274f7aff6d3b/R/convert_bds_ind
+## /ocpu/tmp/x01274f7aff6d3b/stdout
+## /ocpu/tmp/x01274f7aff6d3b/source
+## /ocpu/tmp/x01274f7aff6d3b/console
+## /ocpu/tmp/x01274f7aff6d3b/info
+## /ocpu/tmp/x01274f7aff6d3b/files/client3.json
+## /ocpu/tmp/x01274f7aff6d3b/files/DESCRIPTION</code></pre>
 </div>
 <div id="sending-the-childs-data-as-a-json-string-1" class="section level3">
 <h3>Sending the child’s data as a JSON string</h3>
 <pre class="bash"><code>var=$(jq '.' client3.json | jq -sR '.')
 echo $var
 curl http://localhost:5656/ocpu/library/james/R/convert_bds_ind -d &quot;txt=$var&quot;</code></pre>
-<pre><code>## &quot;{\n \&quot;Referentie\&quot;: \&quot;fa308134-069e-49ce-9847-ccdae380ed6f\&quot;,\n \&quot;OrganisatieCode\&quot;: 1234,\n \&quot;ClientGegevens\&quot;: {\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 19,\n \&quot;Waarde\&quot;: \&quot;2\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 20,\n \&quot;Waarde\&quot;: \&quot;20181011\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 82,\n \&quot;Waarde\&quot;: \&quot;27\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 91,\n \&quot;Waarde\&quot;: \&quot;1\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 110,\n \&quot;Waarde\&quot;: \&quot;990\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 238,\n \&quot;Waarde\&quot;: \&quot;1670\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 240,\n \&quot;Waarde\&quot;: \&quot;1900\&quot;\n }\n ],\n \&quot;Groepen\&quot;: [\n {\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 63,\n \&quot;Waarde\&quot;: \&quot;19950704\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 71,\n \&quot;Waarde\&quot;: \&quot;6030\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 62,\n \&quot;Waarde\&quot;: \&quot;01\&quot;\n }\n ]\n },\n {\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 63,\n \&quot;Waarde\&quot;: \&quot;19901202\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 71,\n \&quot;Waarde\&quot;: \&quot;6030\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 62,\n \&quot;Waarde\&quot;: \&quot;02\&quot;\n }\n ]\n }\n ]\n },\n \&quot;Contactmomenten\&quot;: [\n {\n \&quot;Tijdstip\&quot;: \&quot;20181111\&quot;,\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 235,\n \&quot;Waarde\&quot;: \&quot;380\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 245,\n \&quot;Waarde\&quot;: \&quot;1250\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 252,\n \&quot;Waarde\&quot;: \&quot;270\&quot;\n }\n ]\n },\n {\n \&quot;Tijdstip\&quot;: \&quot;20181211\&quot;,\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 235,\n \&quot;Waarde\&quot;: \&quot;435\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 245,\n \&quot;Waarde\&quot;: \&quot;2100\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 252,\n \&quot;Waarde\&quot;: \&quot;305\&quot;\n }\n ]\n }\n ]\n}\n&quot;
+<pre><code>## &quot;{\n \&quot;Referentie\&quot;: \&quot;fa308134-069e-49ce-9847-ccdae380ed6f\&quot;,\n \&quot;OrganisatieCode\&quot;: 1234,\n \&quot;ClientGegevens\&quot;: {\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 19,\n \&quot;Waarde\&quot;: \&quot;2\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 20,\n \&quot;Waarde\&quot;: \&quot;20181011\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 82,\n \&quot;Waarde\&quot;: \&quot;189\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 91,\n \&quot;Waarde\&quot;: \&quot;1\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 110,\n \&quot;Waarde\&quot;: \&quot;990\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 238,\n \&quot;Waarde\&quot;: \&quot;1670\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 240,\n \&quot;Waarde\&quot;: \&quot;1900\&quot;\n }\n ],\n \&quot;Groepen\&quot;: [\n {\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 63,\n \&quot;Waarde\&quot;: \&quot;19950704\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 71,\n \&quot;Waarde\&quot;: \&quot;6030\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 62,\n \&quot;Waarde\&quot;: \&quot;01\&quot;\n }\n ]\n },\n {\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 63,\n \&quot;Waarde\&quot;: \&quot;19901202\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 71,\n \&quot;Waarde\&quot;: \&quot;6030\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 62,\n \&quot;Waarde\&quot;: \&quot;02\&quot;\n }\n ]\n }\n ]\n },\n \&quot;Contactmomenten\&quot;: [\n {\n \&quot;Tijdstip\&quot;: \&quot;20181111\&quot;,\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 235,\n \&quot;Waarde\&quot;: \&quot;380\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 245,\n \&quot;Waarde\&quot;: \&quot;1250\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 252,\n \&quot;Waarde\&quot;: \&quot;270\&quot;\n }\n ]\n },\n {\n \&quot;Tijdstip\&quot;: \&quot;20181211\&quot;,\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 235,\n \&quot;Waarde\&quot;: \&quot;435\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 245,\n \&quot;Waarde\&quot;: \&quot;2100\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 252,\n \&quot;Waarde\&quot;: \&quot;305\&quot;\n }\n ]\n }\n ]\n}\n&quot;
 ##   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100  2356  100   252  100  2104    362   3028 --:--:-- --:--:-- --:--:--  3027
-100  2356  100   252  100  2104    362   3028 --:--:-- --:--:-- --:--:--  3027
-## /ocpu/tmp/x0d7614e6f474eb/R/.val
-## /ocpu/tmp/x0d7614e6f474eb/R/convert_bds_ind
-## /ocpu/tmp/x0d7614e6f474eb/stdout
-## /ocpu/tmp/x0d7614e6f474eb/source
-## /ocpu/tmp/x0d7614e6f474eb/console
-## /ocpu/tmp/x0d7614e6f474eb/info
-## /ocpu/tmp/x0d7614e6f474eb/files/DESCRIPTION</code></pre>
+100  2105    0     0  100  2105      0  10169 --:--:-- --:--:-- --:--:-- 10120
+100  2105    0     0  100  2105      0   1742  0:00:01  0:00:01 --:--:--  1741
+100  2105    0     0  100  2105      0    952  0:00:02  0:00:02 --:--:--   952
+100  2357  100   252  100  2105     89    747  0:00:02  0:00:02 --:--:--   837
+## /ocpu/tmp/x081208b6978ab7/R/.val
+## /ocpu/tmp/x081208b6978ab7/R/convert_bds_ind
+## /ocpu/tmp/x081208b6978ab7/stdout
+## /ocpu/tmp/x081208b6978ab7/source
+## /ocpu/tmp/x081208b6978ab7/console
+## /ocpu/tmp/x081208b6978ab7/info
+## /ocpu/tmp/x081208b6978ab7/files/DESCRIPTION</code></pre>
 </div>
 <div id="screen-growth-curves-relative-to-the-jgz-richtlijn-lengtegroei-2019" class="section level2">
 <h2>Screen growth curves relative to the JGZ Richtlijn Lengtegroei 2019</h2>
 <pre class="bash"><code>var=$(jq '.' client3.json | jq -sR '.')
 echo $var
 curl http://localhost:5656/ocpu/library/james/R/screen_curves -d &quot;txt=$var&quot;</code></pre>
-<pre><code>## &quot;{\n \&quot;Referentie\&quot;: \&quot;fa308134-069e-49ce-9847-ccdae380ed6f\&quot;,\n \&quot;OrganisatieCode\&quot;: 1234,\n \&quot;ClientGegevens\&quot;: {\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 19,\n \&quot;Waarde\&quot;: \&quot;2\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 20,\n \&quot;Waarde\&quot;: \&quot;20181011\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 82,\n \&quot;Waarde\&quot;: \&quot;27\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 91,\n \&quot;Waarde\&quot;: \&quot;1\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 110,\n \&quot;Waarde\&quot;: \&quot;990\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 238,\n \&quot;Waarde\&quot;: \&quot;1670\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 240,\n \&quot;Waarde\&quot;: \&quot;1900\&quot;\n }\n ],\n \&quot;Groepen\&quot;: [\n {\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 63,\n \&quot;Waarde\&quot;: \&quot;19950704\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 71,\n \&quot;Waarde\&quot;: \&quot;6030\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 62,\n \&quot;Waarde\&quot;: \&quot;01\&quot;\n }\n ]\n },\n {\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 63,\n \&quot;Waarde\&quot;: \&quot;19901202\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 71,\n \&quot;Waarde\&quot;: \&quot;6030\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 62,\n \&quot;Waarde\&quot;: \&quot;02\&quot;\n }\n ]\n }\n ]\n },\n \&quot;Contactmomenten\&quot;: [\n {\n \&quot;Tijdstip\&quot;: \&quot;20181111\&quot;,\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 235,\n \&quot;Waarde\&quot;: \&quot;380\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 245,\n \&quot;Waarde\&quot;: \&quot;1250\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 252,\n \&quot;Waarde\&quot;: \&quot;270\&quot;\n }\n ]\n },\n {\n \&quot;Tijdstip\&quot;: \&quot;20181211\&quot;,\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 235,\n \&quot;Waarde\&quot;: \&quot;435\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 245,\n \&quot;Waarde\&quot;: \&quot;2100\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 252,\n \&quot;Waarde\&quot;: \&quot;305\&quot;\n }\n ]\n }\n ]\n}\n&quot;
+<pre><code>## &quot;{\n \&quot;Referentie\&quot;: \&quot;fa308134-069e-49ce-9847-ccdae380ed6f\&quot;,\n \&quot;OrganisatieCode\&quot;: 1234,\n \&quot;ClientGegevens\&quot;: {\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 19,\n \&quot;Waarde\&quot;: \&quot;2\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 20,\n \&quot;Waarde\&quot;: \&quot;20181011\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 82,\n \&quot;Waarde\&quot;: \&quot;189\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 91,\n \&quot;Waarde\&quot;: \&quot;1\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 110,\n \&quot;Waarde\&quot;: \&quot;990\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 238,\n \&quot;Waarde\&quot;: \&quot;1670\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 240,\n \&quot;Waarde\&quot;: \&quot;1900\&quot;\n }\n ],\n \&quot;Groepen\&quot;: [\n {\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 63,\n \&quot;Waarde\&quot;: \&quot;19950704\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 71,\n \&quot;Waarde\&quot;: \&quot;6030\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 62,\n \&quot;Waarde\&quot;: \&quot;01\&quot;\n }\n ]\n },\n {\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 63,\n \&quot;Waarde\&quot;: \&quot;19901202\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 71,\n \&quot;Waarde\&quot;: \&quot;6030\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 62,\n \&quot;Waarde\&quot;: \&quot;02\&quot;\n }\n ]\n }\n ]\n },\n \&quot;Contactmomenten\&quot;: [\n {\n \&quot;Tijdstip\&quot;: \&quot;20181111\&quot;,\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 235,\n \&quot;Waarde\&quot;: \&quot;380\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 245,\n \&quot;Waarde\&quot;: \&quot;1250\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 252,\n \&quot;Waarde\&quot;: \&quot;270\&quot;\n }\n ]\n },\n {\n \&quot;Tijdstip\&quot;: \&quot;20181211\&quot;,\n \&quot;Elementen\&quot;: [\n {\n \&quot;Bdsnummer\&quot;: 235,\n \&quot;Waarde\&quot;: \&quot;435\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 245,\n \&quot;Waarde\&quot;: \&quot;2100\&quot;\n },\n {\n \&quot;Bdsnummer\&quot;: 252,\n \&quot;Waarde\&quot;: \&quot;305\&quot;\n }\n ]\n }\n ]\n}\n&quot;
 ##   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100  2104    0     0  100  2104      0   2090  0:00:01  0:00:01 --:--:--  2091
-100  2104    0     0  100  2104      0   1047  0:00:02  0:00:02 --:--:--  1048
-100  2354  100   250  100  2104    114    966  0:00:02  0:00:02 --:--:--   966
-## /ocpu/tmp/x04f4d90b25cdaf/R/.val
-## /ocpu/tmp/x04f4d90b25cdaf/R/screen_curves
-## /ocpu/tmp/x04f4d90b25cdaf/stdout
-## /ocpu/tmp/x04f4d90b25cdaf/source
-## /ocpu/tmp/x04f4d90b25cdaf/console
-## /ocpu/tmp/x04f4d90b25cdaf/info
-## /ocpu/tmp/x04f4d90b25cdaf/files/DESCRIPTION</code></pre>
+100  2105    0     0  100  2105      0   1739  0:00:01  0:00:01 --:--:--  1739
+100  2105    0     0  100  2105      0    952  0:00:02  0:00:02 --:--:--   952
+100  2355  100   250  100  2105     81    687  0:00:03  0:00:03 --:--:--   768
+100  2355  100   250  100  2105     81    687  0:00:03  0:00:03 --:--:--   768
+## /ocpu/tmp/x0a785376022495/R/.val
+## /ocpu/tmp/x0a785376022495/R/screen_curves
+## /ocpu/tmp/x0a785376022495/stdout
+## /ocpu/tmp/x0a785376022495/source
+## /ocpu/tmp/x0a785376022495/console
+## /ocpu/tmp/x0a785376022495/info
+## /ocpu/tmp/x0a785376022495/files/DESCRIPTION</code></pre>
 <pre class="bash"><code>curl -F 'txt=@client3.json' http://localhost:5656/ocpu/library/james/R/screen_curves</code></pre>
 <pre><code>##   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100  2511    0     0  100  2511      0   2484  0:00:01  0:00:01 --:--:--  2486
-100  2511    0     0  100  2511      0   1245  0:00:02  0:00:02 --:--:--  1246
- 89  2806    0     0  100  2511      0    871  0:00:02  0:00:02 --:--:--   870
-100  2806  100   295  100  2511    102    871  0:00:02  0:00:02 --:--:--   870
-## /ocpu/tmp/x0b3c4a2923dcf6/R/.val
-## /ocpu/tmp/x0b3c4a2923dcf6/R/screen_curves
-## /ocpu/tmp/x0b3c4a2923dcf6/stdout
-## /ocpu/tmp/x0b3c4a2923dcf6/source
-## /ocpu/tmp/x0b3c4a2923dcf6/console
-## /ocpu/tmp/x0b3c4a2923dcf6/info
-## /ocpu/tmp/x0b3c4a2923dcf6/files/client3.json
-## /ocpu/tmp/x0b3c4a2923dcf6/files/DESCRIPTION</code></pre>
+100  2408    0     0  100  2408      0   1996  0:00:01  0:00:01 --:--:--  1996
+100  2408    0     0  100  2408      0   1090  0:00:02  0:00:02 --:--:--  1090
+100  2408    0     0  100  2408      0    749  0:00:03  0:00:03 --:--:--   749
+100  2703  100   295  100  2408     81    666  0:00:03  0:00:03 --:--:--   747
+100  2703  100   295  100  2408     81    666  0:00:03  0:00:03 --:--:--   747
+## /ocpu/tmp/x03d811bbfd0a9e/R/.val
+## /ocpu/tmp/x03d811bbfd0a9e/R/screen_curves
+## /ocpu/tmp/x03d811bbfd0a9e/stdout
+## /ocpu/tmp/x03d811bbfd0a9e/source
+## /ocpu/tmp/x03d811bbfd0a9e/console
+## /ocpu/tmp/x03d811bbfd0a9e/info
+## /ocpu/tmp/x03d811bbfd0a9e/files/client3.json
+## /ocpu/tmp/x03d811bbfd0a9e/files/DESCRIPTION</code></pre>
 <pre class="bash"><code>curl http://localhost:5656/ocpu/library/james/R/screen_curves -d &quot;location='https://groeidiagrammen.nl/ocpu/tmp/x00688eb2eddd1f/'&quot;</code></pre>
 <pre><code>##   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 ##                                  Dload  Upload   Total   Spent    Left  Speed
@@ -609,14 +617,12 @@ curl http://localhost:5656/ocpu/library/james/R/screen_curves -d &quot;txt=$var&
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
 100    63    0     0  100    63      0     52  0:00:01  0:00:01 --:--:--    52
 100    63    0     0  100    63      0     28  0:00:02  0:00:02 --:--:--    28
-100   313  100   250  100    63    103     26  0:00:02  0:00:02 --:--:--   103
-## /ocpu/tmp/x015b238cc84913/R/.val
-## /ocpu/tmp/x015b238cc84913/R/screen_curves
-## /ocpu/tmp/x015b238cc84913/stdout
-## /ocpu/tmp/x015b238cc84913/source
-## /ocpu/tmp/x015b238cc84913/console
-## /ocpu/tmp/x015b238cc84913/info
-## /ocpu/tmp/x015b238cc84913/files/DESCRIPTION</code></pre>
+100   106  100    43  100    63     14     21  0:00:03  0:00:02  0:00:01    35
+100   106  100    43  100    63     14     21  0:00:03  0:00:02  0:00:01    35
+## HTTP error 404.
+## 
+## In call:
+## load(file = con)</code></pre>
 </div>
 <div id="request-a-dedicated-url-to-the-chart-site" class="section level2">
 <h2>Request a dedicated url to the chart site</h2>
@@ -626,7 +632,7 @@ curl &quot;http://localhost:5656/ocpu/lib/james/www/?ind=https://groeidiagrammen
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100  7930  100  7930    0     0  41566      0 --:--:-- --:--:-- --:--:-- 41736
+100  7930  100  7930    0     0   968k      0 --:--:-- --:--:-- --:--:--  968k
 ## &lt;!DOCTYPE html&gt;
 ## &lt;html&gt;
 ## 
@@ -810,7 +816,7 @@ curl &quot;http://localhost:5656/ocpu/lib/james/www/?ind=https://groeidiagrammen
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100  7930  100  7930    0     0  1028k      0 --:--:-- --:--:-- --:--:-- 1106k
+100  7930  100  7930    0     0  40666      0 --:--:-- --:--:-- --:--:-- 40666
 ## &lt;!DOCTYPE html&gt;
 ## &lt;html&gt;
 ## 
@@ -1002,8 +1008,7 @@ http://localhost:5656/ocpu/tmp/x029e4ee555a9e1/graphics/1/svg?width=8.27&amp;hei
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100  4168  100  4168    0     0   133k      0 --:--:-- --:--:-- --:--:--  131k
-100  4168  100  4168    0     0   133k      0 --:--:-- --:--:-- --:--:--  131k
+100  4163  100  4163    0     0   109k      0 --:--:-- --:--:-- --:--:--  109k
 ## draw_chart                package:james                R Documentation
 ## 
 ## Draw growth chart
@@ -1068,7 +1073,7 @@ http://localhost:5656/ocpu/tmp/x029e4ee555a9e1/graphics/1/svg?width=8.27&amp;hei
 ## 
 ##      etn: Either 'netherlands', 'turkish', 'moroccan' or 'hindustani'
 ## 
-##       ga: Gestionational age (in completed weeks)
+##       ga: Gestational age (in completed weeks)
 ## 
 ##     side: Either 'front', 'back', '-hdc' or 'both'
 ## 
@@ -1123,34 +1128,38 @@ http://localhost:5656/ocpu/tmp/x029e4ee555a9e1/graphics/1/svg?width=8.27&amp;hei
 ## 
 ## Examples:
 ## 
-##      fn &lt;- file.path(path.package(&quot;james&quot;), &quot;testdata&quot;, &quot;client3.json&quot;)
+##      fn &lt;- system.file(&quot;testdata&quot;, &quot;client3.json&quot;, package = &quot;james&quot;)
 ##      g &lt;- draw_chart_bds(txt = fn)
 ##      
 ##   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100  2511    0     0  100  2511      0   2489  0:00:01  0:00:01 --:--:--  2491
-100  2511    0     0  100  2511      0   1248  0:00:02  0:00:02 --:--:--  1248
-100  2811  100   300  100  2511    138   1155  0:00:02  0:00:02 --:--:--  1156
-## /ocpu/tmp/x0fbf9674b982f8/R/.val
-## /ocpu/tmp/x0fbf9674b982f8/R/draw_chart_bds
-## /ocpu/tmp/x0fbf9674b982f8/graphics/1
-## /ocpu/tmp/x0fbf9674b982f8/source
-## /ocpu/tmp/x0fbf9674b982f8/console
-## /ocpu/tmp/x0fbf9674b982f8/info
-## /ocpu/tmp/x0fbf9674b982f8/files/client3.json
-## /ocpu/tmp/x0fbf9674b982f8/files/DESCRIPTION
+100  2408    0     0  100  2408      0   2388  0:00:01  0:00:01 --:--:--  2391
+100  2408    0     0  100  2408      0   1198  0:00:02  0:00:02 --:--:--  1198
+100  2708  100   300  100  2408    103    831  0:00:02  0:00:02 --:--:--   934
+100  2708  100   300  100  2408    103    831  0:00:02  0:00:02 --:--:--   934
+## /ocpu/tmp/x0aecd77a52d4ba/R/.val
+## /ocpu/tmp/x0aecd77a52d4ba/R/draw_chart_bds
+## /ocpu/tmp/x0aecd77a52d4ba/graphics/1
+## /ocpu/tmp/x0aecd77a52d4ba/source
+## /ocpu/tmp/x0aecd77a52d4ba/console
+## /ocpu/tmp/x0aecd77a52d4ba/info
+## /ocpu/tmp/x0aecd77a52d4ba/files/client3.json
+## /ocpu/tmp/x0aecd77a52d4ba/files/DESCRIPTION
 ##   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100   104  100   104    0     0  12404      0 --:--:-- --:--:-- --:--:-- 13000
+100   104  100   104    0     0  13000      0 --:--:-- --:--:-- --:--:-- 13000
 ##   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 ##                                  Dload  Upload   Total   Spent    Left  Speed
 ## 
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
-100   125  100    43  100    82     70    134 --:--:-- --:--:-- --:--:--   134
+100    82    0     0  100    82      0     67  0:00:01  0:00:01 --:--:--    67
+100    82    0     0  100    82      0     37  0:00:02  0:00:02 --:--:--    37
+100   125  100    43  100    82     15     28  0:00:02  0:00:02 --:--:--    44
+100   125  100    43  100    82     15     28  0:00:02  0:00:02 --:--:--    44
 ## HTTP error 404.
 ## 
 ## In call:

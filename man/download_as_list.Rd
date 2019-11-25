@@ -21,7 +21,7 @@ A list with the contents under the url's that match
   not found.
 }
 \description{
-Obtains the contents of one or more url's from the OpenCPU server response
+Obtains thecontents of one or more url's from the OpenCPU server response
 in a list.
 }
 \examples{

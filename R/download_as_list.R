@@ -1,6 +1,6 @@
 #' Download results from ocpu server as a list
 #'
-#' Obtains the contents of one or more url's from the OpenCPU server response
+#' Obtains thecontents of one or more url's from the OpenCPU server response
 #' in a list.
 #' @param resp    An object of class
 #'   \code{\link[httr:response]{response}}, typically returned by a
