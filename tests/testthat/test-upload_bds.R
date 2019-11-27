@@ -37,5 +37,13 @@ test_that("test3.json (missing OrganisatieCode) FAILS",
 test_that("test4.json (wrong type) FAILS",
           expect_equal(status_code(upload_bds(jtf[4], host = host, path = path)), 400))
 
+test_that("test8.json (wrong type) FAILS",
+          expect_equal(status_code(upload_bds(jtf[8], host = host, path = path)), 400))
+
+test_that("test12.json (BDS 91 missing) PASSES, with messages",
+          expect_equal(status_code(upload_bds(jtf[12], host = host, path = path)), 201))
+
+test_that("test18.json (BDS 91 numeric) PASSES, with messages",
+          expect_equal(status_code(upload_bds(jtf[18], host = host, path = path)), 201))
 
 # cat(httr::content(z$resp, type = "text", encoding = "UTF-8"))
