@@ -7,20 +7,31 @@
 #' @inheritParams request_site
 #' @return An object of class \code{\link[httr:response]{response}}
 #' @examples
-#' library(jamesclient)
+#' fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamestest")
 #'
-#' # upload as JSON file
-#' fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
+#' # upload JSON file to groeidiagrammen.nl
 #' r1 <- upload_bds(fn)
-#' get_url(r1, "return")
+#' httr::status_code(r1)
 #'
-#'\dontrun{
-#' # upload as JSON string
-#' data("installed.cabinets", package = "groeidiagrammen")
-#' ind <- installed.cabinets[[3]][[4]]
-#' js <- minihealth::convert_individual_bds(ind)
-#' r2 <- upload_bds(js)
-#' get_url(r2, "return")
+#' # upload JSON file to localhost
+#' host <- "http://localhost:5656"
+#' path <- "ocpu/apps/stefvanbuuren/james/R/convert_bds_ind"
+#' r2 <- upload_bds(fn, host = host, path = path)
+#' httr::status_code(r2)
+#'
+#' # upload JSON string
+#' js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
+#' r3 <- upload_bds(js)
+#' httr::status_code(r3)
+#'
+#' # upload JSON from URL
+#' url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
+#' r4 <- upload_bds(url)
+#' httr::status_code(r4)
+#'
+#' \dontrun{
+#' # the following does not yet work
+#' r5 <- upload_bds(url, host = host, path = path)
 #' }
 #' @seealso \code{\link[minihealth]{convert_bds_individual}},
 #' \code{\link{request_site}}, \code{\link[httr:response]{response}}
@@ -28,33 +39,24 @@
 #' @export
 upload_bds <- function(bds,
                        host = "https://groeidiagrammen.nl",
-                       path = "ocpu/library/james") {
+                       path = "ocpu/library/james/R/convert_bds_ind") {
 
-  if (file.exists(bds[1L])) {  # file
-    dat <- upload_file(bds)
+  if (file.exists(bds[1L])) {  # bds: file upload
     resp <- POST(url = host,
-                 path = paste(path, "R/convert_bds_ind", sep = "/"),
-                 body = list(txt = dat),
+                 path = path,
+                 body = list(txt = upload_file(bds)),
                  encode = "multipart")
-  }
-  else if (validate(bds)) {    # JSON string
-    body <- list(txt = bds)
+  } else {    # bds: JSON string or URL
     resp <- POST(url = host,
-                 path = paste(path, "R/convert_bds_ind", sep = "/"),
-                 body = body,
+                 path = path,
+                 body = list(txt = bds),
                  encode = "json")
-  }
-  else {
-    stop("Argument `bds` not a valid file name or JSON string\n")
   }
 
   if (http_error(resp)) {
     cat(message_for_status(resp), "\n")
     cat(content(resp, "text", encoding = "utf-8"), "\n")
   }
-
-  if (http_type(resp) != "text/plain")
-    stop("API did not return text/plain", call. = FALSE)
 
   resp
 }

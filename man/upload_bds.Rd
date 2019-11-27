@@ -5,7 +5,7 @@
 \title{Upload and parse BDS file to JAMES}
 \usage{
 upload_bds(bds, host = "https://groeidiagrammen.nl",
-  path = "ocpu/library/james")
+  path = "ocpu/library/james/R/convert_bds_ind")
 }
 \arguments{
 \item{bds}{File name or a string referring to the data (in JSON
@@ -32,20 +32,31 @@ function returns various url's on the uploaded data.
 At present there is only minimal error checking on the BDS file.
 }
 \examples{
-library(jamesclient)
+fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamestest")
 
-# upload as JSON file
-fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
+# upload JSON file to groeidiagrammen.nl
 r1 <- upload_bds(fn)
-get_url(r1, "return")
+httr::status_code(r1)
+
+# upload JSON file to localhost
+host <- "http://localhost:5656"
+path <- "ocpu/apps/stefvanbuuren/james/R/convert_bds_ind"
+r2 <- upload_bds(fn, host = host, path = path)
+httr::status_code(r2)
+
+# upload JSON string
+js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
+r3 <- upload_bds(js)
+httr::status_code(r3)
+
+# upload JSON from URL
+url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
+r4 <- upload_bds(url)
+httr::status_code(r4)
 
 \dontrun{
-# upload as JSON string
-data("installed.cabinets", package = "groeidiagrammen")
-ind <- installed.cabinets[[3]][[4]]
-js <- minihealth::convert_individual_bds(ind)
-r2 <- upload_bds(js)
-get_url(r2, "return")
+# the following does not yet work
+r5 <- upload_bds(url, host = host, path = path)
 }
 }
 \seealso{
