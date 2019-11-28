@@ -8,7 +8,7 @@ request_site(bds = NULL, ssd = NULL,
   host = "https://groeidiagrammen.nl", path = "ocpu/library/james")
 }
 \arguments{
-\item{bds}{File name or a string referring to the data (in JSON
+\item{bds}{File name, JSON string or URL to the data (in JSON
 format) to be uploaded. The variable specification are expected
 to be according specification
 \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS

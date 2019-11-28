@@ -3,7 +3,7 @@
 #' This function constructs a URL to a site that shows a personalised
 #' growth chart. The site includes a nagivation bar so that the end
 #' user can tweak chart choice.
-#' @param bds File name or a string referring to the data (in JSON
+#' @param bds File name, JSON string or URL to the data (in JSON
 #'   format) to be uploaded. The variable specification are expected
 #'   to be according specification
 #'   \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS

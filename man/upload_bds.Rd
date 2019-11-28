@@ -5,10 +5,10 @@
 \title{Upload and parse BDS file to JAMES}
 \usage{
 upload_bds(bds, host = "https://groeidiagrammen.nl",
-  path = "ocpu/library/james/R/convert_bds_ind")
+  path = "ocpu/library/james/R/convert_bds_ind", query = NULL)
 }
 \arguments{
-\item{bds}{File name or a string referring to the data (in JSON
+\item{bds}{File name, JSON string or URL to the data (in JSON
 format) to be uploaded. The variable specification are expected
 to be according specification
 \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS
@@ -19,6 +19,8 @@ to be according specification
 
 \item{path}{Path to JAMES application on host. Defaults to
 \code{ocpu/library/james}.}
+
+\item{query}{Passed down to \code{\link[httr]{modify_url}}.}
 }
 \value{
 An object of class \code{\link[httr:response]{response}}
@@ -28,35 +30,50 @@ Uploads a JSON file or string with BDS-coded data, parses its
 contents into an object of class \code{individual}. The
 function returns various url's on the uploaded data.
 }
+\details{
+Append \code{"/json"} to \code{path} and set \code{query = "auto_unbox=TRUE&force=TRUE"}
+to obtain a partial JSON representation of the S4 class \code{individual}. At present, it is not
+possible to rebuild the S4 class individual from its JSON representation because
+the S4 class depends on environments, and these are not converted to JSON.
+}
 \note{
 At present there is only minimal error checking on the BDS file.
 }
 \examples{
-fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamestest")
+library(httr)
+fn  <- system.file("extdata", "allegrosultum", "client3.json", package = "jamestest")
+js  <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
+url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 
-# upload JSON file to groeidiagrammen.nl
+# upload JSON file
 r1 <- upload_bds(fn)
-httr::status_code(r1)
-
-# upload JSON file to localhost
-host <- "http://localhost:5656"
-path <- "ocpu/apps/stefvanbuuren/james/R/convert_bds_ind"
-r2 <- upload_bds(fn, host = host, path = path)
-httr::status_code(r2)
+status_code(r1)
 
 # upload JSON string
-js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
-r3 <- upload_bds(js)
-httr::status_code(r3)
+r2 <- upload_bds(js)
+status_code(r2)
 
-# upload JSON from URL
-url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
-r4 <- upload_bds(url)
-httr::status_code(r4)
+# upload JSON from external URL
+r3 <- upload_bds(url)
+status_code(r3)
 
+# obtain the (partial) JSON representation of the uploaded data
+path <- file.path("ocpu/library/james/R/convert_bds_ind", "json")
+uploaded <- upload_bds(fn, path = path, query = "auto_unbox=TRUE&force=TRUE")
 \dontrun{
-# the following does not yet work
-r5 <- upload_bds(url, host = host, path = path)
+# upload to localhost
+host <- "http://localhost:5656"
+path <- "ocpu/apps/stefvanbuuren/james/R/convert_bds_ind"
+
+r4 <- upload_bds(fn, host = host, path = path)
+status_code(r4)
+
+r5 <- upload_bds(js, host = host, path = path)
+status_code(r5)
+
+# uploading url to localhost does not work:
+r6 <- upload_bds(url, host = host, path = path)
+status_code(r6)
 }
 }
 \seealso{
