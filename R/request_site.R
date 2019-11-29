@@ -86,8 +86,8 @@ request_site <- function(bds = NULL,
     resp <- upload_bds(bds,
                        host = host,
                        path = paste(path, "R/convert_bds_ind", sep = "/"))
-    if (!http_error(resp)) ssd <- get_url(resp, "location")
-    else stop("Could not upload data")
+    stop_for_status(resp, "upload data")
+    ssd <- get_url(resp, "location")
   }
 
   # return url to personalised site
