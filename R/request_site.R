@@ -56,7 +56,7 @@
 #' # --- this does not work
 #' r1 <- upload_bds(fn,
 #'                  host = "http://localhost:5656",
-#'                  path = "ocpu/apps/stefvanbuuren/james")
+#'                  path = "ocpu/apps/stefvanbuuren/james/R/convert_bds_ind")
 #' ssd <- get_url(r1, "location")
 #' site_url <- request_site(ssd = ssd,
 #'                          host = "http://localhost:5656",
@@ -82,8 +82,11 @@ request_site <- function(bds = NULL,
 
   # upload the data if needed, and get url to individual data
   if (!is.null(bds)) {
-    resp <- upload_bds(bds)
+    resp <- upload_bds(bds,
+                       host = host,
+                       path = paste(path, "R/convert_bds_ind", sep = "/"))
     if (!http_error(resp)) ssd <- get_url(resp, "location")
+    else stop("Could not upload data")
   }
 
   # return url to personalised site

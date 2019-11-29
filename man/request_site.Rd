@@ -73,7 +73,7 @@ site_url
 # --- this does not work
 r1 <- upload_bds(fn,
                  host = "http://localhost:5656",
-                 path = "ocpu/apps/stefvanbuuren/james")
+                 path = "ocpu/apps/stefvanbuuren/james/R/convert_bds_ind")
 ssd <- get_url(r1, "location")
 site_url <- request_site(ssd = ssd,
                          host = "http://localhost:5656",
