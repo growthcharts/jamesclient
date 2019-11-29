@@ -78,7 +78,8 @@ request_site <- function(bds = NULL,
                          ssd  = NULL,
                          host = "https://groeidiagrammen.nl",
                          path = "ocpu/library/james") {
-  app <- paste(host, path, "www/", sep = "/")
+  if (host == "http://localhost:5656")
+    path <- "ocpu/apps/stefvanbuuren/james"
 
   # upload the data if needed, and get url to individual data
   if (!is.null(bds)) {
@@ -92,5 +93,7 @@ request_site <- function(bds = NULL,
   # return url to personalised site
   if (is.null(ssd)) param <- character(0)
   else param <- paste("?ind", ssd, sep = "=")
+
+  app <- paste(host, path, "www/", sep = "/")
   paste0(app, param)
 }
