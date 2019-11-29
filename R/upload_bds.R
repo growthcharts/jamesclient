@@ -20,15 +20,15 @@
 #'
 #' # upload JSON file
 #' r1 <- upload_bds(fn)
-#' status_code(r1)
+#' identical(status_code(r1), 201)
 #'
 #' # upload JSON string
 #' r2 <- upload_bds(js)
-#' status_code(r2)
+#' identical(status_code(r2), 201)
 #'
 #' # upload JSON from external URL
 #' r3 <- upload_bds(url)
-#' status_code(r3)
+#' identical(status_code(r3), 201)
 #'
 #' # obtain the (partial) JSON representation of the uploaded data
 #' path <- file.path("ocpu/library/james/R/convert_bds_ind", "json")
@@ -57,19 +57,18 @@ upload_bds <- function(bds,
                        path = "ocpu/library/james/R/convert_bds_ind",
                        query = NULL) {
 
-  if (file.exists(bds[1L])) {  # bds: file upload
-    resp <- POST(url = host,
-                 path = path,
+  url <- modify_url(url = host, path = path, query = query)
+
+  if (file.exists(bds[1L]))
+    # bds is a file upload
+    resp <- POST(url = url,
                  body = list(txt = upload_file(bds)),
-                 query = query,
                  encode = "multipart")
-  } else {    # bds: JSON string or URL
-    resp <- POST(url = host,
-                 path = path,
+  else
+    # bds is a JSON string or URL
+    resp <- POST(url = url,
                  body = list(txt = bds),
-                 query = query,
                  encode = "json")
-  }
 
   if (http_error(resp)) {
     cat(message_for_status(resp), "\n")

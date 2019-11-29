@@ -47,15 +47,15 @@ url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 
 # upload JSON file
 r1 <- upload_bds(fn)
-status_code(r1)
+identical(status_code(r1), 201)
 
 # upload JSON string
 r2 <- upload_bds(js)
-status_code(r2)
+identical(status_code(r2), 201)
 
 # upload JSON from external URL
 r3 <- upload_bds(url)
-status_code(r3)
+identical(status_code(r3), 201)
 
 # obtain the (partial) JSON representation of the uploaded data
 path <- file.path("ocpu/library/james/R/convert_bds_ind", "json")
