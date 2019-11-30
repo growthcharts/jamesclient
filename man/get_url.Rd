@@ -6,7 +6,7 @@
 \title{Get url from OpenCPU response}
 \usage{
 get_url(resp, name = c("return", "location", "session", "console",
-  "stdout", "svg", "messages"), ...)
+  "stdout", "svg", "messages", "warnings"), ...)
 
 get_url_svg(resp, pad = "?width=7&height=7", ...)
 }

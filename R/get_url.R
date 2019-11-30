@@ -13,7 +13,8 @@
 #' @export
 get_url <- function(resp,
                     name = c("return", "location", "session",
-                             "console", "stdout", "svg", "messages"),
+                             "console", "stdout", "svg", "messages",
+                             "warnings"),
                     ...) {
   name <- match.arg(name)
   switch(name,
@@ -23,6 +24,7 @@ get_url <- function(resp,
          stdout = get_url_stdout(resp, ...),
          svg = get_url_svg(resp, ...),
          messages = get_url_messages(resp, ...),
+         messages = get_url_warnings(resp, ...),
          console = get_url_console(resp, ...),
          character(0))
 }
@@ -64,6 +66,12 @@ get_url_messages <- function(resp, ...) {
     paste0(headers(resp)$location, "messages")
   else character(0)
 }
+get_url_warnings <- function(resp, ...) {
+  if (has_pattern(resp, "warnings"))
+    paste0(headers(resp)$location, "warnings")
+  else character(0)
+}
+
 
 has_pattern <- function(resp, pattern = "") {
   grepl(pattern, content(resp, "text"))

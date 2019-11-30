@@ -73,27 +73,37 @@ upload_bds <- function(bds,
                  encode = "json",
                  ua)
 
-  if (http_error(resp))
-    stop(paste0(message_for_status(resp), "\n",
-                content(resp, "text", encoding = "utf-8")),
-         call. = FALSE)
+  # stop for unsuccesful request
+  stop_for_status(resp,
+                  task = paste0("upload data", "\n  ",
+                                content(resp, "text", encoding = "utf-8")))
 
-  if (!http_type(resp) %in% c("text/plain", "application/json"))
-    stop("API did not return text or json", call. = FALSE)
+  # throw warnings and messages
+  url_warnings <- get_url(resp, "warnings")
+  url_messages <- get_url(resp, "messages")
+  if (length(url_warnings) >= 1L)
+    warning(content(GET(url_warnings, "text", encoding = "utf-8")))
+  if (length(url_messages) >= 1L)
+    message(content(GET(url_messages, "text", encoding = "utf-8")))
 
-  if (http_type(resp) == "text/plain") parsed <- content(resp, "text")
-  else parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
-
-  if (http_error(resp)) {
-    stop(
-      sprintf(
-        "JAMES API request failed [%s]\n%s",
-        status_code(resp),
-        parsed
-      ),
-      call. = FALSE
-    )
-  }
+  # if (!http_type(resp) %in% c("text/plain", "application/json"))
+  #   stop("API did not return text or json", call. = FALSE)
+  #
+  # if (http_type(resp) == "text/plain")
+  #   parsed <- content(resp, "text", encoding = "utf-8")
+  # else
+  #   parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "utf-8"),
+  #                                simplifyVector = FALSE)
+  # if (http_error(resp)) {
+  #   stop(
+  #     sprintf(
+  #       "JAMES API request failed [%s]\n%s",
+  #       status_code(resp),
+  #       parsed
+  #     ),
+  #     call. = FALSE
+  #   )
+  # }
   # structure(
   #   list(
   #     value = get_url(resp = resp, "return"),

@@ -102,4 +102,5 @@ test_that("test22.json (range checking) PASSES",
           expect_equal(status_code(upload_bds(jtf[22], host = host, path = path)), 201L))
 
 test_that("test23.json (multiple messages) PASSES",
-          expect_equal(status_code(upload_bds(jtf[23], host = host, path = path)), 201L))
+          expect_message(upload_bds(jtf[23], host = host, path = path),
+                         '[{"bdsnummer":91,"description":"Smoking during pregnancy","expected":"one of: 1, 2, 99","supplied":"1","supplied_type":"numeric"}]'))
