@@ -13,7 +13,7 @@
 #' @export
 get_url <- function(resp,
                     name = c("return", "location", "session",
-                             "console", "stdout", "svg", "message"),
+                             "console", "stdout", "svg", "messages"),
                     ...) {
   name <- match.arg(name)
   switch(name,
@@ -22,7 +22,7 @@ get_url <- function(resp,
          session = get_url_session(resp, ...),
          stdout = get_url_stdout(resp, ...),
          svg = get_url_svg(resp, ...),
-         message = get_url_message(resp, ...),
+         messages = get_url_messages(resp, ...),
          console = get_url_console(resp, ...),
          character(0))
 }
@@ -59,7 +59,7 @@ get_url_console <- function(resp, ...) {
   else character(0)
 }
 
-get_url_message <- function(resp, ...) {
+get_url_messages <- function(resp, ...) {
   if (has_pattern(resp, "message"))
     paste0(headers(resp)$location, "messages")
   else character(0)
