@@ -20,15 +20,15 @@
 #'
 #' # upload JSON file
 #' r1 <- upload_bds(fn)
-#' identical(status_code(r1), 201)
+#' identical(status_code(r1), 201L)
 #'
 #' # upload JSON string
 #' r2 <- upload_bds(js)
-#' identical(status_code(r2), 201)
+#' identical(status_code(r2), 201L)
 #'
 #' # upload JSON from external URL
 #' r3 <- upload_bds(url)
-#' identical(status_code(r3), 201)
+#' identical(status_code(r3), 201L)
 #'
 #' # obtain the (partial) JSON representation of the uploaded data
 #' path <- file.path("ocpu/library/james/R/convert_bds_ind", "json")
@@ -57,23 +57,61 @@ upload_bds <- function(bds,
                        path = "ocpu/library/james/R/convert_bds_ind",
                        query = NULL) {
 
+  ua <- user_agent("https://github.com/stefvanbuuren/httr")
   url <- modify_url(url = host, path = path, query = query)
 
   if (file.exists(bds[1L]))
     # bds is a file upload
     resp <- POST(url = url,
                  body = list(txt = upload_file(bds)),
-                 encode = "multipart")
+                 encode = "multipart",
+                 ua)
   else
     # bds is a JSON string or URL
     resp <- POST(url = url,
                  body = list(txt = bds),
-                 encode = "json")
+                 encode = "json",
+                 ua)
+
+  if (http_error(resp))
+    stop(paste0(message_for_status(resp), "\n",
+                content(resp, "text", encoding = "utf-8")),
+         call. = FALSE)
+
+  if (!http_type(resp) %in% c("text/plain", "application/json"))
+    stop("API did not return text or json", call. = FALSE)
+
+  if (http_type(resp) == "text/plain") parsed <- content(resp, "text")
+  else parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
 
   if (http_error(resp)) {
-    cat(message_for_status(resp), "\n")
-    cat(content(resp, "text", encoding = "utf-8"), "\n")
+    stop(
+      sprintf(
+        "JAMES API request failed [%s]\n%s",
+        status_code(resp),
+        parsed
+      ),
+      call. = FALSE
+    )
   }
-
+  # structure(
+  #   list(
+  #     value = get_url(resp = resp, "return"),
+  #     path = path,
+  #     response = resp
+  #   ),
+  #   class = "james_api"
+  # )
   resp
 }
+
+# print.james_api <- function(x, ...) {
+#   cat("<JAMES ", x$path, ">\n", sep = "")
+#   str(x$value)
+#   invisible(x)
+# }
+
+rate_limit <- function() {
+  upload_bds("/rate_limit")
+}
+

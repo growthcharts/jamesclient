@@ -32,10 +32,47 @@ test_that("test1.json (client3.json) uploads",
           expect_equal(status_code(upload_bds(jtf[1], host = host, path = path)), 201))
 
 test_that("test3.json (missing OrganisatieCode) FAILS",
-          expect_equal(status_code(upload_bds(jtf[3], host = host, path = path)), 400))
+          expect_error(upload_bds(jtf[3], host = host, path = path),
+                       "should have required property 'OrganisatieCode'"))
 
 test_that("test4.json (wrong type) FAILS",
-          expect_equal(status_code(upload_bds(jtf[4], host = host, path = path)), 400))
+          expect_error(upload_bds(jtf[4], host = host, path = path),
+                       ".OrganisatieCode should be integer"))
+
+test_that("test5.json (missing ClientGegevens) FAILS",
+          expect_error(upload_bds(jtf[5], host = host, path = path),
+                       "should have required property 'ClientGegevens'"))
+
+test_that("test6.json (Missing ContactMomenten) PASSES",
+          expect_equal(status_code(upload_bds(jtf[6], host = host, path = path)), 201))
+
+test_that("test7.json (Missing Referentie & OrganisatieCode) FAILS",
+          expect_error(upload_bds(jtf[7], host = host, path = path),
+                       "should have required property 'OrganisatieCode'"))
+
+test_that("test8.json returns error message",
+          expect_error(upload_bds(jtf[8], host = host, path = path),
+                       "lexical error: invalid char in json text."))
+
+test_that("test9.json (Bdsnummer 19 missing) FAILS",
+          expect_error(upload_bds(jtf[9], host = host, path = path),
+                       "required BDS number(s) missing: 19", fixed = TRUE))
+
+test_that("test10.json (Bdsnummer 20 missing) FAILS",
+          expect_error(convert_bds_individual(jtf[10]),
+                       "required BDS number(s) missing: 20", fixed = TRUE))
+
+test_that("test11.json (Bdsnummer 82 missing) PASSES",
+          expect_s4_class(convert_bds_individual(jtf[11]), "individual"))
+
+test_that("test12.json (Bdsnummer 91 missing) PASSES",
+          expect_s4_class(convert_bds_individual(jtf[12]), "individual"))
+
+test_that("test13.json (Bdsnummer 110 missing) PASSES",
+          expect_s4_class(convert_bds_individual(jtf[13]), "individual"))
+
+test_that("test14.json return error message",
+          expect_error(convert_bds_individual(jtf[14]), "premature EOF"))
 
 test_that("test8.json (wrong type) FAILS",
           expect_equal(status_code(upload_bds(jtf[8], host = host, path = path)), 400))
