@@ -82,9 +82,9 @@ upload_bds <- function(bds,
   url_warnings <- get_url(resp, "warnings")
   url_messages <- get_url(resp, "messages")
   if (length(url_warnings) >= 1L)
-    warning(content(GET(url_warnings, "text", encoding = "utf-8")))
+    warning(content(GET(url_warnings), "text", encoding = "utf-8"))
   if (length(url_messages) >= 1L)
-    message(content(GET(url_messages, "text", encoding = "utf-8")))
+    message(content(GET(url_messages), "text", encoding = "utf-8"))
 
   # if (!http_type(resp) %in% c("text/plain", "application/json"))
   #   stop("API did not return text or json", call. = FALSE)
