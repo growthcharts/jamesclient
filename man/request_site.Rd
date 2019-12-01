@@ -64,29 +64,25 @@ site_url <- request_site(bds = fn)
 site_url
 
 \dontrun{
-# using localhost
-# request_site does not work on localhost, presumably
-# because the local machine does not run a full webserver
-# however, if file is uploaded to groeidiagrammen.nl,
-# then the localhost can download data from there
+# using localhost:
+# request_site() does not work with localhost, presumably
+# because the local machine does not run a full webserver.
+# However, if file is uploaded to a remote host,
+# then request_site() works.
 
-# --- this does not work
-r1 <- upload_bds(fn,
-                 host = "http://localhost:5656",
-                 path = "ocpu/apps/stefvanbuuren/james/R/convert_bds_ind")
+local <- "http://localhost:5656"
+
+# --- browseURL() fails if we upload data to local host
+r1 <- upload_bds(fn, host = local)
 ssd <- get_url(r1, "location")
-site_url <- request_site(ssd = ssd,
-                         host = "http://localhost:5656",
-                         path = "ocpu/apps/stefvanbuuren/james")
+site_url <- request_site(ssd = ssd, host = local)
 site_url
 # browseURL(site_url)
 
-# --- this will work
+# --- browseURL() works if we upload data to remote host
 r1 <- upload_bds(fn)
 ssd <- get_url(r1, "location")
-site_url <- request_site(ssd = ssd,
-                         host = "http://localhost:5656",
-                         path = "ocpu/apps/stefvanbuuren/james")
+site_url <- request_site(ssd = ssd, host = local)
 site_url
 # browseURL(site_url)
 }
