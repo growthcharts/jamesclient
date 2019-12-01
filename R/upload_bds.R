@@ -1,17 +1,38 @@
 #' Upload and parse BDS file to JAMES
 #'
-#' Uploads a JSON file or string with BDS-coded data, parses its
-#' contents into an object of class \code{individual}. The
-#' function returns various url's on the uploaded data.
-#' @note At present there is only minimal error checking on the BDS file.
+#' Uploads a JSON file, string or URL with BDS data, checks the data,
+#' stores its contents as an object of class
+#' \code{\link[minihealth:individual-class]{individual}} on the server,
+#' and returns an object of class \code{\link[httr:response]{response}}
+#' that contains the results of the request.
 #' @inheritParams request_site
+#' @param path  The end point of the request, typically an R function.
+#' The default is \code{path = "ocpu/library/james/R/convert_bds_ind"}
 #' @param query Passed down to \code{\link[httr]{modify_url}}.
 #' @return An object of class \code{\link[httr:response]{response}}
 #' @details
+#' JSON format: See
+#' \url{https://stefvanbuuren.name/jamesdocs/getting-data-into-james.html}
+#' for the specification of the JSON format.
+#'
+#' User agent: The function \code{upload_bds()} searches for an object called \code{ua} on the search
+#' list. The \code{ua} object is an optional user agent, a request that identifies
+#' yourself to the API. For example, run
+#' \code{httr::user_agent("https://github.com/myaccount")} (with
+#' \code{myaccount} replaced by your github user name) before
+#' calling \code{upload_bds()}. See
+#' \url{https://httr.r-lib.org/articles/api-packages.html} for details. Setting
+#' the user agent is not required.
+#'
 #' Append \code{"/json"} to \code{path} and set \code{query = "auto_unbox=TRUE&force=TRUE"}
 #' to obtain a partial JSON representation of the S4 class \code{individual}. At present, it is not
-#' possible to rebuild the S4 class individual from its JSON representation because
+#' possible to rebuild the S4 class \code{individual} from its JSON representation because
 #' the S4 class depends on environments, and these are not converted to JSON.
+#' Warning: The S4 class
+#' \code{individual} is an internal format that is in development. It is likely to
+#' change, so don't build applications based on this data structure. If you need
+#' components from the internal structure (e.g. Z-scores, brokenstick estimates) it
+#' is better to develop a dedicated API for obtaining these.
 #' @examples
 #' library(httr)
 #' fn  <- system.file("extdata", "allegrosultum", "client3.json", package = "jamestest")
@@ -30,9 +51,10 @@
 #' r3 <- upload_bds(url)
 #' identical(status_code(r3), 201L)
 #'
-#' # obtain the (partial) JSON representation of the uploaded data
+#' # just for checking: obtain the (partial) JSON representation of the uploaded data
 #' path <- file.path("ocpu/library/james/R/convert_bds_ind", "json")
 #' uploaded <- upload_bds(fn, path = path, query = "auto_unbox=TRUE&force=TRUE")
+#'
 #' \dontrun{
 #' # upload to localhost
 #' host <- "http://localhost:5656"
@@ -57,10 +79,11 @@ upload_bds <- function(bds,
                        path = "ocpu/library/james/R/convert_bds_ind",
                        query = NULL) {
 
-  ua <- user_agent("https://github.com/stefvanbuuren/httr")
   url <- modify_url(url = host, path = path, query = query)
+  bds <- bds[[1L]]
+  ua <- get0("ua", mode = "list")
 
-  if (file.exists(bds[1L]))
+  if (file.exists(bds))
     # bds is a file upload
     resp <- POST(url = url,
                  body = list(txt = upload_file(bds)),
@@ -86,42 +109,5 @@ upload_bds <- function(bds,
   if (length(url_messages) >= 1L)
     message(content(GET(url_messages), "text", encoding = "utf-8"))
 
-  # if (!http_type(resp) %in% c("text/plain", "application/json"))
-  #   stop("API did not return text or json", call. = FALSE)
-  #
-  # if (http_type(resp) == "text/plain")
-  #   parsed <- content(resp, "text", encoding = "utf-8")
-  # else
-  #   parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "utf-8"),
-  #                                simplifyVector = FALSE)
-  # if (http_error(resp)) {
-  #   stop(
-  #     sprintf(
-  #       "JAMES API request failed [%s]\n%s",
-  #       status_code(resp),
-  #       parsed
-  #     ),
-  #     call. = FALSE
-  #   )
-  # }
-  # structure(
-  #   list(
-  #     value = get_url(resp = resp, "return"),
-  #     path = path,
-  #     response = resp
-  #   ),
-  #   class = "james_api"
-  # )
   resp
 }
-
-# print.james_api <- function(x, ...) {
-#   cat("<JAMES ", x$path, ">\n", sep = "")
-#   str(x$value)
-#   invisible(x)
-# }
-
-rate_limit <- function() {
-  upload_bds("/rate_limit")
-}
-
