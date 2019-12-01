@@ -1,3 +1,7 @@
+# jamesclient 0.7.0
+
+- Make upload_bds() aware of server errors, warnings and messages
+
 # jamesclient 0.6.0
 
 - Add test infrastructure
