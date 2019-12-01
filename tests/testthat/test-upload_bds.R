@@ -104,3 +104,15 @@ test_that("test22.json (range checking) PASSES",
 test_that("test23.json (multiple messages) PASSES",
           expect_message(upload_bds(jtf[23], host = host, path = path),
                          '[{"bdsnummer":91,"description":"Smoking during pregnancy","expected":"one of: 1, 2, 99","supplied":"1","supplied_type":"numeric"}]'))
+
+
+fn  <- system.file("extdata", "smocc", "Laura_S.json", package = "jamestest")
+js  <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
+
+host <- "http://vps.stefvanbuuren.nl"
+
+test_that("Laura_S.json file uploads to vps.stefvanbuuren.nl",
+          expect_equal(status_code(upload_bds(fn, host = host)), 201))
+
+test_that("Laura_S.json file uploads to vps.stefvanbuuren.nl",
+          expect_equal(status_code(upload_bds(js, host = host)), 201))
