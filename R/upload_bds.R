@@ -83,18 +83,26 @@ upload_bds <- function(bds,
   bds <- bds[[1L]]
   ua <- get0("ua", mode = "list")
 
-  if (file.exists(bds))
-    # bds is a file upload
+  if (file.exists(bds)) {
+    # bds is a file name
     resp <- POST(url = url,
                  body = list(txt = upload_file(bds)),
                  encode = "multipart",
                  ua)
-  else
-    # bds is a JSON string or URL
+  } else if (!is.null(parse_url(bds))) {
+    # bds is a URL
     resp <- POST(url = url,
                  body = list(txt = bds),
                  encode = "json",
                  ua)
+  } else {
+    # bds is a JSON string
+    if (validate(bds))
+      resp <- POST(url = url,
+                   body = list(txt = bds),
+                   encode = "json",
+                   ua)
+  }
 
   # throw warnings and messages
   url_warnings <- get_url(resp, "warnings")
