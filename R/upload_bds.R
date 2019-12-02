@@ -96,11 +96,6 @@ upload_bds <- function(bds,
                  encode = "json",
                  ua)
 
-  # stop for unsuccesful request
-  stop_for_status(resp,
-                  task = paste0("upload data", "\n  ",
-                                content(resp, "text", encoding = "utf-8")))
-
   # throw warnings and messages
   url_warnings <- get_url(resp, "warnings")
   url_messages <- get_url(resp, "messages")
@@ -108,6 +103,11 @@ upload_bds <- function(bds,
     warning(content(GET(url_warnings), "text", encoding = "utf-8"))
   if (length(url_messages) >= 1L)
     message(content(GET(url_messages), "text", encoding = "utf-8"))
+
+  # stop for unsuccesful request
+  stop_for_status(resp,
+                  task = paste0("upload data", "\n  ",
+                                content(resp, "text", encoding = "utf-8")))
 
   resp
 }
