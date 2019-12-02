@@ -82,7 +82,7 @@ request_site <- function(bds = NULL,
     resp <- upload_bds(bds,
                        host = host,
                        path = paste(path, "R/convert_bds_ind", sep = "/"))
-    stop_for_status(resp, "upload data")
+    warn_for_status(resp, "upload data")
     ssd <- get_url(resp, "location")
   }
 
