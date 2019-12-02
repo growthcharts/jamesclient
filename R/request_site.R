@@ -78,22 +78,24 @@ request_site <- function(bds = NULL,
     path <- "ocpu/apps/stefvanbuuren/james"
   app <- paste(host, path, "www/", sep = "/")
 
-  # upload the data if needed, and get url to individual data
+  # upload the data if given, and get url to individual data
   if (!is.null(bds)) {
-    tryCatch(
-      error = function(cnd) {
-        warning("Failed to upload data")
-        app
-      },
-      resp <- upload_bds(bds,
-                       host = host,
-                       path = paste(path, "R/convert_bds_ind", sep = "/"))
-    )
+    get_ssd <- function(bds) {
+      tryCatch(
+        error = function(cnd) NULL,
+        {
+          resp <- upload_bds(bds, host = host,
+                             path = paste(path, "R/convert_bds_ind", sep = "/"))
+          get_url(resp, "location")
+        }
+      )
+    }
+    ssd <- get_ssd(bds)
   }
 
   # return url to personalised site
-  ssd <- get_url(resp, "location")
   if (is.null(ssd)) param <- character(0)
   else param <- paste("?ind", ssd, sep = "=")
+
   paste0(app, param)
 }
