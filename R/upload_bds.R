@@ -88,13 +88,15 @@ upload_bds <- function(bds,
     resp <- POST(url = url,
                  body = list(txt = upload_file(bds)),
                  encode = "multipart",
-                 ua)
+                 ua,
+                 add_headers(Accept = "plain/text"))
   else
     # bds is a URL or a JSON string
     resp <- POST(url = url,
                  body = list(txt = bds),
                  encode = "json",
-                 ua)
+                 ua,
+                 add_headers(Accept = "plain/text"))
 
   # throw warnings and messages
   url_warnings <- get_url(resp, "warnings")
@@ -105,9 +107,9 @@ upload_bds <- function(bds,
     message(content(GET(url_messages), "text", encoding = "utf-8"))
 
   # stop for unsuccesful request
-  stop_for_status(resp,
-                  task = paste0("upload data", "\n  ",
-                                content(resp, "text", encoding = "utf-8")))
+  # stop_for_status(resp,
+  #                 task = paste0("upload data", "\n  ",
+  #                               content(resp, "text", encoding = "utf-8")))
 
   resp
 }
