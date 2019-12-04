@@ -31,6 +31,9 @@ jtf <- system.file("extdata", "test", paste0("test", 1:23, ".json"), package = "
 test_that("test1.json (client3.json) uploads",
           expect_equal(status_code(upload_bds(jtf[1], host = host, path = path)), 201))
 
+test_that("test2.json (missing referentie) PASSES",
+          expect_equal(status_code(upload_bds(jtf[2], host = host, path = path)), 201))
+
 test_that("test3.json (missing OrganisatieCode) FAILS",
           expect_error(upload_bds(jtf[3], host = host, path = path), class = "http_400"))
 
