@@ -34,29 +34,29 @@ test_that("test1.json (client3.json) uploads",
 test_that("test2.json (missing referentie) PASSES",
           expect_equal(status_code(upload_bds(jtf[2], host = host, path = path)), 201))
 
-test_that("test3.json (missing OrganisatieCode) FAILS",
-          expect_error(upload_bds(jtf[3], host = host, path = path), class = "http_400"))
+test_that("test3.json (missing OrganisatieCode) PASSES",
+          expect_equal(status_code(upload_bds(jtf[3], host = host, path = path)), 201))
 
-test_that("test4.json (wrong type) FAILS",
-          expect_error(upload_bds(jtf[4], host = host, path = path), class = "http_400"))
+test_that("test4.json (wrong type) PASSES",
+          expect_equal(status_code(upload_bds(jtf[4], host = host, path = path)), 201))
 
-test_that("test5.json (missing ClientGegevens) FAILS",
-          expect_error(upload_bds(jtf[5], host = host, path = path), class = "http_400"))
+test_that("test5.json (missing ClientGegevens) PASSES",
+          expect_equal(status_code(upload_bds(jtf[5], host = host, path = path)), 201))
 
 test_that("test6.json (Missing ContactMomenten) PASSES",
           expect_equal(status_code(upload_bds(jtf[6], host = host, path = path)), 201))
 
-test_that("test7.json (Missing Referentie & OrganisatieCode) FAILS",
-          expect_error(upload_bds(jtf[7], host = host, path = path), class = "http_400"))
+test_that("test7.json (Missing Referentie & OrganisatieCode) PASSES",
+          expect_equal(status_code(upload_bds(jtf[7], host = host, path = path)), 201))
 
-test_that("test8.json returns error message",
-          expect_error(upload_bds(jtf[8], host = host, path = path), class = "http_400"))
+test_that("test8.json returns status 400",
+          expect_equal(status_code(upload_bds(jtf[8], host = host, path = path)), 400))
 
-test_that("test9.json (Bdsnummer 19 missing) FAILS",
-          expect_error(upload_bds(jtf[9], host = host, path = path), class = "http_400"))
+test_that("test9.json (Bdsnummer 19 missing) PASSES",
+          expect_equal(status_code(upload_bds(jtf[9], host = host, path = path)), 201))
 
-test_that("test10.json (Bdsnummer 20 missing) FAILS",
-          expect_error(upload_bds(jtf[10], host = host, path = path), class = "http_400"))
+test_that("test10.json (Bdsnummer 20 missing) PASSES",
+          expect_equal(status_code(upload_bds(jtf[10], host = host, path = path)), 201))
 
 test_that("test11.json (Bdsnummer 82 missing) PASSES",
           expect_equal(status_code(upload_bds(jtf[11], host = host, path = path)), 201L))
@@ -67,8 +67,8 @@ test_that("test12.json (Bdsnummer 91 missing) PASSES",
 test_that("test13.json (Bdsnummer 110 missing) PASSES",
           expect_equal(status_code(upload_bds(jtf[13], host = host, path = path)), 201L))
 
-test_that("test14.json return error message",
-          expect_error(upload_bds(jtf[14], host = host, path = path), class = "http_400"))
+test_that("test14.json return status 400",
+          expect_equal(status_code(upload_bds(jtf[14], host = host, path = path)), 400))
 
 test_that("test15.json (Bdsnummer 19 numeric) PASSES with message",
           expect_message(upload_bds(jtf[15], host = host, path = path),

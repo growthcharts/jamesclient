@@ -1,5 +1,5 @@
 #' @importFrom curl         curl
-#' @importFrom httr         build_url content GET headers
+#' @importFrom httr         add_headers build_url content GET headers
 #'                          http_error http_type message_for_status
 #'                          modify_url parse_url POST status_code
 #'                          stop_for_status upload_file user_agent
