@@ -4,8 +4,12 @@
 \alias{upload_bds}
 \title{Upload and parse BDS file to JAMES}
 \usage{
-upload_bds(bds, host = "https://groeidiagrammen.nl",
-  path = "ocpu/library/james/R/convert_bds_ind", query = NULL)
+upload_bds(
+  bds,
+  host = "https://groeidiagrammen.nl",
+  path = "ocpu/library/james/R/convert_bds_ind",
+  query = NULL
+)
 }
 \arguments{
 \item{bds}{File name, JSON string or URL to the data (in JSON

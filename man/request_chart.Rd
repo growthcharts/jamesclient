@@ -4,8 +4,12 @@
 \alias{request_chart}
 \title{Request a growth chart from JAMES}
 \usage{
-request_chart(file = NULL, ssd = NULL, chartcode = NULL,
-  curve_interpolation = TRUE)
+request_chart(
+  file = NULL,
+  ssd = NULL,
+  chartcode = NULL,
+  curve_interpolation = TRUE
+)
 }
 \arguments{
 \item{file}{File name of data. The variable specification are

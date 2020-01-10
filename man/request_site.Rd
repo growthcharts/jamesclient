@@ -4,8 +4,12 @@
 \alias{request_site}
 \title{Request site containing personalised charts}
 \usage{
-request_site(bds = NULL, ssd = NULL,
-  host = "https://groeidiagrammen.nl", path = "ocpu/library/james")
+request_site(
+  bds = NULL,
+  ssd = NULL,
+  host = "https://groeidiagrammen.nl",
+  path = "ocpu/library/james"
+)
 }
 \arguments{
 \item{bds}{File name, JSON string or URL to the data (in JSON
