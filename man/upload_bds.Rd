@@ -64,7 +64,7 @@ is better to develop a dedicated API for obtaining these.
 library(httr)
 fn  <- system.file("extdata", "allegrosultum", "client3.json", package = "jamestest")
 js  <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
-url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
+burl <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 
 # upload JSON file
 r1 <- upload_bds(fn)
@@ -75,7 +75,7 @@ r2 <- upload_bds(js)
 identical(status_code(r2), 201L)
 
 # upload JSON from external URL
-r3 <- upload_bds(url)
+r3 <- upload_bds(burl)
 identical(status_code(r3), 201L)
 
 # just for checking: obtain the (partial) JSON representation of the uploaded data

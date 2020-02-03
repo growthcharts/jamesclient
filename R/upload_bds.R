@@ -37,7 +37,7 @@
 #' library(httr)
 #' fn  <- system.file("extdata", "allegrosultum", "client3.json", package = "jamestest")
 #' js  <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
-#' url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
+#' burl <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 #'
 #' # upload JSON file
 #' r1 <- upload_bds(fn)
@@ -48,7 +48,7 @@
 #' identical(status_code(r2), 201L)
 #'
 #' # upload JSON from external URL
-#' r3 <- upload_bds(url)
+#' r3 <- upload_bds(burl)
 #' identical(status_code(r3), 201L)
 #'
 #' # just for checking: obtain the (partial) JSON representation of the uploaded data
@@ -90,13 +90,15 @@ upload_bds <- function(bds,
                  encode = "multipart",
                  ua,
                  add_headers(Accept = "plain/text"))
-  else
-    # bds is a URL or a JSON string
+  else {
+    # if bds is a URL, read URL and convert to JSON string
+    if (!validate(bds)) bds <- toJSON(fromJSON(bds, flatten = TRUE))
     resp <- POST(url = url,
                  body = list(txt = bds),
                  encode = "json",
                  ua,
                  add_headers(Accept = "plain/text"))
+  }
 
   # throw warnings and messages
   url_warnings <- get_url(resp, "warnings")
@@ -107,9 +109,7 @@ upload_bds <- function(bds,
     message(content(GET(url_messages), "text", encoding = "utf-8"))
 
   # stop for unsuccesful request
-  # stop_for_status(resp,
-  #                 task = paste0("upload data", "\n  ",
-  #                               content(resp, "text", encoding = "utf-8")))
-
-  resp
+  stop_for_status(resp,
+                  task = paste0("upload data", "\n  ",
+                                content(resp, "text", encoding = "utf-8")))
 }
