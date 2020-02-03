@@ -57,6 +57,7 @@
 #'
 #' \dontrun{
 #' # upload to localhost
+#' # Update 3/2/2020 Now it seems to work on localhost. Must check
 #' host <- "http://localhost:5656"
 #' path <- "ocpu/apps/stefvanbuuren/james/R/convert_bds_ind"
 #'
@@ -67,7 +68,7 @@
 #' status_code(r5)
 #'
 #' # uploading url to localhost does not work:
-#' r6 <- upload_bds(url, host = host, path = path)
+#' r6 <- upload_bds(burl, host = host, path = path)
 #' status_code(r6)
 #' }
 #' @seealso \code{\link[minihealth]{convert_bds_individual}},
@@ -82,6 +83,7 @@ upload_bds <- function(bds,
   url <- modify_url(url = host, path = path, query = query)
   bds <- bds[[1L]]
   ua <- get0("ua", mode = "list")
+  try.error <- FALSE
 
   if (file.exists(bds))
     # bds is a file name
@@ -92,7 +94,14 @@ upload_bds <- function(bds,
                  add_headers(Accept = "plain/text"))
   else {
     # if bds is a URL, read URL and convert to JSON string
-    if (!validate(bds)) bds <- toJSON(fromJSON(bds, flatten = TRUE))
+    if (!validate(bds)) {
+      con.url <- try(con <- url(bds, open = 'rb'), silent = TRUE)
+      try.error <- inherits(con.url, "try-error")
+      if (!try.error) {
+        bds <- toJSON(fromJSON(bds, flatten = TRUE))
+        close(con)
+      }
+    }
     resp <- POST(url = url,
                  body = list(txt = bds),
                  encode = "json",
@@ -101,6 +110,7 @@ upload_bds <- function(bds,
   }
 
   # throw warnings and messages
+  if (try.error) warning("Data URL not found (404)")
   url_warnings <- get_url(resp, "warnings")
   url_messages <- get_url(resp, "messages")
   if (length(url_warnings) >= 1L)
