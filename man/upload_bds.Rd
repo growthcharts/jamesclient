@@ -84,6 +84,7 @@ uploaded <- upload_bds(fn, path = path, query = "auto_unbox=TRUE&force=TRUE")
 
 \dontrun{
 # upload to localhost
+# Update 3/2/2020 Now it seems to work on localhost. Must check
 host <- "http://localhost:5656"
 path <- "ocpu/apps/stefvanbuuren/james/R/convert_bds_ind"
 
@@ -94,7 +95,7 @@ r5 <- upload_bds(js, host = host, path = path)
 status_code(r5)
 
 # uploading url to localhost does not work:
-r6 <- upload_bds(url, host = host, path = path)
+r6 <- upload_bds(burl, host = host, path = path)
 status_code(r6)
 }
 }
