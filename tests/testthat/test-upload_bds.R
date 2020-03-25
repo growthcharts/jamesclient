@@ -104,7 +104,7 @@
 # fn  <- system.file("extdata", "smocc", "Laura_S.json", package = "jamestest")
 # js  <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 #
-# host <- "http://vps.stefvanbuuren.nl"
+# host <- "https://vps.stefvanbuuren.nl"
 #
 # test_that("Laura_S.json file uploads to vps.stefvanbuuren.nl",
 #           expect_equal(status_code(upload_bds(fn, host = host)), 201))
