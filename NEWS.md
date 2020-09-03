@@ -1,3 +1,7 @@
+# jamesclient 0.11.0
+
+- Move `upload_txt()` from `james` to `jamesclient` package
+
 # jamesclient 0.7.0
 
 - Make upload_bds() aware of server errors, warnings and messages
