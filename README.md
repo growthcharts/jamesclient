@@ -26,20 +26,19 @@ remotes::install_github("stefvanbuuren/jamesclient")
 
 The primary functions are:
 
-| Function          | Description                                     |
-| ----------------- | ----------------------------------------------- |
-| `upload_bds()`    | Upload BDS-data, convert to `individual` format |
-| `request_chart()` | Upload BDS-data, draw chart with child data     |
-| `request_site()`  | Upload BDS-data, creates a personalised site    |
+| Function          | Description                                 |
+| ----------------- | ------------------------------------------- |
+| `upload_txt()`    | Upload and parse data for JAMES             |
+| `request_chart()` | Upload BDS-data, draw chart with child data |
 
-### `upload_bds()`
+### `upload_txt()`
 
 Upload BDS data and create object of class `individual` on server:
 
 ``` r
 library(jamesclient)
 fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
-r1 <- upload_bds(fn)
+r1 <- upload_txt(fn)
 browseURL(get_url(r1, "return"))
 ```
 
@@ -48,15 +47,13 @@ browseURL(get_url(r1, "return"))
 Make a combined upload and automatic chartcode choice:
 
 ``` r
-r2 <- request_chart(fn)
+r2 <- request_chart(fn, chartcode = "NJAA")
 browseURL(get_url(r2, "svg"))
 ```
 
-### `request_site()`
+## Removed functions
 
-Combine upload and construction of interactive site:
-
-``` r
-url <- request_site(fn)
-browseURL(url)
-```
+| Function         | Description              | Alternative             |
+| ---------------- | ------------------------ | ----------------------- |
+| `request_site()` | Create personalised site | `james::request_site()` |
+| `upload_bds()`   | Upload and parse data    | `upload_txt()`          |
