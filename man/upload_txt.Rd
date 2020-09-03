@@ -56,13 +56,13 @@ is better to develop a dedicated API for obtaining these.
 Argument \code{schema} not yet implemented.
 }
 \examples{
+\dontrun{
 library(httr)
 fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamestest")
 js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 
 url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
-# host <- "https://groeidiagrammen.nl"
-host <- "http://localhost"
+host <- "https://groeidiagrammen.nl"
 
 # upload JSON file
 r1 <- upload_txt(fn, host)
@@ -75,6 +75,7 @@ identical(status_code(r2), 201L)
 # upload JSON from external URL
 r3 <- upload_txt(url, host)
 identical(status_code(r3), 201L)
+}
 }
 \seealso{
 \code{\link[minihealth]{convert_bds_individual}},
