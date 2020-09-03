@@ -6,57 +6,55 @@
 #' class \code{individual}, and draw the plot.
 #' The user may skip uploading, and use a previously stored
 #' location on the server.
-#' @param file File name of data. The variable specification are
-#'   expected to be according specification
-#'   \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS
-#'    JGZ 3.2.5}, and converted to JSON.
-#' @param ssd Server-side data. An object of class
-#'   \code{\link[httr:response]{response}} containing an url that
-#'   points to server-side data of class `individual`, for example,
-#'   created by a call to \code{upload_bds()}.
+#' @param txt A JSON string, URL or file with the data in JSON
+#' format. The input data adhere to specification
+#' \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS JGZ 3.2.5},
+#' and are converted to JSON according to \code{schema}.
+#' @param loc Alternative to \code{txt}. Location where input data is uploaded
+#' and converted to internal server format.
 #' @param chartcode The code of the requested growth chart. If not
 #' specified, the server will automatically plot child height for
 #' the most recent age period.
 #' @inheritParams james::draw_chart
 #' @return An object of class \code{\link[httr:response]{response}}
-#' @seealso \code{\link[james]{draw_chart}}, \code{\link{upload_bds}}.
+#' @seealso \code{\link[james]{draw_chart}}, \code{\link{upload_txt}}.
 #' @keywords client
 #' @details
-#' One of \code{file} or \code{resp} need to be specified. If both
-#' are given, a non-NULL \code{file} takes precedence over \code{resp}.
+#' One of \code{txt} or \code{resp} need to be specified. If both
+#' are given, a non-NULL \code{txt} takes precedence over \code{resp}.
 #' @examples
 #' # example with separate upload
-#' library("jamesclient")
-#' file <- file.path(path.package("jamesclient"), "testdata", "client3.json")
-#' data <- upload_bds(file)
-#' resp1 <- request_chart(ssd = data, chartcode = "NJAA")
+#' fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
+#' resp1 <- upload_txt(fn)
+#' loc <- get_url(resp1, "loc")
+#' resp2 <- request_chart(loc = loc, chartcode = "NJAA")
+#' url <- get_url(resp2, "svglite")
+#' # browseURL(url)
 #'
 #' # example with integrated upload and automatic chartcode choice
-#' resp2 <- request_chart(file = file)
+#' resp3 <- request_chart(fn)
 #' @export
-request_chart <- function(file = NULL,
-                          ssd  = NULL,
+request_chart <- function(txt = NULL,
+                          loc  = NULL,
                           chartcode = NULL,
                           curve_interpolation = TRUE) {
   url <- "https://groeidiagrammen.nl"
 
   # upload the data to server and draw graph
-  if (!is.null(file)) {
-    path <- "ocpu/library/james/R/draw_chart_bds"
-    dat <- upload_file(file)
+  if (!is.null(txt)) {
+    path <- "ocpu/library/james/R/draw_chart"
     resp <- POST(url = url, path = path,
-                 body = list(txt = dat,
+                 body = list(txt = upload_file(txt),
                              chartcode = chartcode,
                              curve_interpolation = curve_interpolation))
   }
 
   # read the data from the server-side location
-  if (is.null(file)) {
-    stopifnot(!is.null(ssd))
-    path <- "ocpu/library/james/R/draw_chart_ind"
-    location <- get_url(ssd, "location")
+  if (is.null(txt)) {
+    stopifnot(!is.null(loc))
+    path <- "ocpu/library/james/R/draw_chart"
     resp <- POST(url = url, path = path,
-                 body = list(ind_loc = location,
+                 body = list(loc = loc,
                              chartcode = chartcode,
                              curve_interpolation = curve_interpolation),
                  encode = "json")

@@ -1,4 +1,3 @@
-#' @importFrom curl         curl
 #' @importFrom httr         add_headers build_url content GET headers
 #'                          http_error http_type message_for_status
 #'                          modify_url parse_url POST status_code

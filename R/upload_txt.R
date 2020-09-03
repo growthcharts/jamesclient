@@ -60,8 +60,7 @@
 #' r3 <- upload_txt(url, host)
 #' identical(status_code(r3), 201L)
 #' }
-#' @seealso \code{\link[minihealth]{convert_bds_individual}},
-#' \code{\link{request_site}}
+#' @seealso \code{\link[minihealth]{convert_bds_individual}}
 #' @export
 upload_txt <- function(txt, host = "https://groeidiagrammen.nl", schema = NULL) {
   url <- modify_url(url = host, path = "ocpu/library/james/R/fetch_loc")

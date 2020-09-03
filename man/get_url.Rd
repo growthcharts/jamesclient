@@ -7,8 +7,8 @@
 \usage{
 get_url(
   resp,
-  name = c("return", "location", "session", "console", "stdout", "svg", "messages",
-    "warnings"),
+  name = c("return", "location", "session", "console", "stdout", "svg", "svglite",
+    "messages", "warnings"),
   ...
 )
 
@@ -18,9 +18,9 @@ get_url_svg(resp, pad = "?width=7&height=7", ...)
 \item{resp}{An object of class \code{\link[httr:response]{response}}
 returned by OpenCPU.}
 
-\item{name}{A string: \code{"location"}, \code{"session"},
-\code{"stdout"}, \code{"svg"} or \code{"return"}. The default is
-\code{"return"}.}
+\item{name}{A string: \code{"return"}, \code{"location"}, \code{"session"},
+\code{"console"}, \code{"stdout"}, \code{"svg"}, \code{"svglite"},
+\code{"messages"}, \code{"warnings"}. The default is \code{"return"}.}
 
 \item{\dots}{Additional string that is concatenate to the URL}
 

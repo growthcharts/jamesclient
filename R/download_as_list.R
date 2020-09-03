@@ -12,9 +12,8 @@
 #'   \code{pattern}. The result has length 0 if the pattern was
 #'   not found.
 #' @examples
-#' library(jamesclient)
 #' file <- file.path(path.package("jamesclient"), "testdata", "client3.json")
-#' resp <- upload_bds(file)
+#' resp <- upload_txt(file)
 #' resp
 #' download_as_list(resp, pattern = "stdout")
 #' @export

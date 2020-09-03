@@ -2,9 +2,9 @@
 #'
 #' @param resp An object of class \code{\link[httr:response]{response}}
 #' returned by OpenCPU.
-#' @param name A string: \code{"location"}, \code{"session"},
-#' \code{"stdout"}, \code{"svg"} or \code{"return"}. The default is
-#' \code{"return"}.
+#' @param name A string: \code{"return"}, \code{"location"}, \code{"session"},
+#'  \code{"console"}, \code{"stdout"}, \code{"svg"}, \code{"svglite"},
+#'  \code{"messages"}, \code{"warnings"}. The default is \code{"return"}.
 #' @param \dots Additional string that is concatenate to the URL
 #' @rdname get_url
 #' @return A url. If not found, the return is \code{character(0)}.
@@ -13,8 +13,8 @@
 #' @export
 get_url <- function(resp,
                     name = c("return", "location", "session",
-                             "console", "stdout", "svg", "messages",
-                             "warnings"),
+                             "console", "stdout", "svg", "svglite",
+                             "messages", "warnings"),
                     ...) {
   name <- match.arg(name)
   switch(name,
@@ -23,6 +23,7 @@ get_url <- function(resp,
          session = get_url_session(resp, ...),
          stdout = get_url_stdout(resp, ...),
          svg = get_url_svg(resp, ...),
+         svglite = get_url_svglite(resp, ...),
          messages = get_url_messages(resp, ...),
          messages = get_url_warnings(resp, ...),
          console = get_url_console(resp, ...),
@@ -40,6 +41,12 @@ get_url_session <- function(resp, ...)
 get_url_svg <- function(resp, pad = "?width=7&height=7", ...) {
   if (has_pattern(resp, "graphics"))
     paste0(headers(resp)$location, "graphics/1/svg", pad)
+  else character(0)
+}
+
+get_url_svglite <- function(resp, pad = "?width=7&height=7", ...) {
+  if (has_pattern(resp, "graphics"))
+    paste0(headers(resp)$location, "graphics/1/svglite", pad)
   else character(0)
 }
 

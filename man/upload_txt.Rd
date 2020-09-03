@@ -78,6 +78,5 @@ identical(status_code(r3), 201L)
 }
 }
 \seealso{
-\code{\link[minihealth]{convert_bds_individual}},
-\code{\link{request_site}}
+\code{\link[minihealth]{convert_bds_individual}}
 }

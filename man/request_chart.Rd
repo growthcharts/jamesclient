@@ -5,22 +5,20 @@
 \title{Request a growth chart from JAMES}
 \usage{
 request_chart(
-  file = NULL,
-  ssd = NULL,
+  txt = NULL,
+  loc = NULL,
   chartcode = NULL,
   curve_interpolation = TRUE
 )
 }
 \arguments{
-\item{file}{File name of data. The variable specification are
-expected to be according specification
-\href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS
- JGZ 3.2.5}, and converted to JSON.}
+\item{txt}{A JSON string, URL or file with the data in JSON
+format. The input data adhere to specification
+\href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS JGZ 3.2.5},
+and are converted to JSON according to \code{schema}.}
 
-\item{ssd}{Server-side data. An object of class
-\code{\link[httr:response]{response}} containing an url that
-points to server-side data of class `individual`, for example,
-created by a call to \code{upload_bds()}.}
+\item{loc}{Alternative to \code{txt}. Location where input data is uploaded
+and converted to internal server format.}
 
 \item{chartcode}{The code of the requested growth chart. If not
 specified, the server will automatically plot child height for
@@ -41,20 +39,22 @@ The user may skip uploading, and use a previously stored
 location on the server.
 }
 \details{
-One of \code{file} or \code{resp} need to be specified. If both
-are given, a non-NULL \code{file} takes precedence over \code{resp}.
+One of \code{txt} or \code{resp} need to be specified. If both
+are given, a non-NULL \code{txt} takes precedence over \code{resp}.
 }
 \examples{
 # example with separate upload
-library("jamesclient")
-file <- file.path(path.package("jamesclient"), "testdata", "client3.json")
-data <- upload_bds(file)
-resp1 <- request_chart(ssd = data, chartcode = "NJAA")
+fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
+resp1 <- upload_txt(fn)
+loc <- get_url(resp1, "loc")
+resp2 <- request_chart(loc = loc, chartcode = "NJAA")
+url <- get_url(resp2, "svglite")
+# browseURL(url)
 
 # example with integrated upload and automatic chartcode choice
-resp2 <- request_chart(file = file)
+resp3 <- request_chart(fn)
 }
 \seealso{
-\code{\link[james]{draw_chart}}, \code{\link{upload_bds}}.
+\code{\link[james]{draw_chart}}, \code{\link{upload_txt}}.
 }
 \keyword{client}
