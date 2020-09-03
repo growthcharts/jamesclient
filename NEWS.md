@@ -1,6 +1,8 @@
 # jamesclient 0.11.0
 
 - Move `upload_txt()` from `james` to `jamesclient` package
+- Remove `upload_bds()` and `request_site()`
+- Style files
 
 # jamesclient 0.7.0
 
