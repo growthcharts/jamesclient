@@ -22,7 +22,9 @@ download_as_list <- function(resp, pattern = "R/.val") {
   paths <- strsplit(content(resp, "text"), "\n")[[1L]]
   idx <- grep(pattern, paths)
 
-  if (length(idx) == 0L) return(list())
+  if (length(idx) == 0L) {
+    return(list())
+  }
   v <- vector("list", length(idx))
   names(v) <- paths[idx]
   for (i in 1L:length(idx)) {

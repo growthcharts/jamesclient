@@ -12,71 +12,90 @@
 #' in your code.
 #' @export
 get_url <- function(resp,
-                    name = c("return", "location", "session",
-                             "console", "stdout", "svg", "svglite",
-                             "messages", "warnings"),
+                    name = c(
+                      "return", "location", "session",
+                      "console", "stdout", "svg", "svglite",
+                      "messages", "warnings"
+                    ),
                     ...) {
   name <- match.arg(name)
   switch(name,
-         return = get_url_return(resp, ...),
-         location = get_url_location(resp, ...),
-         session = get_url_session(resp, ...),
-         stdout = get_url_stdout(resp, ...),
-         svg = get_url_svg(resp, ...),
-         svglite = get_url_svglite(resp, ...),
-         messages = get_url_messages(resp, ...),
-         messages = get_url_warnings(resp, ...),
-         console = get_url_console(resp, ...),
-         character(0))
+    return = get_url_return(resp, ...),
+    location = get_url_location(resp, ...),
+    session = get_url_session(resp, ...),
+    stdout = get_url_stdout(resp, ...),
+    svg = get_url_svg(resp, ...),
+    svglite = get_url_svglite(resp, ...),
+    messages = get_url_messages(resp, ...),
+    messages = get_url_warnings(resp, ...),
+    console = get_url_console(resp, ...),
+    character(0)
+  )
 }
 
-get_url_location <- function(resp, ...)
+get_url_location <- function(resp, ...) {
   headers(resp)$location
+}
 
-get_url_session <- function(resp, ...)
+get_url_session <- function(resp, ...) {
   headers(resp)$`x-ocpu-session`
+}
 
 #' @param pad A string to be padded to the url.
 #' @rdname get_url
 get_url_svg <- function(resp, pad = "?width=7&height=7", ...) {
-  if (has_pattern(resp, "graphics"))
+  if (has_pattern(resp, "graphics")) {
     paste0(headers(resp)$location, "graphics/1/svg", pad)
-  else character(0)
+  } else {
+    character(0)
+  }
 }
 
 get_url_svglite <- function(resp, pad = "?width=7&height=7", ...) {
-  if (has_pattern(resp, "graphics"))
+  if (has_pattern(resp, "graphics")) {
     paste0(headers(resp)$location, "graphics/1/svglite", pad)
-  else character(0)
+  } else {
+    character(0)
+  }
 }
 
 get_url_return <- function(resp, ...) {
-  if (has_pattern(resp, ".val"))
+  if (has_pattern(resp, ".val")) {
     paste0(headers(resp)$location, "R/.val")
-  else character(0)
+  } else {
+    character(0)
+  }
 }
 
 get_url_stdout <- function(resp, ...) {
-  if (has_pattern(resp, "stdout"))
+  if (has_pattern(resp, "stdout")) {
     paste0(headers(resp)$location, "stdout")
-  else character(0)
+  } else {
+    character(0)
+  }
 }
 
 get_url_console <- function(resp, ...) {
-  if (has_pattern(resp, "console"))
+  if (has_pattern(resp, "console")) {
     paste0(headers(resp)$location, "console")
-  else character(0)
+  } else {
+    character(0)
+  }
 }
 
 get_url_messages <- function(resp, ...) {
-  if (has_pattern(resp, "message"))
+  if (has_pattern(resp, "message")) {
     paste0(headers(resp)$location, "messages")
-  else character(0)
+  } else {
+    character(0)
+  }
 }
 get_url_warnings <- function(resp, ...) {
-  if (has_pattern(resp, "warnings"))
+  if (has_pattern(resp, "warnings")) {
     paste0(headers(resp)$location, "warnings")
-  else character(0)
+  } else {
+    character(0)
+  }
 }
 
 

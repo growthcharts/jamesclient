@@ -35,7 +35,7 @@
 #' resp3 <- request_chart(fn)
 #' @export
 request_chart <- function(txt = NULL,
-                          loc  = NULL,
+                          loc = NULL,
                           chartcode = NULL,
                           curve_interpolation = TRUE) {
   url <- "https://groeidiagrammen.nl"
@@ -43,21 +43,29 @@ request_chart <- function(txt = NULL,
   # upload the data to server and draw graph
   if (!is.null(txt)) {
     path <- "ocpu/library/james/R/draw_chart"
-    resp <- POST(url = url, path = path,
-                 body = list(txt = upload_file(txt),
-                             chartcode = chartcode,
-                             curve_interpolation = curve_interpolation))
+    resp <- POST(
+      url = url, path = path,
+      body = list(
+        txt = upload_file(txt),
+        chartcode = chartcode,
+        curve_interpolation = curve_interpolation
+      )
+    )
   }
 
   # read the data from the server-side location
   if (is.null(txt)) {
     stopifnot(!is.null(loc))
     path <- "ocpu/library/james/R/draw_chart"
-    resp <- POST(url = url, path = path,
-                 body = list(loc = loc,
-                             chartcode = chartcode,
-                             curve_interpolation = curve_interpolation),
-                 encode = "json")
+    resp <- POST(
+      url = url, path = path,
+      body = list(
+        loc = loc,
+        chartcode = chartcode,
+        curve_interpolation = curve_interpolation
+      ),
+      encode = "json"
+    )
   }
 
   if (http_error(resp)) {
@@ -66,8 +74,9 @@ request_chart <- function(txt = NULL,
     return(FALSE)
   }
 
-  if (http_type(resp) != "text/plain")
+  if (http_type(resp) != "text/plain") {
     stop("API did not return text/plain", call. = FALSE)
+  }
 
   resp
 }
