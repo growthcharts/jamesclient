@@ -1,14 +1,14 @@
 #' Get url from OpenCPU response
 #'
-#' @param resp An object of class \code{\link[httr:response]{response}}
+#' @param resp An object of class [httr::response()]
 #' returned by OpenCPU.
-#' @param name A string: \code{"return"}, \code{"location"}, \code{"session"},
-#'  \code{"console"}, \code{"stdout"}, \code{"svg"}, \code{"svglite"},
-#'  \code{"messages"}, \code{"warnings"}. The default is \code{"return"}.
+#' @param name A string: `"return"`, `"location"`, `"session"`,
+#'  `"console"`, `"stdout"`, `"svg"`, `"svglite"`,
+#'  `"messages"`, `"warnings"`. The default is `"return"`.
 #' @param \dots Additional string that is concatenate to the URL
 #' @rdname get_url
-#' @return A url. If not found, the return is \code{character(0)}.
-#' @details Only \code{get_url()} is exported, so use \code{get_url()}
+#' @return A url. If not found, the return is `character(0)`.
+#' @details Only `get_url()` is exported, so use `get_url()`
 #' in your code.
 #' @export
 get_url <- function(resp,

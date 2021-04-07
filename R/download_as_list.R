@@ -3,13 +3,13 @@
 #' Obtains thecontents of one or more url's from the OpenCPU server response
 #' in a list.
 #' @param resp    An object of class
-#'   \code{\link[httr:response]{response}}, typically returned by a
-#'   previous call to \code{httr::POST} to the server.
+#'   [httr::response()], typically returned by a
+#'   previous call to `httr::POST` to the server.
 #' @param pattern A character vector with the trailing part of the requested
-#'   url, e.g. \code{"R/.val"} or \code{"stdout"}. Use \code{""} to
+#'   url, e.g. `"R/.val"` or `"stdout"`. Use `""` to
 #'   obtain all results.
 #' @return A list with the contents under the url's that match
-#'   \code{pattern}. The result has length 0 if the pattern was
+#'   `pattern`. The result has length 0 if the pattern was
 #'   not found.
 #' @examples
 #' file <- file.path(path.package("jamesclient"), "testdata", "client3.json")

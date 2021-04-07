@@ -28,7 +28,7 @@ the most recent age period.}
 interpolation shoud be applied.}
 }
 \value{
-An object of class \code{\link[httr:response]{response}}
+An object of class \code{\link[httr:response]{httr::response()}}
 }
 \description{
 This function requests a growth chart from
@@ -55,6 +55,6 @@ url <- get_url(resp2, "svglite")
 resp3 <- request_chart(fn)
 }
 \seealso{
-\code{\link[james]{draw_chart}}, \code{\link{upload_txt}}.
+\code{\link[james:draw_chart]{james::draw_chart()}}, \code{\link[=upload_txt]{upload_txt()}}.
 }
 \keyword{client}

@@ -22,3 +22,4 @@ BugReports: https://github.com/stefvanbuuren/jamesclient/issues
 Suggests: 
     testthat (>= 2.1.0),
     jamestest
+Roxygen: list(markdown = TRUE)

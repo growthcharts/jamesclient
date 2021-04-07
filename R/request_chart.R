@@ -1,27 +1,27 @@
 #' Request a growth chart from JAMES
 #'
 #' This function requests a growth chart from
-#' \code{groeidiagrammen.nl}. The function can upload a JSON file
+#' `groeidiagrammen.nl`. The function can upload a JSON file
 #' with BDS-format to the server, parse its contents into a tibble with
 #' a person attribute, and draw the plot.
 #' The user may skip uploading, and use a previously stored
 #' location on the server.
 #' @param txt A JSON string, URL or file with the data in JSON
 #' format. The input data adhere to specification
-#' \href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS JGZ 3.2.5},
-#' and are converted to JSON according to \code{schema}.
-#' @param loc Alternative to \code{txt}. Location where input data is uploaded
+#' [BDS JGZ 3.2.5](https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12),
+#' and are converted to JSON according to `schema`.
+#' @param loc Alternative to `txt`. Location where input data is uploaded
 #' and converted to internal server format.
 #' @param chartcode The code of the requested growth chart. If not
 #' specified, the server will automatically plot child height for
 #' the most recent age period.
 #' @inheritParams james::draw_chart
-#' @return An object of class \code{\link[httr:response]{response}}
-#' @seealso \code{\link[james]{draw_chart}}, \code{\link{upload_txt}}.
+#' @return An object of class [httr::response()]
+#' @seealso [james::draw_chart()], [upload_txt()].
 #' @keywords client
 #' @details
-#' One of \code{txt} or \code{resp} need to be specified. If both
-#' are given, a non-NULL \code{txt} takes precedence over \code{resp}.
+#' One of `txt` or `resp` need to be specified. If both
+#' are given, a non-NULL `txt` takes precedence over `resp`.
 #' @examples
 #' # example with separate upload
 #' fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")

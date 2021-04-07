@@ -8,7 +8,7 @@ download_as_list(resp, pattern = "R/.val")
 }
 \arguments{
 \item{resp}{An object of class
-\code{\link[httr:response]{response}}, typically returned by a
+\code{\link[httr:response]{httr::response()}}, typically returned by a
 previous call to \code{httr::POST} to the server.}
 
 \item{pattern}{A character vector with the trailing part of the requested
@@ -17,8 +17,8 @@ obtain all results.}
 }
 \value{
 A list with the contents under the url's that match
-  \code{pattern}. The result has length 0 if the pattern was
-  not found.
+\code{pattern}. The result has length 0 if the pattern was
+not found.
 }
 \description{
 Obtains thecontents of one or more url's from the OpenCPU server response

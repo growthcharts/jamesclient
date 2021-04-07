@@ -15,7 +15,7 @@ get_url(
 get_url_svg(resp, pad = "?width=7&height=7", ...)
 }
 \arguments{
-\item{resp}{An object of class \code{\link[httr:response]{response}}
+\item{resp}{An object of class \code{\link[httr:response]{httr::response()}}
 returned by OpenCPU.}
 
 \item{name}{A string: \code{"return"}, \code{"location"}, \code{"session"},

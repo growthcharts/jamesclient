@@ -13,18 +13,18 @@ format. The input data adhere to specification
 and are converted to JSON according to \code{schema}.}
 
 \item{host}{String with URL of the JAMES host machine. Defaults to
-\code{https://groeidiagrammen.nl}.}
+\verb{https://groeidiagrammen.nl}.}
 
 \item{schema}{Optional. A JSON string, URL or file that selects the JSON validation
 schema. Only used if the \code{txt} argument is specified.}
 }
 \value{
-An object of class \code{\link[httr:response]{response}}
+An object of class \code{\link[httr:response]{httr::response()}}
 }
 \description{
 Client side upload of a JSON file, string or URL with BDS data, checks the data,
 stores its contents as a tibble with a person attribute on host,
-and returns an object of class \code{\link[httr:response]{response}}
+and returns an object of class \code{\link[httr:response]{httr::response()}}
 that contains the results of the request.
 }
 \details{
