@@ -1,8 +1,7 @@
 #' Upload and parse data for JAMES
 #'
 #' Client side upload of a JSON file, string or URL with BDS data, checks the data,
-#' stores its contents as an object of class
-#' \code{\link[minihealth:individual-class]{individual}} on host,
+#' stores its contents as a tibble with a person attribute on host,
 #' and returns an object of class \code{\link[httr:response]{response}}
 #' that contains the results of the request.
 #' @param txt A JSON string, URL or file with the data in JSON
@@ -60,7 +59,6 @@
 #' r3 <- upload_txt(url, host)
 #' identical(status_code(r3), 201L)
 #' }
-#' @seealso \code{\link[minihealth]{convert_bds_individual}}
 #' @export
 upload_txt <- function(txt, host = "https://groeidiagrammen.nl", schema = NULL) {
   url <- modify_url(url = host, path = "ocpu/library/james/R/fetch_loc")

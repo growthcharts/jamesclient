@@ -127,8 +127,7 @@ For testing purposes, you may change its values (but please keep the
 general structure intact) and re-upload it to JAMES for analysis. 
 
 The following `curl` command re-uploads and converts the file
-`client3.json` from BDS format into an `R` object of S4 class
-`minihealth::individual`:
+`client3.json` from BDS format into an `R` tibble:
 
 ```{bash, eval = FALSE}
 curl -F 'txt=@client3.json' https://groeidiagrammen.nl/ocpu/library/james/R/convert_bds_ind
@@ -330,8 +329,7 @@ GET(url, write_disk("client3.json", overwrite = TRUE))
 ```
 
 Let us now re-upload and convert the local BDS-formatted file
-`client3.json` into the JAMES format (defined as S4 class
-`minihealth::individual`) by
+`client3.json` into a tibble by
 
 ```{r postfilehttr}
 url <- "https://groeidiagrammen.nl"

@@ -2,8 +2,8 @@
 #'
 #' This function requests a growth chart from
 #' \code{groeidiagrammen.nl}. The function can upload a JSON file
-#' with BDS-format to the server, parse its contents into an object of
-#' class \code{individual}, and draw the plot.
+#' with BDS-format to the server, parse its contents into a tibble with
+#' a person attribute, and draw the plot.
 #' The user may skip uploading, and use a previously stored
 #' location on the server.
 #' @param txt A JSON string, URL or file with the data in JSON

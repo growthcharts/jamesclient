@@ -133,8 +133,7 @@ For testing purposes, you may change its values (but please keep the
 general structure intact) and re-upload it to JAMES for analysis. 
 
 The following `curl` command re-uploads and converts the file
-`client3.json` from BDS format into an `R` object of S4 class
-`minihealth::individual`:
+`client3.json` from BDS format into an `R` tibble:
 
 ```{bash, eval = FALSE}
 curl -F 'txt=@client3.json' https://groeidiagrammen.nl/ocpu/library/james/R/convert_bds_ind
@@ -542,7 +541,7 @@ Still many things on the wish list:
 - https://github.com/stefvanbuuren/james
 - https://github.com/stefvanbuuren/jamesclient
 - https://github.com/stefvanbuuren/growthscreener
-- https://github.com/stefvanbuuren/minihealth
+- https://github.com/growthcharts/bdsreader
 - https://github.com/stefvanbuuren/brokenstick
 
 ## About

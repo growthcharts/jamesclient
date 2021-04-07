@@ -23,8 +23,7 @@ An object of class \code{\link[httr:response]{response}}
 }
 \description{
 Client side upload of a JSON file, string or URL with BDS data, checks the data,
-stores its contents as an object of class
-\code{\link[minihealth:individual-class]{individual}} on host,
+stores its contents as a tibble with a person attribute on host,
 and returns an object of class \code{\link[httr:response]{response}}
 that contains the results of the request.
 }
@@ -76,7 +75,4 @@ identical(status_code(r2), 201L)
 r3 <- upload_txt(url, host)
 identical(status_code(r3), 201L)
 }
-}
-\seealso{
-\code{\link[minihealth]{convert_bds_individual}}
 }

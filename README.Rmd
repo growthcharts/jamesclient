@@ -41,7 +41,7 @@ Function          | Description
 
 ### `upload_txt()`
 
-Upload BDS data and create object of class `individual` on server:
+Upload BDS data and create a tibble on the server:
 
 ```{r example, eval=FALSE}
 library(jamesclient)

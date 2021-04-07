@@ -4,7 +4,6 @@
 # jamesclient
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 The goal of `jamesclient` is to facilitate interaction for `R` users
@@ -27,13 +26,13 @@ remotes::install_github("stefvanbuuren/jamesclient")
 The primary functions are:
 
 | Function          | Description                                 |
-| ----------------- | ------------------------------------------- |
+|-------------------|---------------------------------------------|
 | `upload_txt()`    | Upload and parse data for JAMES             |
 | `request_chart()` | Upload BDS-data, draw chart with child data |
 
 ### `upload_txt()`
 
-Upload BDS data and create object of class `individual` on server:
+Upload BDS data and create a tibble on the server:
 
 ``` r
 library(jamesclient)
@@ -54,6 +53,6 @@ browseURL(get_url(r2, "svg"))
 ## Removed functions
 
 | Function         | Description              | Alternative             |
-| ---------------- | ------------------------ | ----------------------- |
+|------------------|--------------------------|-------------------------|
 | `request_site()` | Create personalised site | `james::request_site()` |
 | `upload_bds()`   | Upload and parse data    | `upload_txt()`          |
