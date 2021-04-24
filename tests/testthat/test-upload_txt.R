@@ -1,8 +1,6 @@
-context("upload data")
-
 library(httr)
 
-fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamestest")
+fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamesdemodata")
 js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 
@@ -50,7 +48,7 @@ test_that(
 )
 
 
-jtf <- system.file("extdata", "test", paste0("test", 1:23, ".json"), package = "jamestest")
+jtf <- system.file("extdata", "bds_str", "test", paste0("test", 1:23, ".json"), package = "jamesdemodata")
 
 test_that(
   "test2.json (missing referentie) PASSES",
@@ -172,7 +170,7 @@ test_that(
 )
 
 
-fn <- system.file("extdata", "smocc", "Laura_S.json", package = "jamestest")
+fn <- system.file("extdata", "bds_str", "smocc", "Laura_S.json", package = "jamesdemodata")
 js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 
 test_that(
