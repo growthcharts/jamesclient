@@ -4,7 +4,11 @@
 \alias{upload_txt}
 \title{Upload and parse data for JAMES}
 \usage{
-upload_txt(txt, host = "https://groeidiagrammen.nl", schema = NULL)
+upload_txt(
+  txt,
+  host = "https://groeidiagrammen.nl",
+  schema = "bds_schema_str.json"
+)
 }
 \arguments{
 \item{txt}{A JSON string, URL or file with the data in JSON

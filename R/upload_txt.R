@@ -60,7 +60,8 @@
 #' identical(status_code(r3), 201L)
 #' }
 #' @export
-upload_txt <- function(txt, host = "https://groeidiagrammen.nl", schema = NULL) {
+upload_txt <- function(txt, host = "https://groeidiagrammen.nl",
+                       schema = "bds_schema_str.json") {
   url <- modify_url(url = host, path = "ocpu/library/james/R/fetch_loc")
   txt <- txt[[1L]]
   ua <- get0("ua", mode = "list")
@@ -68,9 +69,10 @@ upload_txt <- function(txt, host = "https://groeidiagrammen.nl", schema = NULL) 
 
   if (file.exists(txt)) {
     # txt is a file name: upload
+    upload <- upload_file(txt)
     resp <- POST(
       url = url,
-      body = list(txt = upload_file(txt), schema = schema),
+      body = list(txt = upload),
       encode = "multipart",
       ua,
       add_headers(Accept = "plain/text")
