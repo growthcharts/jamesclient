@@ -1,3 +1,8 @@
+# jamesclient 0.12.0
+
+- Repairs an error in `upload_txt()` that prevented proper file upload
+- Replace `jamestest` by `jamesdemodata` package
+
 # jamesclient 0.11.0
 
 - Move `upload_txt()` from `james` to `jamesclient` package
