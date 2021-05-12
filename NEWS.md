@@ -1,3 +1,7 @@
+# jamesclient 0.14.0
+
+- Adds GitHub action `R-CMD-check` and `pkgdown`
+
 # jamesclient 0.13.0
 
 - Transfers to `growthcharts` GH organisation

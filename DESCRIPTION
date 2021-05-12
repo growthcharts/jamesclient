@@ -1,7 +1,7 @@
 Package: jamesclient
 Type: Package
 Title: Client-side R Functions for JAMES
-Version: 0.13.0
+Version: 0.14.0
 Authors@R: person("Stef", "van Buuren", email = "stef.vanbuuren@tno.nl",
     role = c("aut", "cre"))
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
@@ -17,8 +17,8 @@ Imports:
     httr,
     jsonlite
 Suggests: 
-    testthat (>= 2.1.0),
-    jamesdemodata
+    jamesdemodata,
+    testthat (>= 2.1.0)
 Remotes: 
     growthcharts/jamesdemodata
 Roxygen: list(markdown = TRUE)
