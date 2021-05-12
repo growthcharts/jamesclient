@@ -9,9 +9,9 @@
 <!-- badges: end -->
 
 The goal of `jamesclient` is to facilitate interaction for `R` users
-with the **Joint Anthropometric Measurement and Evaluation System
-(JAMES)**. JAMES is an **experimental** online resource for creating and
-analysing growth charts.
+with the **Joint Automatic Measurement and Evaluation System (JAMES)**.
+JAMES is an **experimental** online resource for creating and analysing
+growth charts.
 
 ## Installation
 
