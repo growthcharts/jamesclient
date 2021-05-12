@@ -1,22 +1,27 @@
+# jamesclient 0.13.0
+
+- Transfers to `growthcharts` GH organisation
+- Merges the `bdsreader` branch that replaces `minihealth` by `bdsreader`
+
 # jamesclient 0.12.0
 
 - Repairs an error in `upload_txt()` that prevented proper file upload
-- Replace `jamestest` by `jamesdemodata` package
+- Replaces `jamestest` by `jamesdemodata` package
 
 # jamesclient 0.11.0
 
-- Move `upload_txt()` from `james` to `jamesclient` package
-- Remove `upload_bds()` and `request_site()`
-- Style files
+- Moves `upload_txt()` from `james` to `jamesclient` package
+- Removes `upload_bds()` and `request_site()`
+- Styles files
 
 # jamesclient 0.7.0
 
-- Make upload_bds() aware of server errors, warnings and messages
+- Makes upload_bds() aware of server errors, warnings and messages
 
 # jamesclient 0.6.0
 
-- Add test infrastructure
-- Add message get_url()
+- Adds test infrastructure
+- Adds message get_url()
 
 # jamesclient 0.5.0
 
