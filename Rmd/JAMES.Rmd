@@ -515,7 +515,7 @@ If `R` is your analysis environment, then you can use the
 `jamesclient` package to achieve the same result in an easier way.
 The functions `upload_bds()` and `request_chart()` in `jamesclient`
 have simple syntax, and automate the steps outlined above. See
-<https://github.com/stefvanbuuren/jamesclient> for more detail.
+<https://github.com/growthcharts/jamesclient> for more detail.
 
 ## Next steps
 
@@ -538,11 +538,11 @@ Still many things on the wish list:
 - [OpenCPU API](https://www.opencpu.org/api.html)
 - https://www.w3schools.com/js/
 - https://www.tno.nl/groei and https://www.tno.nl/growth
-- https://github.com/stefvanbuuren/james
-- https://github.com/stefvanbuuren/jamesclient
-- https://github.com/stefvanbuuren/growthscreener
+- https://github.com/growthcharts/james
+- https://github.com/growthcharts/jamesclient
+- https://github.com/growthcharts/growthscreener
 - https://github.com/growthcharts/bdsreader
-- https://github.com/stefvanbuuren/brokenstick
+- https://github.com/growthcharts/brokenstick
 
 ## About
 

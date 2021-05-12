@@ -66,6 +66,7 @@ js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 
 url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 host <- "https://groeidiagrammen.nl"
+host <- "http://localhost"
 
 # upload JSON file
 r1 <- upload_txt(fn, host)

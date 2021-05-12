@@ -18,7 +18,7 @@
 #
 # # run the following only if localhost is running
 # host <- "http://localhost:5656"
-# path <- "ocpu/apps/stefvanbuuren/james/R/convert_bds_ind"
+# path <- "ocpu/apps/growthcharts/james/R/convert_bds_ind"
 # # upload JSON file to localhost
 # # r <- upload_bds(fn, host = host, path = path)
 # # status_code(r)

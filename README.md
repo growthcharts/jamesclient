@@ -18,7 +18,7 @@ You can install the development version from
 
 ``` r
 install.packages("remotes")
-remotes::install_github("stefvanbuuren/jamesclient")
+remotes::install_github("growthcharts/jamesclient")
 ```
 
 ## Example

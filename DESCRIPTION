@@ -17,8 +17,8 @@ Imports:
     httr,
     jsonlite
 RoxygenNote: 7.1.1
-URL: https://github.com/stefvanbuuren/jamesclient
-BugReports: https://github.com/stefvanbuuren/jamesclient/issues
+URL: https://github.com/growthcharts/jamesclient
+BugReports: https://github.com/growthcharts/jamesclient/issues
 Suggests: 
     testthat (>= 2.1.0),
     jamesdemodata

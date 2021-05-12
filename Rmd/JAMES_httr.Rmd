@@ -339,7 +339,7 @@ resp <- POST(url = url, path = path, body = list(txt = dat))
 resp
 ```
 
-The [jamesclient](https://github.com/stefvanbuuren/jamesclient) package
+The [jamesclient](https://github.com/growthcharts/jamesclient) package
 contains a few utility functions to extract url's for further processing. 
 The following code blocks installs the packages, if not yet available.
 
@@ -347,7 +347,7 @@ The following code blocks installs the packages, if not yet available.
 if (!"remotes" %in% rownames(installed.packages())) 
   install.packages("remotes")
 if (!"jamesclient" %in% rownames(installed.packages())) 
-  remotes::install_github("stefvanbuuren/jamesclient")
+  remotes::install_github("growthcharts/jamesclient")
 ```
 
 The return value of the server-side function `convert_bds_ind()` can
@@ -458,7 +458,7 @@ If `R` is your analysis environment, then you can use the
 `jamesclient` package to achieve the same result in an easier way.
 The functions `upload_bds()` and `request_chart()` in `jamesclient`
 have simple syntax, and automate the steps outlined above. See
-<https://github.com/stefvanbuuren/jamesclient> for more detail.
+<https://github.com/growthcharts/jamesclient> for more detail.
 
 ## Next steps
 
