@@ -8,6 +8,9 @@ host1 <- "https://groeidiagrammen.nl"
 host2 <- "https://vps.stefvanbuuren.nl"
 host3 <- "http://localhost"
 
+# temporary overwrite if there is no localhost
+host3 <- "https://groeidiagrammen.nl"
+
 test_that(
   "client3.json uploads to host1",
   expect_equal(status_code(upload_txt(fn, host = host1)), 201)
