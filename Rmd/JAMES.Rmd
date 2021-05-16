@@ -1,7 +1,7 @@
 ---
-title: "JAMES: Joint Anthropometric Measurement and Evaluation Server"
+title: "JAMES: Joint Automatic Measurement and Evaluation Server"
 author: "Stef van Buuren"
-date: "2019-08-16"
+date: "2021-05-16"
 bibliography: [groeidiagrammen.bib]
 output: html_document
 ---
