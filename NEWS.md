@@ -1,3 +1,7 @@
+# jamesclient 0.15.0
+
+- Adds tweaks to DESCRIPTION
+
 # jamesclient 0.14.0
 
 - Adds GitHub action `R-CMD-check` and `pkgdown`
