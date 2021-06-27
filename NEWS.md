@@ -1,3 +1,7 @@
+# jamesclient 0.16.0
+
+- Add function `inspect_upload()` that uploads child data and downloads the R object as parsed by JAMES
+
 # jamesclient 0.15.0
 
 - Adds tweaks to DESCRIPTION

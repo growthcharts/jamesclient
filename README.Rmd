@@ -39,6 +39,7 @@ Function          | Description
 ----------------- | -------------
 `upload_txt()`    | Upload and parse data for JAMES
 `request_chart()` | Upload BDS-data, draw chart with child data
+`inspect_upload()`| Upload demo child data and download parsed file
 
 ### `upload_txt()`
 
@@ -59,6 +60,14 @@ Make a combined upload and automatic chartcode choice:
 r2 <- request_chart(fn, chartcode = "NJAA")
 browseURL(get_url(r2, "svg"))
 ```
+
+### `inspect_upload()`
+
+```{r example3}
+library(jamesclient)
+head(inspect_upload(name = "Anne_S", "smocc"))
+```
+
 
 ## Removed functions
 
