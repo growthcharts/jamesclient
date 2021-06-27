@@ -12,8 +12,8 @@ Description: Client-sided functions for the
     devevelopment.
 License: GPL-3
 Encoding: UTF-8
-LazyData: true
 Imports: 
+    curl,
     httr,
     jsonlite
 Suggests: 

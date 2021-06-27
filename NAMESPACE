@@ -2,8 +2,10 @@
 
 export(download_as_list)
 export(get_url)
+export(inspect_upload)
 export(request_chart)
 export(upload_txt)
+importFrom(curl,curl)
 importFrom(httr,GET)
 importFrom(httr,POST)
 importFrom(httr,add_headers)
