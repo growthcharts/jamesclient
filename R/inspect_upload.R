@@ -3,23 +3,24 @@
 #' Uploads JSON child data to JAMES and downloads the processed data for inspection.
 #' @param name Name of the child
 #' @param cabinet Name of cabinet
-#' @param schema Name of schema, default `bds_str`
 #' @param host Full host name
+#' @inheritParams bdsreader::set_schema
 #' @examples
-#' data <- inspect_upload(name = "Anne_S", "smocc")
-#' data
+#' data <- inspect_upload(name = "Anne_S", "smocc", version = 1)
+#' head(data)
 #' @export
-inspect_upload <- function(name, cabinet, schema = "bds_str",
+inspect_upload <- function(name, cabinet,
+                           version = 2L,
                            host = "https://groeidiagrammen.nl") {
-  fn <- system.file("extdata", schema, cabinet, paste0(name, ".json"),
+  schema_path <- switch(version, "bds_v1.0", "bds_v2.0")
+  fn <- system.file("extdata", schema_path, cabinet, paste0(name, ".json"),
                     package = "jamesdemodata")
   if (fn == "") stop("Child data not found.")
-  target <- readLines(con = fn)
 
-  schema_fn <- ifelse(schema == "bds_str", "bds_schema_str.json", "bds_schema_V2.json")
+  target <- readLines(con = fn)
   resp <- upload_txt(target,
                      host = host,
-                     schema = schema_fn)
+                     version = version)
   url <- paste0(get_url(resp, "location"), "R/.val/rda")
   con <- curl::curl(url = url, open = "rb")
   on.exit(close(con))

@@ -8,10 +8,9 @@
 #' format. The input data adhere to specification
 #' [BDS JGZ 3.2.5](https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12),
 #' and are converted to JSON according to `schema`.
-#' @param schema Optional. A JSON string, URL or file that selects the JSON validation
-#' schema. Only used if the `txt` argument is specified.
 #' @param host String with URL of the JAMES host machine. Defaults to
 #' `https://groeidiagrammen.nl`.
+#' @inheritParams bdsreader::set_schema
 #' @return An object of class [httr::response()]
 #' @details
 #' JSON format: See
@@ -36,17 +35,15 @@
 #' change, so don't build applications based on this data structure. If you need
 #' components from the internal structure (e.g. Z-scores, brokenstick estimates) it
 #' is better to develop a dedicated API for obtaining these.
-#'
-#' @note Argument `schema` not yet implemented.
 #' @examples
 #' \dontrun{
 #' library(httr)
-#' fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamestest")
+#' fn <- system.file("extdata", "bds_v1.0", "smocc", "Laura_S.json", package = "jamesdemodata")
 #' js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 #'
 #' url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 #' host <- "https://groeidiagrammen.nl"
-#' host <- "http://localhost"
+#' # host <- "http://localhost"
 #'
 #' # upload JSON file
 #' r1 <- upload_txt(fn, host)
@@ -61,8 +58,18 @@
 #' identical(status_code(r3), 201L)
 #' }
 #' @export
-upload_txt <- function(txt, host = "https://groeidiagrammen.nl",
-                       schema = "bds_schema_str.json") {
+upload_txt <- function(txt,
+                       host = "https://groeidiagrammen.nl",
+                       version = 1L,
+                       schema = NULL) {
+  schema_list <- set_schema(version, schema)
+  schema <- schema_list$schema_base
+  version <- schema_list$version
+
+  # FIXME
+  # remove next schema overwrite below after API update
+  schema <- "bds_schema_str.json"
+
   url <- modify_url(url = host, path = "ocpu/library/james/R/fetch_loc")
   txt <- txt[[1L]]
   ua <- get0("ua", mode = "list")
@@ -70,14 +77,16 @@ upload_txt <- function(txt, host = "https://groeidiagrammen.nl",
 
   if (file.exists(txt)) {
     # txt is a file name: upload
-    upload <- upload_file(txt)
+    writeLines(jsonlite::toJSON(list(schema = unbox(schema))), schema)
     resp <- POST(
       url = url,
-      body = list(txt = upload),
+      body = list(txt = upload_file(txt),
+                  schema = upload_file(schema)),
       encode = "multipart",
       ua,
       add_headers(Accept = "plain/text")
     )
+    unlink(schema)
   } else {
     # txt is a URL: overwrite txt with JSON string
     if (!validate(txt)) {
@@ -91,7 +100,7 @@ upload_txt <- function(txt, host = "https://groeidiagrammen.nl",
     # txt is JSON string: upload
     resp <- POST(
       url = url,
-      body = list(txt = txt),
+      body = list(txt = txt, schema = schema),
       encode = "json",
       ua,
       add_headers(Accept = "plain/text")

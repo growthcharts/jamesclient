@@ -7,7 +7,7 @@
 inspect_upload(
   name,
   cabinet,
-  schema = "bds_str",
+  version = 2L,
   host = "https://groeidiagrammen.nl"
 )
 }
@@ -16,7 +16,8 @@ inspect_upload(
 
 \item{cabinet}{Name of cabinet}
 
-\item{schema}{Name of schema, default \code{bds_str}}
+\item{version}{Integer. JSON schema version number. There are currently two
+schemas supported, versions \code{1} and \code{2}.}
 
 \item{host}{Full host name}
 }
@@ -24,6 +25,6 @@ inspect_upload(
 Uploads JSON child data to JAMES and downloads the processed data for inspection.
 }
 \examples{
-data <- inspect_upload(name = "Anne_S", "smocc")
-data
+data <- inspect_upload(name = "Anne_S", "smocc", version = 1)
+head(data)
 }
