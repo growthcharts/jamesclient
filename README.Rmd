@@ -48,7 +48,7 @@ Upload BDS data and create a tibble on the server:
 ```{r example, eval=FALSE}
 library(jamesclient)
 fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
-r1 <- upload_txt(fn)
+r1 <- upload_txt(fn, format = 1)
 browseURL(get_url(r1, "return"))
 ```
 
@@ -65,7 +65,7 @@ browseURL(get_url(r2, "svg"))
 
 ```{r example3}
 library(jamesclient)
-head(inspect_upload(name = "Anne_S", "smocc"))
+head(inspect_upload(name = "Anne_S", "smocc", format = 1))
 ```
 
 

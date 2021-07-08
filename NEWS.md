@@ -1,3 +1,7 @@
+# jamesclient 0.17.0
+
+- Generalises `inspect_upload()` and `upload_txt()` to work with the `format` argument to accept multi-format child data
+
 # jamesclient 0.16.0
 
 - Add function `inspect_upload()` that uploads child data and downloads the R object as parsed by JAMES
