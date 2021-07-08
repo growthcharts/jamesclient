@@ -7,7 +7,8 @@
 upload_txt(
   txt,
   host = "https://groeidiagrammen.nl",
-  schema = "bds_schema_str.json"
+  format = 1L,
+  schema = NULL
 )
 }
 \arguments{
@@ -19,8 +20,13 @@ and are converted to JSON according to \code{schema}.}
 \item{host}{String with URL of the JAMES host machine. Defaults to
 \verb{https://groeidiagrammen.nl}.}
 
-\item{schema}{Optional. A JSON string, URL or file that selects the JSON validation
-schema. Only used if the \code{txt} argument is specified.}
+\item{format}{Integer. JSON schema format number. There are currently two
+schemas supported, formats \code{1} and \code{2}.}
+
+\item{schema}{A file name (including path) with the JSON validation schema.
+The \code{schema} argument overrides \code{format}. The function extracts the
+character following the string \code{"_v"} in the base name, and overwrites the
+\code{format} argument by the integer representation of the found character.}
 }
 \value{
 An object of class \code{\link[httr:response]{httr::response()}}
@@ -55,18 +61,15 @@ change, so don't build applications based on this data structure. If you need
 components from the internal structure (e.g. Z-scores, brokenstick estimates) it
 is better to develop a dedicated API for obtaining these.
 }
-\note{
-Argument \code{schema} not yet implemented.
-}
 \examples{
 \dontrun{
 library(httr)
-fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamestest")
+fn <- system.file("extdata", "bds_v1.0", "smocc", "Laura_S.json", package = "jamesdemodata")
 js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 
 url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 host <- "https://groeidiagrammen.nl"
-host <- "http://localhost"
+# host <- "http://localhost"
 
 # upload JSON file
 r1 <- upload_txt(fn, host)

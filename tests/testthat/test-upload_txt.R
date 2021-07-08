@@ -51,7 +51,7 @@ test_that(
 )
 
 
-jtf <- system.file("extdata", "bds_str", "test", paste0("test", 1:23, ".json"), package = "jamesdemodata")
+jtf <- system.file("extdata", "bds_v1.0", "test", paste0("test", 1:23, ".json"), package = "jamesdemodata")
 
 test_that(
   "test2.json (missing referentie) PASSES",
@@ -173,7 +173,7 @@ test_that(
 )
 
 
-fn <- system.file("extdata", "bds_str", "smocc", "Laura_S.json", package = "jamesdemodata")
+fn <- system.file("extdata", "bds_v1.0", "smocc", "Laura_S.json", package = "jamesdemodata")
 js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 
 test_that(
@@ -185,3 +185,4 @@ test_that(
   "Laura_S js string uploads",
   expect_equal(status_code(upload_txt(js, host = host3)), 201)
 )
+

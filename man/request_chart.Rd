@@ -24,8 +24,7 @@ and converted to internal server format.}
 specified, the server will automatically plot child height for
 the most recent age period.}
 
-\item{curve_interpolation}{A logical indicating whether curve
-interpolation shoud be applied.}
+\item{curve_interpolation}{Logical. Smooth growth curve along centiles?}
 }
 \value{
 An object of class \code{\link[httr:response]{httr::response()}}
@@ -55,6 +54,6 @@ url <- get_url(resp2, "svglite")
 resp3 <- request_chart(fn)
 }
 \seealso{
-\code{\link[james:draw_chart]{james::draw_chart()}}, \code{\link[=upload_txt]{upload_txt()}}.
+\code{\link[=upload_txt]{upload_txt()}}.
 }
 \keyword{client}
