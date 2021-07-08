@@ -7,7 +7,7 @@
 upload_txt(
   txt,
   host = "https://groeidiagrammen.nl",
-  version = 1L,
+  format = 1L,
   schema = NULL
 )
 }
@@ -20,13 +20,13 @@ and are converted to JSON according to \code{schema}.}
 \item{host}{String with URL of the JAMES host machine. Defaults to
 \verb{https://groeidiagrammen.nl}.}
 
-\item{version}{Integer. JSON schema version number. There are currently two
-schemas supported, versions \code{1} and \code{2}.}
+\item{format}{Integer. JSON schema format number. There are currently two
+schemas supported, formats \code{1} and \code{2}.}
 
 \item{schema}{A file name (including path) with the JSON validation schema.
-The \code{schema} argument overrides \code{version}. The function extracts the
+The \code{schema} argument overrides \code{format}. The function extracts the
 character following the string \code{"_v"} in the base name, and overwrites the
-\code{version} argument by the integer representation of the found character.}
+\code{format} argument by the integer representation of the found character.}
 }
 \value{
 An object of class \code{\link[httr:response]{httr::response()}}

@@ -60,11 +60,11 @@
 #' @export
 upload_txt <- function(txt,
                        host = "https://groeidiagrammen.nl",
-                       version = 1L,
+                       format = 1L,
                        schema = NULL) {
-  schema_list <- set_schema(version, schema)
+  schema_list <- set_schema(format, schema)
   schema <- schema_list$schema_base
-  version <- schema_list$version
+  format <- schema_list$format
 
   # FIXME
   # remove next schema overwrite below after API update

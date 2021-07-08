@@ -6,13 +6,13 @@
 #' @param host Full host name
 #' @inheritParams bdsreader::set_schema
 #' @examples
-#' data <- inspect_upload(name = "Anne_S", "smocc", version = 1)
+#' data <- inspect_upload(name = "Anne_S", "smocc", format = 1)
 #' head(data)
 #' @export
 inspect_upload <- function(name, cabinet,
-                           version = 2L,
+                           format = 2L,
                            host = "https://groeidiagrammen.nl") {
-  schema_path <- switch(version, "bds_v1.0", "bds_v2.0")
+  schema_path <- switch(format, "bds_v1.0", "bds_v2.0")
   fn <- system.file("extdata", schema_path, cabinet, paste0(name, ".json"),
                     package = "jamesdemodata")
   if (fn == "") stop("Child data not found.")
@@ -20,7 +20,7 @@ inspect_upload <- function(name, cabinet,
   target <- readLines(con = fn)
   resp <- upload_txt(target,
                      host = host,
-                     version = version)
+                     format = format)
   url <- paste0(get_url(resp, "location"), "R/.val/rda")
   con <- curl::curl(url = url, open = "rb")
   on.exit(close(con))

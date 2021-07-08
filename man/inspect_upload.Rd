@@ -4,20 +4,15 @@
 \alias{inspect_upload}
 \title{Inspect child data uploaded to JAMES}
 \usage{
-inspect_upload(
-  name,
-  cabinet,
-  version = 2L,
-  host = "https://groeidiagrammen.nl"
-)
+inspect_upload(name, cabinet, format = 2L, host = "https://groeidiagrammen.nl")
 }
 \arguments{
 \item{name}{Name of the child}
 
 \item{cabinet}{Name of cabinet}
 
-\item{version}{Integer. JSON schema version number. There are currently two
-schemas supported, versions \code{1} and \code{2}.}
+\item{format}{Integer. JSON schema format number. There are currently two
+schemas supported, formats \code{1} and \code{2}.}
 
 \item{host}{Full host name}
 }
@@ -25,6 +20,6 @@ schemas supported, versions \code{1} and \code{2}.}
 Uploads JSON child data to JAMES and downloads the processed data for inspection.
 }
 \examples{
-data <- inspect_upload(name = "Anne_S", "smocc", version = 1)
+data <- inspect_upload(name = "Anne_S", "smocc", format = 1)
 head(data)
 }
