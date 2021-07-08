@@ -7,7 +7,7 @@
 upload_txt(
   txt,
   host = "https://groeidiagrammen.nl",
-  format = 1L,
+  format = 2L,
   schema = NULL
 )
 }
@@ -72,15 +72,15 @@ host <- "https://groeidiagrammen.nl"
 # host <- "http://localhost"
 
 # upload JSON file
-r1 <- upload_txt(fn, host)
+r1 <- upload_txt(fn, host, format = 1)
 identical(status_code(r1), 201L)
 
 # upload JSON string
-r2 <- upload_txt(js, host)
+r2 <- upload_txt(js, host, format = 1)
 identical(status_code(r2), 201L)
 
 # upload JSON from external URL
-r3 <- upload_txt(url, host)
+r3 <- upload_txt(url, host, format = 1)
 identical(status_code(r3), 201L)
 }
 }
