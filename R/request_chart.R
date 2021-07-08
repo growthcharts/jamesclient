@@ -15,9 +15,9 @@
 #' @param chartcode The code of the requested growth chart. If not
 #' specified, the server will automatically plot child height for
 #' the most recent age period.
-#' @inheritParams james::draw_chart
+#' @param curve_interpolation Logical. Smooth growth curve along centiles?
 #' @return An object of class [httr::response()]
-#' @seealso [james::draw_chart()], [upload_txt()].
+#' @seealso [upload_txt()].
 #' @keywords client
 #' @details
 #' One of `txt` or `resp` need to be specified. If both

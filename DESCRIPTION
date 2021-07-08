@@ -18,12 +18,10 @@ Imports:
     httr,
     jsonlite
 Suggests: 
-    james,
-    jamesdemodata,
+    jamesdemodata (>= 0.6.0),
     testthat (>= 2.1.0)
 Remotes: 
     growthcharts/bdsreader,
-    growthcharts/james,
     growthcharts/jamesdemodata
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
