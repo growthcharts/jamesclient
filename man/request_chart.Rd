@@ -8,6 +8,7 @@ request_chart(
   txt = NULL,
   loc = NULL,
   chartcode = NULL,
+  selector = NULL,
   curve_interpolation = TRUE
 )
 }
@@ -23,6 +24,8 @@ and converted to internal server format.}
 \item{chartcode}{The code of the requested growth chart. If not
 specified, the server will automatically plot child height for
 the most recent age period.}
+
+\item{selector}{See \code{\link[james:draw_chart]{james::draw_chart()}}.}
 
 \item{curve_interpolation}{Logical. Smooth growth curve along centiles?}
 }
@@ -42,16 +45,24 @@ One of \code{txt} or \code{resp} need to be specified. If both
 are given, a non-NULL \code{txt} takes precedence over \code{resp}.
 }
 \examples{
-# example with separate upload
-fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
-resp1 <- upload_txt(fn)
-loc <- get_url(resp1, "loc")
-resp2 <- request_chart(loc = loc, chartcode = "NJAA")
-url <- get_url(resp2, "svglite")
-# browseURL(url)
+# examples with direct uploads
+url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
+fn <- system.file("testdata", "client3.json", package = "jamesclient")
+js <- readLines(fn)
 
-# example with integrated upload and automatic chartcode choice
-resp3 <- request_chart(fn)
+# request default chart (PMAHN27)
+resp1 <- request_chart(url)
+# browseURL(get_url(resp1, "svglite"))
+
+# request 30 weeks chart ((PMAHN30)
+resp2 <- request_chart(url, chartcode = "PMAHN30")
+resp3 <- request_chart(fn, chartcode = "PMAHN30")
+resp4 <- request_chart(js, chartcode = "PMAHN30")
+
+# example with upload then chart
+resp5 <- upload_txt(fn)
+loc <- get_url(resp5, "loc")
+resp6 <- request_chart(loc = loc, chartcode = "PMAHN30")
 }
 \seealso{
 \code{\link[=upload_txt]{upload_txt()}}.

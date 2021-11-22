@@ -15,6 +15,7 @@
 #' @param chartcode The code of the requested growth chart. If not
 #' specified, the server will automatically plot child height for
 #' the most recent age period.
+#' @param selector See [james::draw_chart()].
 #' @param curve_interpolation Logical. Smooth growth curve along centiles?
 #' @return An object of class [httr::response()]
 #' @seealso [upload_txt()].
@@ -23,45 +24,62 @@
 #' One of `txt` or `resp` need to be specified. If both
 #' are given, a non-NULL `txt` takes precedence over `resp`.
 #' @examples
-#' # example with separate upload
-#' fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
-#' resp1 <- upload_txt(fn)
-#' loc <- get_url(resp1, "loc")
-#' resp2 <- request_chart(loc = loc, chartcode = "NJAA")
-#' url <- get_url(resp2, "svglite")
-#' # browseURL(url)
+#' # examples with direct uploads
+#' url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
+#' fn <- system.file("testdata", "client3.json", package = "jamesclient")
+#' js <- readLines(fn)
 #'
-#' # example with integrated upload and automatic chartcode choice
-#' resp3 <- request_chart(fn)
+#' # request default chart (PMAHN27)
+#' resp1 <- request_chart(url)
+#' # browseURL(get_url(resp1, "svglite"))
+#'
+#' # request 30 weeks chart ((PMAHN30)
+#' resp2 <- request_chart(url, chartcode = "PMAHN30")
+#' resp3 <- request_chart(fn, chartcode = "PMAHN30")
+#' resp4 <- request_chart(js, chartcode = "PMAHN30")
+#'
+#' # example with upload then chart
+#' resp5 <- upload_txt(fn)
+#' loc <- get_url(resp5, "loc")
+#' resp6 <- request_chart(loc = loc, chartcode = "PMAHN30")
 #' @export
 request_chart <- function(txt = NULL,
                           loc = NULL,
                           chartcode = NULL,
+                          selector = NULL,
                           curve_interpolation = TRUE) {
-  url <- "https://groeidiagrammen.nl"
-
-  # upload the data to server and draw graph
-  if (!is.null(txt)) {
-    path <- "ocpu/library/james/R/draw_chart"
-    resp <- POST(
-      url = url, path = path,
-      body = list(
-        txt = upload_file(txt),
-        chartcode = chartcode,
-        curve_interpolation = curve_interpolation
-      )
-    )
+  url <- "http://localhost"
+  path <- "ocpu/library/james/R/draw_chart"
+  done <- FALSE
+  if (is.null(selector)) {
+    selector <- ifelse(is.null(chartcode), "data", "chartcode")
   }
 
-  # read the data from the server-side location
-  if (is.null(txt)) {
+  if (!is.null(txt)) {
+    # read file if txt is a filename or URL
+    if (file.exists(txt[1L]) || url.exists(txt[1L])) {
+      txt <- readLines(txt)
+    }
+    # txt is JSON string: upload and draw
+    if (validate(txt)) {
+      resp <- POST(
+        url = url, path = path,
+        body = list(txt = txt,
+                    chartcode = chartcode,
+                    selector = selector,
+                    curve_interpolation = curve_interpolation),
+        encode = "json")
+      done <- TRUE
+    }
+  } else {
+    # read the data from the server-side location
     stopifnot(!is.null(loc))
-    path <- "ocpu/library/james/R/draw_chart"
     resp <- POST(
       url = url, path = path,
       body = list(
         loc = loc,
         chartcode = chartcode,
+        selector = selector,
         curve_interpolation = curve_interpolation
       ),
       encode = "json"
