@@ -43,32 +43,30 @@
 #'
 #' url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 #' host <- "https://groeidiagrammen.nl"
-#' # host <- "http://localhost"
+#' host <- "http://localhost"
 #'
 #' # upload JSON file
-#' r1 <- upload_txt(fn, host, format = 1)
+#' r1 <- upload_txt(fn, host, format = "1.0")
 #' identical(status_code(r1), 201L)
 #'
 #' # upload JSON string
-#' r2 <- upload_txt(js, host, format = 1)
+#' r2 <- upload_txt(js, host, format = "1.0")
 #' identical(status_code(r2), 201L)
 #'
 #' # upload JSON from external URL
-#' r3 <- upload_txt(url, host, format = 1)
+#' r3 <- upload_txt(url, host, format = "1.0")
 #' identical(status_code(r3), 201L)
 #' }
+#' fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
+#'  package = "jamesdemodata", mustWork = TRUE)
+#' js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
+#' r4 <- upload_txt(js, host, format = "2.0")
 #' @export
 upload_txt <- function(txt,
                        host = "https://groeidiagrammen.nl",
-                       format = 2L,
+                       format = "2.0",
                        schema = NULL) {
   schema_list <- set_schema(format, schema)
-  schema <- schema_list$schema_base
-  format <- schema_list$format
-
-  # FIXME
-  # remove next schema overwrite below after API update
-  schema <- "bds_schema_str.json"
 
   url <- modify_url(url = host, path = "ocpu/library/james/R/fetch_loc")
   txt <- txt[[1L]]
@@ -77,16 +75,16 @@ upload_txt <- function(txt,
 
   if (file.exists(txt)) {
     # txt is a file name: upload
-    writeLines(jsonlite::toJSON(list(schema = unbox(schema))), schema)
+    # writeLines(jsonlite::toJSON(list(schema = unbox(schema_list$schema))), schema)
     resp <- POST(
       url = url,
       body = list(txt = upload_file(txt),
-                  schema = upload_file(schema)),
+                  format = schema_list$format),
       encode = "multipart",
       ua,
       add_headers(Accept = "plain/text")
     )
-    unlink(schema)
+    # unlink(schema)
   } else {
     # txt is a URL: overwrite txt with JSON string
     if (!validate(txt)) {
@@ -100,7 +98,8 @@ upload_txt <- function(txt,
     # txt is JSON string: upload
     resp <- POST(
       url = url,
-      body = list(txt = txt, schema = schema),
+      body = list(txt = txt,
+                  format = schema_list$format),
       encode = "json",
       ua,
       add_headers(Accept = "plain/text")

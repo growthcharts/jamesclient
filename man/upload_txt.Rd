@@ -7,7 +7,7 @@
 upload_txt(
   txt,
   host = "https://groeidiagrammen.nl",
-  format = 2L,
+  format = "2.0",
   schema = NULL
 )
 }
@@ -20,13 +20,14 @@ and are converted to JSON according to \code{schema}.}
 \item{host}{String with URL of the JAMES host machine. Defaults to
 \verb{https://groeidiagrammen.nl}.}
 
-\item{format}{Integer. JSON schema format number. There are currently two
-schemas supported, formats \code{1} and \code{2}.}
+\item{format}{String. JSON data schema version number. There are currently
+three schemas supported: \code{1.0}, \code{1.1} and \code{2.0}.}
 
-\item{schema}{A file name (including path) with the JSON validation schema.
+\item{schema}{A file name (optionally including the path) with the JSON
+validation schema.
 The \code{schema} argument overrides \code{format}. The function extracts the
-character following the string \code{"_v"} in the base name, and overwrites the
-\code{format} argument by the integer representation of the found character.}
+version number for the basename, and overwrites the
+\code{format} argument by version number.}
 }
 \value{
 An object of class \code{\link[httr:response]{httr::response()}}
@@ -69,18 +70,22 @@ js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 
 url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 host <- "https://groeidiagrammen.nl"
-# host <- "http://localhost"
+host <- "http://localhost"
 
 # upload JSON file
-r1 <- upload_txt(fn, host, format = 1)
+r1 <- upload_txt(fn, host, format = "1.0")
 identical(status_code(r1), 201L)
 
 # upload JSON string
-r2 <- upload_txt(js, host, format = 1)
+r2 <- upload_txt(js, host, format = "1.0")
 identical(status_code(r2), 201L)
 
 # upload JSON from external URL
-r3 <- upload_txt(url, host, format = 1)
+r3 <- upload_txt(url, host, format = "1.0")
 identical(status_code(r3), 201L)
 }
+fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
+ package = "jamesdemodata", mustWork = TRUE)
+js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
+r4 <- upload_txt(js, host, format = "2.0")
 }
