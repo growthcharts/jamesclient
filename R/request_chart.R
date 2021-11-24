@@ -12,6 +12,7 @@
 #' and are converted to JSON according to `schema`.
 #' @param loc Alternative to `txt`. Location where input data is uploaded
 #' and converted to internal server format.
+#' @param host The host to which to upload
 #' @param chartcode The code of the requested growth chart. If not
 #' specified, the server will automatically plot child height for
 #' the most recent age period.
@@ -27,7 +28,8 @@
 #' # examples with direct uploads
 #' url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 #' fn <- system.file("testdata", "client3.json", package = "jamesclient")
-#' js <- readLines(fn)
+#' js1 <- readLines(fn)
+#' js2 <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 #'
 #' # request default chart (PMAHN27)
 #' resp1 <- request_chart(url)
@@ -36,34 +38,38 @@
 #' # request 30 weeks chart ((PMAHN30)
 #' resp2 <- request_chart(url, chartcode = "PMAHN30")
 #' resp3 <- request_chart(fn, chartcode = "PMAHN30")
-#' resp4 <- request_chart(js, chartcode = "PMAHN30")
+#' resp4 <- request_chart(js1, chartcode = "PMAHN30")
+#' resp5 <- request_chart(js2, chartcode = "PMAHN30")
 #'
-#' # example with upload then chart
-#' resp5 <- upload_txt(fn)
-#' loc <- get_url(resp5, "loc")
-#' resp6 <- request_chart(loc = loc, chartcode = "PMAHN30")
+#' # in two steps: first upload then request chart
+#' resp6 <- upload_txt(fn)
+#' loc <- get_url(resp6, "loc")
+#' resp7 <- request_chart(loc = loc, chartcode = "PMAHN30")
 #' @export
 request_chart <- function(txt = NULL,
                           loc = NULL,
+                          host = "http://localhost",
                           chartcode = NULL,
                           selector = NULL,
                           curve_interpolation = TRUE) {
-  url <- "http://localhost"
   path <- "ocpu/library/james/R/draw_chart"
-  done <- FALSE
   if (is.null(selector)) {
     selector <- ifelse(is.null(chartcode), "data", "chartcode")
   }
 
+  # process txt argument
+  done <- FALSE
   if (!is.null(txt)) {
-    # read file if txt is a filename or URL
-    if (file.exists(txt[1L]) || url.exists(txt[1L])) {
+    if (file.exists(txt[1L])) {
       txt <- readLines(txt)
+    } else if (url.exists(txt[1L])) {
+      con <- curl(txt[1L], open = "r")
+      txt <- readLines(con)
+      close(con)
     }
-    # txt is JSON string: upload and draw
     if (validate(txt)) {
       resp <- POST(
-        url = url, path = path,
+        url = host, path = path,
         body = list(txt = txt,
                     chartcode = chartcode,
                     selector = selector,
@@ -71,11 +77,12 @@ request_chart <- function(txt = NULL,
         encode = "json")
       done <- TRUE
     }
-  } else {
-    # read the data from the server-side location
-    stopifnot(!is.null(loc))
+  }
+
+  # process loc argument (read the data from the server location)
+  if (!done && url.exists(loc)) {
     resp <- POST(
-      url = url, path = path,
+      url = host, path = path,
       body = list(
         loc = loc,
         chartcode = chartcode,
@@ -84,7 +91,10 @@ request_chart <- function(txt = NULL,
       ),
       encode = "json"
     )
+    done <- TRUE
   }
+
+  if (!done) stop("Could not process txt and loc argument")
 
   if (http_error(resp)) {
     message_for_status(resp)

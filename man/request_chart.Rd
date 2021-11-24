@@ -7,6 +7,7 @@
 request_chart(
   txt = NULL,
   loc = NULL,
+  host = "http://localhost",
   chartcode = NULL,
   selector = NULL,
   curve_interpolation = TRUE
@@ -20,6 +21,8 @@ and are converted to JSON according to \code{schema}.}
 
 \item{loc}{Alternative to \code{txt}. Location where input data is uploaded
 and converted to internal server format.}
+
+\item{host}{The host to which to upload}
 
 \item{chartcode}{The code of the requested growth chart. If not
 specified, the server will automatically plot child height for
@@ -48,7 +51,8 @@ are given, a non-NULL \code{txt} takes precedence over \code{resp}.
 # examples with direct uploads
 url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 fn <- system.file("testdata", "client3.json", package = "jamesclient")
-js <- readLines(fn)
+js1 <- readLines(fn)
+js2 <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 
 # request default chart (PMAHN27)
 resp1 <- request_chart(url)
@@ -57,12 +61,13 @@ resp1 <- request_chart(url)
 # request 30 weeks chart ((PMAHN30)
 resp2 <- request_chart(url, chartcode = "PMAHN30")
 resp3 <- request_chart(fn, chartcode = "PMAHN30")
-resp4 <- request_chart(js, chartcode = "PMAHN30")
+resp4 <- request_chart(js1, chartcode = "PMAHN30")
+resp5 <- request_chart(js2, chartcode = "PMAHN30")
 
 # example with upload then chart
-resp5 <- upload_txt(fn)
-loc <- get_url(resp5, "loc")
-resp6 <- request_chart(loc = loc, chartcode = "PMAHN30")
+resp6 <- upload_txt(fn)
+loc <- get_url(resp6, "loc")
+resp7 <- request_chart(loc = loc, chartcode = "PMAHN30")
 }
 \seealso{
 \code{\link[=upload_txt]{upload_txt()}}.
