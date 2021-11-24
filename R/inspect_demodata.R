@@ -1,4 +1,4 @@
-#' Inspect child data uploaded to JAMES
+#' Inspect demo data uploaded to JAMES
 #'
 #' Uploads JSON child demo data to JAMES and downloads the processed data for inspection.
 #' @param name Name of the child
@@ -6,10 +6,10 @@
 #' @param host Full host name
 #' @inheritParams bdsreader::set_schema
 #' @examples
-#' data <- inspect_upload(name = "Anne_S", "smocc", format = "2.0", host = "http://localhost")
+#' data <- inspect_demodata(name = "Anne_S", "smocc", format = "2.0", host = "http://localhost")
 #' head(data)
 #' @export
-inspect_upload <- function(name, cabinet,
+inspect_demodata <- function(name, cabinet,
                            format = c("2.0", "1.0", "1.1"),
                            host = "https://groeidiagrammen.nl") {
   format <- match.arg(format)
