@@ -10,6 +10,7 @@
 #' and are converted to JSON according to `schema`.
 #' @param host String with URL of the JAMES host machine. Defaults to
 #' `https://groeidiagrammen.nl`.
+#' @param verbose Logical. Print diagnostic information of POST request to console.
 #' @inheritParams bdsreader::set_schema
 #' @return An object of class [httr::response()]
 #' @details
@@ -36,78 +37,67 @@
 #' components from the internal structure (e.g. Z-scores, brokenstick estimates) it
 #' is better to develop a dedicated API for obtaining these.
 #' @examples
-#' \dontrun{
 #' library(httr)
-#' fn <- system.file("extdata", "bds_v1.0", "smocc", "Laura_S.json", package = "jamesdemodata")
-#' js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 #'
-#' url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
-#' host <- "https://groeidiagrammen.nl"
 #' host <- "http://localhost"
+#' url <- paste(host, "ocpu/library/jamesdemodata",
+#'   "extdata/bds_v2.0/smocc/Laura_S.json", sep = "/")
+#' fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
+#'  package = "jamesdemodata", mustWork = TRUE)
+#' js1 <- readLines(url)
+#' js2 <- jsonlite::toJSON(jsonlite::fromJSON(url), auto_unbox = TRUE)
 #'
 #' # upload JSON file
-#' r1 <- upload_txt(fn, host, format = "1.0")
+#' r1 <- upload_txt(fn, host)
 #' identical(status_code(r1), 201L)
 #'
 #' # upload JSON string
-#' r2 <- upload_txt(js, host, format = "1.0")
+#' r2 <- upload_txt(js1, host)
+#' # r2a <- upload_txt(js2, host)
 #' identical(status_code(r2), 201L)
 #'
-#' # upload JSON from external URL
-#' r3 <- upload_txt(url, host, format = "1.0")
+#' # upload JSON from external URL.
+#' r3 <- upload_txt(url, host)
 #' identical(status_code(r3), 201L)
-#' }
-#' fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
-#'  package = "jamesdemodata", mustWork = TRUE)
-#' js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
-#' r4 <- upload_txt(js, host, format = "2.0")
+#' # browseURL(get_url(r3))
+#'
+#' r <- GET(paste(get_url(r3), "json", sep = "/"))
+#' r
 #' @export
 upload_txt <- function(txt,
                        host = "https://groeidiagrammen.nl",
-                       format = "2.0",
-                       schema = NULL) {
+                       format = "1.0",
+                       schema = NULL,
+                       verbose = FALSE) {
   schema_list <- set_schema(format, schema)
 
-  url <- modify_url(url = host, path = "ocpu/library/james/R/fetch_loc")
-  txt <- txt[[1L]]
-  ua <- get0("ua", mode = "list")
-  try.error <- FALSE
+  path = "ocpu/library/james/R/fetch_loc"
+  done <- FALSE
 
-  if (file.exists(txt)) {
-    # txt is a file name: upload
-    # writeLines(jsonlite::toJSON(list(schema = unbox(schema_list$schema))), schema)
-    resp <- POST(
-      url = url,
-      body = list(txt = upload_file(txt),
-                  format = schema_list$format),
-      encode = "multipart",
-      ua,
-      add_headers(Accept = "plain/text")
-    )
-    # unlink(schema)
-  } else {
-    # txt is a URL: overwrite txt with JSON string
-    if (!validate(txt)) {
-      con.url <- try(con <- url(txt, open = "rb"), silent = TRUE)
-      try.error <- inherits(con.url, "try-error")
-      if (!try.error) {
-        txt <- toJSON(fromJSON(txt, flatten = TRUE), auto_unbox = TRUE)
-        close(con)
-      }
+  if (file.exists(txt[1L])) {
+    txt <- readLines(txt)
+  } else if (url.exists(txt[1L])) {
+    con <- curl(txt[1L], open = "r")
+    txt <- readLines(con)
+    close(con)
+  }
+  if (validate(txt)) {
+    if (verbose) {
+      resp <- POST(
+        url = host, path = path,
+        body = list(txt = txt),
+        encode = "json", verbose())
+    } else {
+      resp <- POST(
+        url = host, path = path,
+        body = list(txt = txt),
+        encode = "json")
     }
-    # txt is JSON string: upload
-    resp <- POST(
-      url = url,
-      body = list(txt = txt,
-                  format = schema_list$format),
-      encode = "json",
-      ua,
-      add_headers(Accept = "plain/text")
-    )
+    done <- TRUE
   }
 
   # throw warnings and messages
-  if (try.error) warning("Data URL not found (404)")
+  if (!done) stop("Could not upload data. Possible causes: invalid JSON or empty file.")
   url_warnings <- get_url(resp, "warnings")
   url_messages <- get_url(resp, "messages")
   if (length(url_warnings) >= 1L) {

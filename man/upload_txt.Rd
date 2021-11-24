@@ -7,8 +7,9 @@
 upload_txt(
   txt,
   host = "https://groeidiagrammen.nl",
-  format = "2.0",
-  schema = NULL
+  format = "1.0",
+  schema = NULL,
+  verbose = FALSE
 )
 }
 \arguments{
@@ -63,29 +64,30 @@ components from the internal structure (e.g. Z-scores, brokenstick estimates) it
 is better to develop a dedicated API for obtaining these.
 }
 \examples{
-\dontrun{
 library(httr)
-fn <- system.file("extdata", "bds_v1.0", "smocc", "Laura_S.json", package = "jamesdemodata")
-js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 
-url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
-host <- "https://groeidiagrammen.nl"
 host <- "http://localhost"
+url <- paste(host, "ocpu/library/jamesdemodata",
+  "extdata/bds_v2.0/smocc/Laura_S.json", sep = "/")
+fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
+ package = "jamesdemodata", mustWork = TRUE)
+js1 <- readLines(url)
+js2 <- jsonlite::toJSON(jsonlite::fromJSON(url), auto_unbox = TRUE)
 
 # upload JSON file
-r1 <- upload_txt(fn, host, format = "1.0")
+r1 <- upload_txt(fn, host)
 identical(status_code(r1), 201L)
 
 # upload JSON string
-r2 <- upload_txt(js, host, format = "1.0")
+r2 <- upload_txt(js1, host)
+# r2a <- upload_txt(js2, host)
 identical(status_code(r2), 201L)
 
-# upload JSON from external URL
-r3 <- upload_txt(url, host, format = "1.0")
+# upload JSON from external URL.
+r3 <- upload_txt(url, host)
 identical(status_code(r3), 201L)
-}
-fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
- package = "jamesdemodata", mustWork = TRUE)
-js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
-r4 <- upload_txt(js, host, format = "2.0")
+# browseURL(get_url(r3))
+
+r <- GET(paste(get_url(r3), "json", sep = "/"))
+r
 }
