@@ -1,56 +1,34 @@
 library(httr)
 
 fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamesdemodata")
-js <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
+js1 <- readLines(fn)
+js2 <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 
-host1 <- "https://groeidiagrammen.nl"
-host2 <- "https://vps.stefvanbuuren.nl"
-host3 <- "http://localhost"
+hosts <- c("https://groeidiagrammen.nl",
+           "https://vps.stefvanbuuren.nl",
+           "http://localhost")
 
-# temporary overwrite if there is no localhost
-# host3 <- "https://groeidiagrammen.nl"
+for (host in hosts) {
+  test_that(
+    paste("fn uploads to host", host),
+    expect_equal(status_code(upload_txt(fn, host = host)), 201)
+  )
+  test_that(
+    paste("js1 uploads to host", host),
+    expect_equal(status_code(upload_txt(js1, host = host)), 201)
+  )
+  test_that(
+    paste("js2 uploads to host", host),
+    expect_equal(status_code(upload_txt(js2, host = host)), 201)
+  )
+  test_that(
+    paste("url uploads to host", host),
+    expect_equal(status_code(upload_txt(url, host = host)), 201)
+  )
+}
 
-test_that(
-  "client3.json uploads to host1",
-  expect_equal(status_code(upload_txt(fn, host = host1, format = "1.0")), 201)
-)
-test_that(
-  "JSON string uploads to host1",
-  expect_equal(status_code(upload_txt(js, host = host1)), 201)
-)
-test_that(
-  "JSON file at URL uploads to host1",
-  expect_equal(status_code(upload_txt(url, host = host1)), 201)
-)
-
-test_that(
-  "client3.json uploads to host2",
-  expect_equal(status_code(upload_txt(fn, host = host2)), 201)
-)
-test_that(
-  "JSON string uploads to host2",
-  expect_equal(status_code(upload_txt(js, host = host2)), 201)
-)
-test_that(
-  "JSON file at URL uploads to host2",
-  expect_equal(status_code(upload_txt(url, host = host2)), 201)
-)
-
-test_that(
-  "client3.json uploads to host3",
-  expect_equal(status_code(upload_txt(fn, host = host3)), 201)
-)
-test_that(
-  "JSON string uploads to host3",
-  expect_equal(status_code(upload_txt(js, host = host3)), 201)
-)
-test_that(
-  "JSON file at URL uploads to host3",
-  expect_equal(status_code(upload_txt(url, host = host3)), 201)
-)
-
-
+host3 <- hosts[3]
 jtf <- system.file("extdata", "bds_v1.0", "test", paste0("test", 1:23, ".json"), package = "jamesdemodata")
 
 test_that(
@@ -84,8 +62,8 @@ test_that(
 )
 
 test_that(
-  "test8.json (Invalid OrganisatieCode) ERROR 400",
-  expect_equal(status_code(upload_txt(jtf[8], host = host3)), 400L)
+  "test8.json (Invalid OrganisatieCode)",
+  expect_error(upload_txt(jtf[8], host = host3))
 )
 
 test_that(
@@ -114,8 +92,8 @@ test_that(
 )
 
 test_that(
-  "test14.json (Empty file) ERROR 400",
-  expect_equal(status_code(upload_txt(jtf[14], host = host3)), 400L)
+  "test14.json (Empty file)",
+  expect_error(upload_txt(jtf[8], host = host3))
 )
 
 test_that(
