@@ -28,27 +28,29 @@
 #' # examples with direct uploads
 #' url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 #' fn <- system.file("testdata", "client3.json", package = "jamesclient")
+#' host <- "http://localhost"
+#'
 #' js1 <- readLines(fn)
 #' js2 <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 #'
 #' # request default chart (PMAHN27)
-#' resp1 <- request_chart(url)
+#' resp1 <- request_chart(url, host = host)
 #' # browseURL(get_url(resp1, "svglite"))
 #'
 #' # request 30 weeks chart ((PMAHN30)
-#' resp2 <- request_chart(url, chartcode = "PMAHN30")
-#' resp3 <- request_chart(fn, chartcode = "PMAHN30")
-#' resp4 <- request_chart(js1, chartcode = "PMAHN30")
-#' resp5 <- request_chart(js2, chartcode = "PMAHN30")
+#' resp2 <- request_chart(url, host = host, chartcode = "PMAHN30")
+#' resp3 <- request_chart(fn, host = host, chartcode = "PMAHN30")
+#' resp4 <- request_chart(js1, host = host, chartcode = "PMAHN30")
+#' resp5 <- request_chart(js2, host = host, chartcode = "PMAHN30")
 #'
 #' # in two steps: first upload then request chart
-#' resp6 <- upload_txt(fn)
+#' resp6 <- upload_txt(fn, host = host)
 #' loc <- get_url(resp6, "loc")
-#' resp7 <- request_chart(loc = loc, chartcode = "PMAHN30")
+#' resp7 <- request_chart(loc = loc, host = host, chartcode = "PMAHN30")
 #' @export
 request_chart <- function(txt = NULL,
                           loc = NULL,
-                          host = "http://localhost",
+                          host = "https://groeidiagrammen.nl",
                           chartcode = NULL,
                           selector = NULL,
                           curve_interpolation = TRUE) {
