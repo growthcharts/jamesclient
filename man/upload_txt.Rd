@@ -29,6 +29,8 @@ validation schema.
 The \code{schema} argument overrides \code{format}. The function extracts the
 version number for the basename, and overwrites the
 \code{format} argument by version number.}
+
+\item{verbose}{Logical. Print diagnostic information of POST request to console.}
 }
 \value{
 An object of class \code{\link[httr:response]{httr::response()}}
