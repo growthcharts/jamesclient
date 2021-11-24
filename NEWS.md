@@ -1,3 +1,10 @@
+# jamesclient 0.18.0
+
+- Rewrites `upload_txt()` 
+- Rewrites `inspect_upload()`, and renames it to `inspect_demodata()`
+- Updates test file to work with multiple hosts
+- Updates `request_chart()` and provides extensive and working examples
+
 # jamesclient 0.17.0
 
 - Generalises `inspect_upload()` and `upload_txt()` to work with the `format` argument to accept multi-format child data

@@ -35,11 +35,11 @@ remotes::install_github("growthcharts/jamesclient")
 
 The primary functions are:
 
-Function          | Description
------------------ | -------------
-`upload_txt()`    | Upload and parse data for JAMES
-`request_chart()` | Upload BDS-data, draw chart with child data
-`inspect_upload()`| Upload demo child data and download parsed file
+Function            | Description
+------------------- | -------------
+`upload_txt()`      | Upload and parse data for JAMES
+`request_chart()`   | Upload BDS-data, draw chart with child data
+`inspect_demodata()`| Upload demo child data and download parsed file
 
 ### `upload_txt()`
 
@@ -48,7 +48,7 @@ Upload BDS data and create a tibble on the server:
 ```{r example, eval=FALSE}
 library(jamesclient)
 fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
-r1 <- upload_txt(fn, format = 1)
+r1 <- upload_txt(fn)
 browseURL(get_url(r1, "return"))
 ```
 
@@ -57,15 +57,16 @@ browseURL(get_url(r1, "return"))
 Make a combined upload and automatic chartcode choice:
 
 ```{r example2, eval = FALSE}
-r2 <- request_chart(fn, chartcode = "NJAA")
+r2 <- request_chart(fn, chartcode = "PJAHN27")
 browseURL(get_url(r2, "svg"))
 ```
 
-### `inspect_upload()`
+### `inspect_demodata()`
 
 ```{r example3}
 library(jamesclient)
-head(inspect_upload(name = "Anne_S", "smocc", format = 1))
+data <- inspect_demodata(name = "Anne_S", "smocc", format = "1.0")
+data
 ```
 
 
