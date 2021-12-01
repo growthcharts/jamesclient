@@ -4,7 +4,7 @@
 #' returned by OpenCPU.
 #' @param name A string: `"return"`, `"location"`, `"session"`,
 #'  `"console"`, `"stdout"`, `"svg"`, `"svglite"`,
-#'  `"messages"`, `"warnings"`. The default is `"return"`.
+#'  `"messages"`, `"warnings"`, `"json"`, `"rda"`. The default is `"return"`.
 #' @param \dots Additional string that is concatenate to the URL
 #' @rdname get_url
 #' @return A url. If not found, the return is `character(0)`.
@@ -15,12 +15,13 @@ get_url <- function(resp,
                     name = c(
                       "return", "location", "session",
                       "console", "stdout", "svg", "svglite",
-                      "messages", "warnings"
+                      "messages", "warnings", "json", "rda"
                     ),
                     ...) {
   name <- match.arg(name)
   switch(name,
     return = get_url_return(resp, ...),
+    json = get_url_json(resp, ...),
     location = get_url_location(resp, ...),
     session = get_url_session(resp, ...),
     stdout = get_url_stdout(resp, ...),
@@ -29,6 +30,7 @@ get_url <- function(resp,
     messages = get_url_messages(resp, ...),
     messages = get_url_warnings(resp, ...),
     console = get_url_console(resp, ...),
+    rda = get_url_rda(resp, ...),
     character(0)
   )
 }
@@ -66,6 +68,23 @@ get_url_return <- function(resp, ...) {
     character(0)
   }
 }
+
+get_url_json <- function(resp, ...) {
+  if (has_pattern(resp, ".val")) {
+    paste0(headers(resp)$location, "R/.val/json")
+  } else {
+    character(0)
+  }
+}
+
+get_url_rda <- function(resp, ...) {
+  if (has_pattern(resp, ".val")) {
+    paste0(headers(resp)$location, "R/.val/rda")
+  } else {
+    character(0)
+  }
+}
+
 
 get_url_stdout <- function(resp, ...) {
   if (has_pattern(resp, "stdout")) {

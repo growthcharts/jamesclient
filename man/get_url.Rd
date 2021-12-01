@@ -8,7 +8,7 @@
 get_url(
   resp,
   name = c("return", "location", "session", "console", "stdout", "svg", "svglite",
-    "messages", "warnings"),
+    "messages", "warnings", "json", "rda"),
   ...
 )
 
@@ -20,7 +20,7 @@ returned by OpenCPU.}
 
 \item{name}{A string: \code{"return"}, \code{"location"}, \code{"session"},
 \code{"console"}, \code{"stdout"}, \code{"svg"}, \code{"svglite"},
-\code{"messages"}, \code{"warnings"}. The default is \code{"return"}.}
+\code{"messages"}, \code{"warnings"}, \code{"json"}, \code{"rda"}. The default is \code{"return"}.}
 
 \item{\dots}{Additional string that is concatenate to the URL}
 
