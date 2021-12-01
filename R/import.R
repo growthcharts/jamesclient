@@ -6,6 +6,7 @@
 #'                          stop_for_status upload_file user_agent
 #'                          warn_for_status
 #' @importFrom jsonlite     fromJSON toJSON unbox validate
+#' @importFrom utils        str
 NULL
 
 globalVariables(".val")
