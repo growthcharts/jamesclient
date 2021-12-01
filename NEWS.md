@@ -1,3 +1,7 @@
+# jamesclient 0.19.0
+
+- Adds generic `james_get()` and `james_post()` functions
+
 # jamesclient 0.18.1
 
 - Adds options `json` and `rda` to `get_url()`
