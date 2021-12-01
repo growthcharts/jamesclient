@@ -52,12 +52,13 @@
 #' identical(status_code(r1), 201L)
 #'
 #' # upload JSON string
-#' r2 <- upload_txt(js1, host)
-#' # r2a <- upload_txt(js2, host)
-#' identical(status_code(r2), 201L)
+#' r2a <- upload_txt(js1, host)
+#' identical(status_code(r2a), 201L)
+#' r2b <- upload_txt(js2, host)
+#' identical(status_code(r2b), 201L)
 #'
 #' # upload JSON from external URL.
-#' r3 <- upload_txt(url, host)
+#' r3 <- upload_txt(url, host, format = "1.0")
 #' identical(status_code(r3), 201L)
 #' # browseURL(get_url(r3))
 #'
@@ -69,9 +70,8 @@ upload_txt <- function(txt,
                        format = "1.0",
                        schema = NULL,
                        verbose = FALSE) {
-  schema_list <- set_schema(format, schema)
-
-  path = "ocpu/library/james/R/fetch_loc"
+  fmt <- set_schema(format, schema)$format
+  path <- "ocpu/library/james/R/fetch_loc"
   done <- FALSE
 
   if (file.exists(txt[1L])) {

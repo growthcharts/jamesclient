@@ -81,12 +81,13 @@ r1 <- upload_txt(fn, host)
 identical(status_code(r1), 201L)
 
 # upload JSON string
-r2 <- upload_txt(js1, host)
-# r2a <- upload_txt(js2, host)
-identical(status_code(r2), 201L)
+r2a <- upload_txt(js1, host)
+identical(status_code(r2a), 201L)
+r2b <- upload_txt(js2, host)
+identical(status_code(r2b), 201L)
 
 # upload JSON from external URL.
-r3 <- upload_txt(url, host)
+r3 <- upload_txt(url, host, format = "1.0")
 identical(status_code(r3), 201L)
 # browseURL(get_url(r3))
 
