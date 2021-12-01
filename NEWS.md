@@ -1,3 +1,8 @@
+# jamesclient 0.18.1
+
+- Adds options `json` and `rda` to `get_url()`
+- Makes `upload_txt()` work with all JSON vector input
+
 # jamesclient 0.18.0
 
 - Rewrites `upload_txt()` 
