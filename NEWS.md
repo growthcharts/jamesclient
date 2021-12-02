@@ -1,3 +1,7 @@
+# jamesclient 0.19.1
+
+- Use `multipart` and `file_upload()` POST request when `txt` is a local file
+
 # jamesclient 0.19.0
 
 - Adds generic `james_get()` and `james_post()` functions
