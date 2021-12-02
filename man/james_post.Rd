@@ -17,19 +17,23 @@ Object of class \code{james_post}
 \description{
 Make JAMES POST request
 }
+\details{
+If \code{txt} is a file, then the data are uploaded using \code{upload_file()} and
+encoding \code{multipart/form}. If \code{txt} is a URL, then the data are read from the URL
+as JSON string and uploaded with encoding \code{json}.
+}
 \examples{
-z <- james_post()
 fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamesdemodata")
-z <- james_post("upload", txt = fn)
-
 url <- paste("http://localhost", "ocpu/library/jamesdemodata",
   "extdata/bds_v2.0/smocc/Laura_S.json", sep = "/")
-fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
+fn1 <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
  package = "jamesdemodata", mustWork = TRUE)
 js1 <- readLines(url)
 js2 <- jsonlite::toJSON(jsonlite::fromJSON(url), auto_unbox = TRUE)
 
-z <- james_post("upload", txt = js2)
-james_post()
-
+#' try all four inputs
+m1 <- james_post("upload", txt = fn1)
+m2 <- james_post("upload", txt = js1)
+m3 <- james_post("upload", txt = js2)
+m4 <- james_post("upload", txt = url)
 }
