@@ -23,6 +23,7 @@ encoding \code{multipart/form}. If \code{txt} is a URL, then the data are read f
 as JSON string and uploaded with encoding \code{json}.
 }
 \examples{
+james_post()
 fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamesdemodata")
 url <- paste("http://localhost", "ocpu/library/jamesdemodata",
   "extdata/bds_v2.0/smocc/Laura_S.json", sep = "/")
