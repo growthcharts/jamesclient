@@ -4,12 +4,12 @@
 \alias{james_post}
 \title{Make JAMES POST request}
 \usage{
-james_post(path = c("version", "upload"), txt = NULL)
+james_post(path = character(0), txt = NULL)
 }
 \arguments{
-\item{path}{String with the path}
+\item{path}{String with the path, e.g. \code{"version"}, \code{"upload"} or \code{"upload/json"}}
 
-\item{txt}{Data set, used in \code{upload}}
+\item{txt}{Data set, used in \code{"upload"}}
 }
 \value{
 Object of class \code{james_post}
@@ -23,7 +23,6 @@ encoding \code{multipart/form}. If \code{txt} is a URL, then the data are read f
 as JSON string and uploaded with encoding \code{json}.
 }
 \examples{
-james_post()
 fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamesdemodata")
 url <- paste("http://localhost", "ocpu/library/jamesdemodata",
   "extdata/bds_v2.0/smocc/Laura_S.json", sep = "/")
@@ -33,8 +32,8 @@ js1 <- readLines(url)
 js2 <- jsonlite::toJSON(jsonlite::fromJSON(url), auto_unbox = TRUE)
 
 #' try all four inputs
-m1 <- james_post("upload", txt = fn1)
-m2 <- james_post("upload", txt = js1)
-m3 <- james_post("upload", txt = js2)
-m4 <- james_post("upload", txt = url)
+m1 <- james_post("upload/json", txt = fn1)
+m2 <- james_post("upload/json", txt = js1)
+m3 <- james_post("upload/json", txt = js2)
+m4 <- james_post("upload/json", txt = url)
 }
