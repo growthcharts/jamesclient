@@ -1,3 +1,7 @@
+# jamesclient 0.21.0
+
+- Adds `host` argument to `james_post()` and `james_get()`
+
 # jamesclient 0.20.0
 
 - Does not append `"json"` anymore to path in `james_api()`
