@@ -1,3 +1,7 @@
+# jamesclient 0.20.0
+
+- Does not append `"json"` anymore to path in `james_api()`
+
 # jamesclient 0.19.1
 
 - Use `multipart` and `file_upload()` POST request when `txt` is a local file
