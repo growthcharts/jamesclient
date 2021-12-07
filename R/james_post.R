@@ -1,5 +1,6 @@
 #' Make JAMES POST request
 #'
+#' @param host String with the host. The default is `"http://localhost"`
 #' @param path String with the path, e.g. `"version"`, `"upload"` or `"upload/json"`
 #' @param txt Data set, used in `"upload"`
 #' @return Object of class `james_post`
@@ -16,17 +17,15 @@
 #' js2 <- jsonlite::toJSON(jsonlite::fromJSON(url), auto_unbox = TRUE)
 #'
 #' #' try all four inputs
-#' m1 <- james_post("upload/json", txt = fn1)
-#' m2 <- james_post("upload/json", txt = js1)
-#' m3 <- james_post("upload/json", txt = js2)
-#' m4 <- james_post("upload/json", txt = url)
+#' m1 <- james_post(path = "upload/json", txt = fn1)
+#' m2 <- james_post(path = "upload/json", txt = js1)
+#' m3 <- james_post(path = "upload/json", txt = js2)
+#' m4 <- james_post(path = "upload/json", txt = url)
 #' @export
-james_post <- function(path = character(0),
+james_post <- function(host = "http://localhost",
+                       path = character(0),
                        txt = NULL) {
-  # host
-  host <- "http://localhost"
   stopifnot(length(path) == 1L)
-  # stem <- unlist(strsplit(path, split = "/", fixed = TRUE))[1L]
   url <- modify_url(url = host, path = path)
   ask_json <- grepl("/json", path)
 
@@ -103,11 +102,12 @@ james_post <- function(path = character(0),
 
   structure(
     list(
+      request_path = path,
       content = parsed,
       warnings = warnings,
       messages = messages,
-      path = path,
-      key = headers(resp)$`x-ocpu-session`,
+      key = headers(resp)[["x-ocpu-session"]],
+      location = headers(resp)[["location"]],
       response = resp
     ),
     class = "james_post"
@@ -116,7 +116,7 @@ james_post <- function(path = character(0),
 
 #' @export
 print.james_post <- function(x, ...) {
-  cat("<JAMES ", x$path, ">\n", sep = "")
+  cat("<JAMES ", x$request_path, ">\n", sep = "")
   str(x$content)
   str(x$warnings)
   str(x$messages)

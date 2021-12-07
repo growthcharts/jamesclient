@@ -4,9 +4,11 @@
 \alias{james_post}
 \title{Make JAMES POST request}
 \usage{
-james_post(path = character(0), txt = NULL)
+james_post(host = "http://localhost", path = character(0), txt = NULL)
 }
 \arguments{
+\item{host}{String with the host. The default is \code{"http://localhost"}}
+
 \item{path}{String with the path, e.g. \code{"version"}, \code{"upload"} or \code{"upload/json"}}
 
 \item{txt}{Data set, used in \code{"upload"}}
@@ -32,8 +34,8 @@ js1 <- readLines(url)
 js2 <- jsonlite::toJSON(jsonlite::fromJSON(url), auto_unbox = TRUE)
 
 #' try all four inputs
-m1 <- james_post("upload/json", txt = fn1)
-m2 <- james_post("upload/json", txt = js1)
-m3 <- james_post("upload/json", txt = js2)
-m4 <- james_post("upload/json", txt = url)
+m1 <- james_post(path = "upload/json", txt = fn1)
+m2 <- james_post(path = "upload/json", txt = js1)
+m3 <- james_post(path = "upload/json", txt = js2)
+m4 <- james_post(path = "upload/json", txt = url)
 }

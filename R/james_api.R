@@ -1,16 +1,16 @@
 #' Make JAMES GET request
 #'
+#' @param host String with the host. The default is `"http://localhost"`
 #' @param path String with the path
 #' @return Object of class `james_get`
 #' @export
-james_get <- function(path) {
-  url <- modify_url("http://localhost", path = path)
+james_get <- function(host = "http://localhost",
+                      path = character(0)) {
+  url <- modify_url(hostname = host, path = path)
   ua <- user_agent("https://github.com/growthcharts/jamesclient")
+  ask_json <- grepl("/json", path)
 
   resp <- GET(url, ua)
-  if (http_type(resp) != "application/json") {
-    stop("API did not return json", call. = FALSE)
-  }
 
   parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
 
@@ -26,10 +26,14 @@ james_get <- function(path) {
     )
   }
 
+  if (ask_json && http_type(resp) != "application/json") {
+    stop("API did not return json", call. = FALSE)
+  }
+
   structure(
     list(
+      request_path = path,
       content = parsed,
-      path = path,
       response = resp
     ),
     class = "james_get"
@@ -37,7 +41,7 @@ james_get <- function(path) {
 }
 
 print.james_get <- function(x, ...) {
-  cat("<JAMES ", x$path, ">\n", sep = "")
+  cat("<JAMES ", x$request_path, ">\n", sep = "")
   str(x$content)
   invisible(x)
 }

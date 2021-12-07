@@ -4,9 +4,11 @@
 \alias{james_get}
 \title{Make JAMES GET request}
 \usage{
-james_get(path)
+james_get(host = "http://localhost", path = character(0))
 }
 \arguments{
+\item{host}{String with the host. The default is \code{"http://localhost"}}
+
 \item{path}{String with the path}
 }
 \value{
