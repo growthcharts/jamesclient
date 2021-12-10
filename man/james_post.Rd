@@ -4,7 +4,7 @@
 \alias{james_post}
 \title{Make JAMES POST request}
 \usage{
-james_post(host = "http://localhost", path = character(0), txt = NULL)
+james_post(host = "http://localhost", path = character(0), txt = NULL, ...)
 }
 \arguments{
 \item{host}{String with the host. The default is \code{"http://localhost"}}
@@ -12,6 +12,8 @@ james_post(host = "http://localhost", path = character(0), txt = NULL)
 \item{path}{String with the path, e.g. \code{"version"}, \code{"upload"} or \code{"upload/json"}}
 
 \item{txt}{Data set, used in \code{"upload"}}
+
+\item{\dots}{Any other arguments passed to james functions}
 }
 \value{
 Object of class \code{james_post}

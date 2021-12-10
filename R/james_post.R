@@ -3,6 +3,7 @@
 #' @param host String with the host. The default is `"http://localhost"`
 #' @param path String with the path, e.g. `"version"`, `"upload"` or `"upload/json"`
 #' @param txt Data set, used in `"upload"`
+#' @param \dots Any other arguments passed to james functions
 #' @return Object of class `james_post`
 #' @details If `txt` is a file, then the data are uploaded using `upload_file()` and
 #' encoding `multipart/form`. If `txt` is a URL, then the data are read from the URL
@@ -24,7 +25,8 @@
 #' @export
 james_post <- function(host = "http://localhost",
                        path = character(0),
-                       txt = NULL) {
+                       txt = NULL,
+                       ...) {
   stopifnot(length(path) == 1L)
   url <- modify_url(url = host, path = path)
   ask_json <- grepl("/json", path)
@@ -39,7 +41,8 @@ james_post <- function(host = "http://localhost",
     if (file.exists(txt)) {
       encoding <- "multipart"
       resp <- POST(url, ua,
-                   body = list(txt = upload_file(txt)),
+                   body = list(txt = upload_file(txt),
+                               ...),
                    encode = "multipart")
       done <- TRUE
     }
@@ -54,7 +57,8 @@ james_post <- function(host = "http://localhost",
     # if we have valid JSON, request encode = "json"
     if (is.null(txt) || validate(txt)) {
       resp <- POST(url, ua,
-                   body = list(txt = txt),
+                   body = list(txt = txt,
+                               ...),
                    query = list(auto_unbox = TRUE),
                    encode = "json")
     } else {
@@ -62,28 +66,31 @@ james_post <- function(host = "http://localhost",
     }
   }
 
-  parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "UTF-8"))
-  if (status_code(resp) != 201) {
+  if (ask_json) {
+    if (http_type(resp) != "application/json") {
+      stop("API did not return json", call. = FALSE)
+    }
+    parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "UTF-8"))
+  }
+
+  if (!ask_json) {
+    if (http_type(resp) != "text/plain") {
+      stop("API did not return text", call. = FALSE)
+    }
+    parsed <- content(resp, "text", encoding = "UTF-8")
+  }
+
+  if (http_error(resp)) {
+    message <- content(resp, type = "text/plain", encoding = "UTF-8")
     stop(
       sprintf(
         "JAMES API request failed [%s]\n%s\n<%s>",
         status_code(resp),
-        parsed$message,
-        parsed$documentation_url
+        message,
+        url
       ),
       call. = FALSE
     )
-  }
-
-  if (ask_json && http_type(resp) != "application/json") {
-    message <- content(resp, type = "text/plain", encoding = "UTF-8")
-    stop(
-      sprintf(
-        "API did not return json [%s]\n%s\n<%s>",
-        status_code(resp),
-        message,
-        url),
-      call. = FALSE)
   }
 
   urlw <- file.path(host, headers(resp)$`x-ocpu-session`, "warnings")
