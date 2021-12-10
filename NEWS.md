@@ -1,3 +1,7 @@
+# jamesclient 0.22.0
+
+- Adds `dots` argument to `james_post()` and `james_get()`
+
 # jamesclient 0.21.0
 
 - Adds `host` argument to `james_post()` and `james_get()`
