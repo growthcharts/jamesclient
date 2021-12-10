@@ -3,7 +3,7 @@
 #' @param host String with the host. The default is `"http://localhost"`
 #' @param path String with the path, e.g. `"version"`, `"upload"` or `"upload/json"`
 #' @param txt Data set, used in `"upload"`
-#' @param \dots Any other arguments passed to james functions
+#' @param \dots Any other arguments passed to james functions via POST body
 #' @return Object of class `james_post`
 #' @details If `txt` is a file, then the data are uploaded using `upload_file()` and
 #' encoding `multipart/form`. If `txt` is a URL, then the data are read from the URL

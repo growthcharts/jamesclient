@@ -13,7 +13,7 @@ james_post(host = "http://localhost", path = character(0), txt = NULL, ...)
 
 \item{txt}{Data set, used in \code{"upload"}}
 
-\item{\dots}{Any other arguments passed to james functions}
+\item{\dots}{Any other arguments passed to james functions via POST body}
 }
 \value{
 Object of class \code{james_post}
