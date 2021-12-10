@@ -33,7 +33,7 @@ fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
  package = "jamesdemodata", mustWork = TRUE)
 js <- jsonlite::toJSON(jsonlite::fromJSON(url), auto_unbox = TRUE)
 
-#' try all four inputs
+#' try all inputs
 m1 <- james_post(path = "data/upload/json", txt = fn)
 m2 <- james_post(path = "data/upload/json", txt = js)
 m3 <- james_post(path = "data/upload/json", txt = url)

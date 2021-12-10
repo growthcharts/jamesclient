@@ -1,3 +1,8 @@
+# jamesclient 0.22.1
+
+- Simplify `james_post()` by string read
+- Change `url.exists()` into `is.url()`
+
 # jamesclient 0.22.0
 
 - Adds `dots` argument to `james_post()` and `james_get()`
