@@ -64,7 +64,7 @@ request_chart <- function(txt = NULL,
   if (!is.null(txt)) {
     if (file.exists(txt[1L])) {
       txt <- readLines(txt)
-    } else if (url.exists(txt[1L])) {
+    } else if (is.url(txt[1L])) {
       con <- curl(txt[1L], open = "r")
       txt <- readLines(con)
       close(con)
@@ -82,7 +82,7 @@ request_chart <- function(txt = NULL,
   }
 
   # process loc argument (read the data from the server location)
-  if (!done && url.exists(loc)) {
+  if (!done && is.url(loc)) {
     resp <- POST(
       url = host, path = path,
       body = list(

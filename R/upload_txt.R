@@ -76,7 +76,7 @@ upload_txt <- function(txt,
 
   if (file.exists(txt[1L])) {
     txt <- readLines(txt)
-  } else if (url.exists(txt[1L])) {
+  } else if (is.url(txt[1L])) {
     con <- curl(txt[1L], open = "r")
     txt <- readLines(con)
     close(con)

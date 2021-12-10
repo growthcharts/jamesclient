@@ -1,1 +1,4 @@
-url.exists <- function(x) grepl("^https?://", x, useBytes = TRUE)
+is.url <- function(x) {
+  if (!length(x)) return(FALSE)
+  grepl("^https?://", x, useBytes = TRUE)
+}

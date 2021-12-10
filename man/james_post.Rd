@@ -27,17 +27,14 @@ encoding \code{multipart/form}. If \code{txt} is a URL, then the data are read f
 as JSON string and uploaded with encoding \code{json}.
 }
 \examples{
-fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamesdemodata")
 url <- paste("http://localhost", "ocpu/library/jamesdemodata",
   "extdata/bds_v2.0/smocc/Laura_S.json", sep = "/")
-fn1 <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
+fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
  package = "jamesdemodata", mustWork = TRUE)
-js1 <- readLines(url)
-js2 <- jsonlite::toJSON(jsonlite::fromJSON(url), auto_unbox = TRUE)
+js <- jsonlite::toJSON(jsonlite::fromJSON(url), auto_unbox = TRUE)
 
 #' try all four inputs
-m1 <- james_post(path = "upload/json", txt = fn1)
-m2 <- james_post(path = "upload/json", txt = js1)
-m3 <- james_post(path = "upload/json", txt = js2)
-m4 <- james_post(path = "upload/json", txt = url)
+m1 <- james_post(path = "data/upload/json", txt = fn)
+m2 <- james_post(path = "data/upload/json", txt = js)
+m3 <- james_post(path = "data/upload/json", txt = url)
 }

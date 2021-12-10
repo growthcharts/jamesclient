@@ -9,19 +9,16 @@
 #' encoding `multipart/form`. If `txt` is a URL, then the data are read from the URL
 #' as JSON string and uploaded with encoding `json`.
 #' @examples
-#' fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamesdemodata")
 #' url <- paste("http://localhost", "ocpu/library/jamesdemodata",
 #'   "extdata/bds_v2.0/smocc/Laura_S.json", sep = "/")
-#' fn1 <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
+#' fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
 #'  package = "jamesdemodata", mustWork = TRUE)
-#' js1 <- readLines(url)
-#' js2 <- jsonlite::toJSON(jsonlite::fromJSON(url), auto_unbox = TRUE)
+#' js <- jsonlite::toJSON(jsonlite::fromJSON(url), auto_unbox = TRUE)
 #'
-#' #' try all four inputs
-#' m1 <- james_post(path = "upload/json", txt = fn1)
-#' m2 <- james_post(path = "upload/json", txt = js1)
-#' m3 <- james_post(path = "upload/json", txt = js2)
-#' m4 <- james_post(path = "upload/json", txt = url)
+#' #' try all inputs
+#' m1 <- james_post(path = "data/upload/json", txt = fn)
+#' m2 <- james_post(path = "data/upload/json", txt = js)
+#' m3 <- james_post(path = "data/upload/json", txt = url)
 #' @export
 james_post <- function(host = "http://localhost",
                        path = character(0),
@@ -30,40 +27,38 @@ james_post <- function(host = "http://localhost",
   stopifnot(length(path) == 1L)
   url <- modify_url(url = host, path = path)
   ask_json <- grepl("/json", path)
+  ua <- user_agent("https://github.com/growthcharts/jamesclient")
 
   txt <- txt[1L]
 
-  ua <- user_agent("https://github.com/growthcharts/jamesclient")
-  done <- FALSE
-
   if (!is.null(txt)) {
-    # if we have a file name, request encode = "multipart"
-    if (file.exists(txt)) {
-      encoding <- "multipart"
-      resp <- POST(url, ua,
-                   body = list(txt = upload_file(txt),
-                               ...),
-                   encode = "multipart")
-      done <- TRUE
+    # if we have a file name or URL, read into string
+    if (file.exists(txt) || is.url(txt)) {
+      txt <- toJSON(fromJSON(txt), auto_unbox = TRUE)
     }
   }
-  if (!done) {
-    # if we have a URL, read as json string
-    if (!is.null(txt) && url.exists(txt)) {
-      con <- curl(txt, open = "r")
-      txt <- readLines(con)
-      close(con)
-    }
-    # if we have valid JSON, request encode = "json"
-    if (is.null(txt) || validate(txt)) {
-      resp <- POST(url, ua,
-                   body = list(txt = txt,
-                               ...),
-                   query = list(auto_unbox = TRUE),
-                   encode = "json")
-    } else {
-      stop("Cannot process 'txt' argument.")
-    }
+  # check JSON
+  if (!is.null(txt) && validate(txt)) {
+    resp <- POST(url, ua,
+                 body = list(txt = txt,
+                             ...),
+                 query = list(auto_unbox = TRUE),
+                 encode = "json")
+  } else {
+    stop("Cannot process 'txt' argument.")
+  }
+
+  if (http_error(resp)) {
+    message <- content(resp, type = "text/plain", encoding = "UTF-8")
+    stop(
+      sprintf(
+        "JAMES API request failed [%s]\n%s\n<%s>",
+        status_code(resp),
+        message,
+        url
+      ),
+      call. = FALSE
+    )
   }
 
   if (ask_json) {
@@ -78,19 +73,6 @@ james_post <- function(host = "http://localhost",
       stop("API did not return text", call. = FALSE)
     }
     parsed <- content(resp, "text", encoding = "UTF-8")
-  }
-
-  if (http_error(resp)) {
-    message <- content(resp, type = "text/plain", encoding = "UTF-8")
-    stop(
-      sprintf(
-        "JAMES API request failed [%s]\n%s\n<%s>",
-        status_code(resp),
-        message,
-        url
-      ),
-      call. = FALSE
-    )
   }
 
   urlw <- file.path(host, headers(resp)$`x-ocpu-session`, "warnings")
