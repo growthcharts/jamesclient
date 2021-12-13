@@ -8,7 +8,7 @@
 james_get <- function(host = "http://localhost",
                       path = character(0),
                       ...) {
-  url <- modify_url(hostname = host, path = path)
+  url <- modify_url(url = host, path = path)
   ua <- user_agent("https://github.com/growthcharts/jamesclient")
   ask_json <- grepl("/json", path)
 

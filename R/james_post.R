@@ -2,7 +2,7 @@
 #'
 #' @param host String with the host. The default is `"http://localhost"`
 #' @param path String with the path, e.g. `"version"`, `"upload"` or `"upload/json"`
-#' @param txt Data set, used in `"upload"`
+#' @param txt Data set, argument used in `[james::fetch_loc()]`
 #' @param \dots Any other arguments passed to james functions via POST body
 #' @return Object of class `james_post`
 #' @details If `txt` is a file, then the data are uploaded using `upload_file()` and
@@ -13,7 +13,10 @@
 #'   "extdata/bds_v2.0/smocc/Laura_S.json", sep = "/")
 #' fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
 #'  package = "jamesdemodata", mustWork = TRUE)
-#' js <- jsonlite::toJSON(jsonlite::fromJSON(url), auto_unbox = TRUE)
+#' fn <- system.file("extdata", "allegrosultum", "client3.json",
+#'  package = "jamesdemodata", mustWork = TRUE)
+#' js <- read_json_js(txt = fn)
+#' jo <- read_json_jo(txt = fn)
 #'
 #' #' try all inputs
 #' m1 <- james_post(path = "data/upload/json", txt = fn)
@@ -28,17 +31,13 @@ james_post <- function(host = "http://localhost",
   url <- modify_url(url = host, path = path)
   ask_json <- grepl("/json", path)
   ua <- user_agent("https://github.com/growthcharts/jamesclient")
+  stopifnot(length(txt) <= 1L)
 
-  txt <- txt[1L]
+  # if we have a file name or URL, read into string
+  txt <- read_json_js(txt = txt)
 
-  if (!is.null(txt)) {
-    # if we have a file name or URL, read into string
-    if (file.exists(txt) || is.url(txt)) {
-      txt <- toJSON(fromJSON(txt), auto_unbox = TRUE)
-    }
-  }
   # check JSON
-  if (!is.null(txt) && validate(txt)) {
+  if (is.null(txt) || validate(txt)) {
     resp <- POST(url, ua,
                  body = list(txt = txt,
                              ...),

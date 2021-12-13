@@ -1,8 +1,8 @@
 library(httr)
 
 fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamesdemodata")
-js1 <- readLines(fn)
-js2 <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
+js1 <- read_json_js(fn)
+js2 <- read_json_jo(fn)
 url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 
 hosts <- c("https://groeidiagrammen.nl",

@@ -11,7 +11,7 @@ james_post(host = "http://localhost", path = character(0), txt = NULL, ...)
 
 \item{path}{String with the path, e.g. \code{"version"}, \code{"upload"} or \code{"upload/json"}}
 
-\item{txt}{Data set, used in \code{"upload"}}
+\item{txt}{Data set, argument used in \verb{[james::fetch_loc()]}}
 
 \item{\dots}{Any other arguments passed to james functions via POST body}
 }
@@ -31,7 +31,10 @@ url <- paste("http://localhost", "ocpu/library/jamesdemodata",
   "extdata/bds_v2.0/smocc/Laura_S.json", sep = "/")
 fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
  package = "jamesdemodata", mustWork = TRUE)
-js <- jsonlite::toJSON(jsonlite::fromJSON(url), auto_unbox = TRUE)
+fn <- system.file("extdata", "allegrosultum", "client3.json",
+ package = "jamesdemodata", mustWork = TRUE)
+js <- read_json_js(txt = fn)
+jo <- read_json_jo(txt = fn)
 
 #' try all inputs
 m1 <- james_post(path = "data/upload/json", txt = fn)
