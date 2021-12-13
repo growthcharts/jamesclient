@@ -1,3 +1,9 @@
+# jamesclient 0.23.0
+
+- Add `read_json_js()` and `read_json_jo()` to read JSON data
+- Solve bug in `james_get()` that gave wrong URL modifications
+- Solve bug in `james_post()` that gave "cannot process 'txt'" for `text = NULL`
+
 # jamesclient 0.22.1
 
 - Simplify `james_post()` by string read
