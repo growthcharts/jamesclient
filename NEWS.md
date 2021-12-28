@@ -1,3 +1,7 @@
+# jamesclient 0.24.0
+
+- Adds support for SVG file in `james_post()`
+
 # jamesclient 0.23.0
 
 - Add `read_json_js()` and `read_json_jo()` to read JSON data
