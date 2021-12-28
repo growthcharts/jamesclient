@@ -4,12 +4,21 @@
 \alias{james_post}
 \title{Make JAMES POST request}
 \usage{
-james_post(host = "http://localhost", path = character(0), txt = NULL, ...)
+james_post(
+  host = "http://localhost",
+  path = character(0),
+  query = list(),
+  txt = NULL,
+  ...
+)
 }
 \arguments{
 \item{host}{String with the host. The default is \code{"http://localhost"}}
 
 \item{path}{String with the path, e.g. \code{"version"}, \code{"upload"} or \code{"upload/json"}}
+
+\item{query}{A list with query arguments, for example, \code{list(auto_unbox = TRUE)} for
+\code{json} output, or \code{list(width = 7.09, height = 7.09)} for \code{svglite}.}
 
 \item{txt}{Data set, argument used in \verb{[james::fetch_loc()]}}
 
@@ -40,4 +49,15 @@ jo <- read_json_jo(txt = fn)
 m1 <- james_post(path = "data/upload/json", txt = fn)
 m2 <- james_post(path = "data/upload/json", txt = js)
 m3 <- james_post(path = "data/upload/json", txt = url)
+
+\dontrun{
+# create and store A4 SVG plot
+r5 <- james_post(path = "/charts/draw/svglite", txt = url,
+chartcode = "NMBA", selector = "chartcode",
+query = list(height = 29.7/2.54, width = 21/2.54))
+tmp <- tempfile(pattern = "chart", fileext = ".svg")
+writeLines(r5$content, con = tmp)
+browseURL(tmp)
+unlink(tmp)
+}
 }

@@ -2,6 +2,8 @@
 #'
 #' @param host String with the host. The default is `"http://localhost"`
 #' @param path String with the path, e.g. `"version"`, `"upload"` or `"upload/json"`
+#' @param query A list with query arguments, for example, `list(auto_unbox = TRUE)` for
+#' `json` output, or `list(width = 7.09, height = 7.09)` for `svglite`.
 #' @param txt Data set, argument used in `[james::fetch_loc()]`
 #' @param \dots Any other arguments passed to james functions via POST body
 #' @return Object of class `james_post`
@@ -22,9 +24,21 @@
 #' m1 <- james_post(path = "data/upload/json", txt = fn)
 #' m2 <- james_post(path = "data/upload/json", txt = js)
 #' m3 <- james_post(path = "data/upload/json", txt = url)
+#'
+#' \dontrun{
+#' # create and store A4 SVG plot
+#' r5 <- james_post(path = "/charts/draw/svglite", txt = url,
+#' chartcode = "NMBA", selector = "chartcode",
+#' query = list(height = 29.7/2.54, width = 21/2.54))
+#' tmp <- tempfile(pattern = "chart", fileext = ".svg")
+#' writeLines(r5$content, con = tmp)
+#' browseURL(tmp)
+#' unlink(tmp)
+#' }
 #' @export
 james_post <- function(host = "http://localhost",
                        path = character(0),
+                       query = list(),
                        txt = NULL,
                        ...) {
   stopifnot(length(path) == 1L)
@@ -41,7 +55,7 @@ james_post <- function(host = "http://localhost",
     resp <- POST(url, ua,
                  body = list(txt = txt,
                              ...),
-                 query = list(auto_unbox = TRUE),
+                 query = query,
                  encode = "json")
   } else {
     stop("Cannot process 'txt' argument.")
@@ -60,18 +74,21 @@ james_post <- function(host = "http://localhost",
     )
   }
 
-  if (ask_json) {
-    if (http_type(resp) != "application/json") {
-      stop("API did not return json", call. = FALSE)
-    }
+  parsed <- NULL
+  if (http_type(resp) == "application/json") {
     parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "UTF-8"))
   }
 
-  if (!ask_json) {
-    if (http_type(resp) != "text/plain") {
-      stop("API did not return text", call. = FALSE)
-    }
+  if (http_type(resp) == "text/plain") {
     parsed <- content(resp, "text", encoding = "UTF-8")
+  }
+
+  if (http_type(resp) == "image/svg+xml") {
+    parsed <- content(resp, "text", encoding = "UTF-8")
+  }
+
+  if (is.null(parsed)) {
+    parsed <- content(resp, as = "parsed")
   }
 
   urlw <- file.path(host, headers(resp)$`x-ocpu-session`, "warnings")
