@@ -1,3 +1,7 @@
+# jamesclient 0.25.0
+
+- Sets `https://james.groeidiagrammen.nl` as default host in `upload_txt()`
+
 # jamesclient 0.24.0
 
 - Adds support for SVG file in `james_post()`
