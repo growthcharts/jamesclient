@@ -9,7 +9,7 @@
 #' [BDS JGZ 3.2.5](https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12),
 #' and are converted to JSON according to `schema`.
 #' @param host String with URL of the JAMES host machine. Defaults to
-#' `https://groeidiagrammen.nl`.
+#' `https://james.groeidiagrammen.nl`.
 #' @param verbose Logical. Print diagnostic information of POST request to console.
 #' @inheritParams bdsreader::set_schema
 #' @return An object of class [httr::response()]
@@ -66,12 +66,12 @@
 #' r
 #' @export
 upload_txt <- function(txt,
-                       host = "https://groeidiagrammen.nl",
-                       format = "1.0",
+                       host = "https://james.groeidiagrammen.nl",
+                       format = "2.0",
                        schema = NULL,
                        verbose = FALSE) {
   fmt <- set_schema(format, schema)$format
-  path <- "ocpu/library/james/R/fetch_loc"
+  path <- "ocpu/library/james/R/upload_data"
   done <- FALSE
 
   if (file.exists(txt[1L])) {

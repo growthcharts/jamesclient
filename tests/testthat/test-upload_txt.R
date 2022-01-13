@@ -4,9 +4,9 @@ fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamesde
 js1 <- read_json_js(fn)
 js2 <- read_json_jo(fn)
 url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
+url <- "https://james.groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 
-hosts <- c("https://groeidiagrammen.nl",
-           "https://vps.stefvanbuuren.nl",
+hosts <- c("https://james.groeidiagrammen.nl",
            "http://localhost")
 
 for (host in hosts) {
@@ -28,7 +28,7 @@ for (host in hosts) {
   )
 }
 
-host3 <- hosts[3]
+host3 <- hosts[2]
 for (format in c("1.0", "2.0")) {
   jtf <- system.file("extdata", paste0("bds_v", format), "test", paste0("test", 1:23, ".json"), package = "jamesdemodata")
 

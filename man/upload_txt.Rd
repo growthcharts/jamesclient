@@ -6,8 +6,8 @@
 \usage{
 upload_txt(
   txt,
-  host = "https://groeidiagrammen.nl",
-  format = "1.0",
+  host = "https://james.groeidiagrammen.nl",
+  format = "2.0",
   schema = NULL,
   verbose = FALSE
 )
@@ -19,7 +19,7 @@ format. The input data adhere to specification
 and are converted to JSON according to \code{schema}.}
 
 \item{host}{String with URL of the JAMES host machine. Defaults to
-\verb{https://groeidiagrammen.nl}.}
+\verb{https://james.groeidiagrammen.nl}.}
 
 \item{format}{String. JSON data schema version number. There are currently
 three schemas supported: \code{"1.0"}, \code{"1.1"} and \code{"2.0"}. Formats \code{"1.0"} and
