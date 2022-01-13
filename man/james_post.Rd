@@ -20,7 +20,7 @@ james_post(
 \item{query}{A list with query arguments, for example, \code{list(auto_unbox = TRUE)} for
 \code{json} output, or \code{list(width = 7.09, height = 7.09)} for \code{svglite}.}
 
-\item{txt}{Data set, argument used in \verb{[james::fetch_loc()]}}
+\item{txt}{Data set, argument used in \verb{[james::upload_data()]}}
 
 \item{\dots}{Any other arguments passed to james functions via POST body}
 }

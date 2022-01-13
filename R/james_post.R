@@ -4,7 +4,7 @@
 #' @param path String with the path, e.g. `"version"`, `"upload"` or `"upload/json"`
 #' @param query A list with query arguments, for example, `list(auto_unbox = TRUE)` for
 #' `json` output, or `list(width = 7.09, height = 7.09)` for `svglite`.
-#' @param txt Data set, argument used in `[james::fetch_loc()]`
+#' @param txt Data set, argument used in `[james::upload_data()]`
 #' @param \dots Any other arguments passed to james functions via POST body
 #' @return Object of class `james_post`
 #' @details If `txt` is a file, then the data are uploaded using `upload_file()` and
