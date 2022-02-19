@@ -111,8 +111,8 @@ james_post <- function(host = "http://localhost",
       content = parsed,
       warnings = warnings,
       messages = messages,
-      key = headers(resp)[["x-ocpu-session"]],
-      location = headers(resp)[["location"]],
+      session = get_url(resp, "session"),
+      location = get_url(resp, "location"),
       response = resp
     ),
     class = "james_post"
