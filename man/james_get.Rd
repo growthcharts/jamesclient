@@ -11,7 +11,7 @@ james_get(host = "http://localhost", path = character(0), ...)
 
 \item{path}{String with the path}
 
-\item{\dots}{Extra arguments tp create the URI in GET()}
+\item{\dots}{Extra arguments to create the URI in GET()}
 }
 \value{
 Object of class \code{james_get}

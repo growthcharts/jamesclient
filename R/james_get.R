@@ -2,14 +2,14 @@
 #'
 #' @param host String with the host. The default is `"http://localhost"`
 #' @param path String with the path
-#' @param \dots Extra arguments tp create the URI in GET()
+#' @param \dots Extra arguments to create the URI in GET()
 #' @return Object of class `james_get`
 #' @export
 james_get <- function(host = "http://localhost",
                       path = character(0),
                       ...) {
   url <- modify_url(url = host, path = path)
-  ua <- user_agent("https://github.com/growthcharts/jamesclient")
+  ua <- user_agent("https://github.com/growthcharts/jamesclient/blob/master/R/james_get.R")
   ask_json <- grepl("/json", path)
 
   resp <- GET(url, ua, ...)
@@ -41,18 +41,27 @@ james_get <- function(host = "http://localhost",
     )
   }
 
-  structure(
-    list(
-      request_path = path,
-      content = parsed,
-      response = resp
-    ),
-    class = "james_get"
-  )
-}
+  urlw <- file.path(host, get_url(resp, "session"), "warnings")
+  if (length(urlw)) {
+    warnings <- content(GET(urlw), "text", type = "text/plain", encoding = "UTF-8")
+  } else {
+    warnings <- ""
+  }
 
-print.james_get <- function(x, ...) {
-  cat("<JAMES ", x$request_path, ">\n", sep = "")
-  str(x$content)
-  invisible(x)
+  urlm <- file.path(host, get_url(resp, "session"), "messages")
+  if (length(urlm)) {
+    messages <- content(GET(urlm), "text", type = "text/plain", encoding = "UTF-8")
+  } else {
+    messages <- ""
+  }
+
+  # extend standard httr response
+  resp$request_path <- path
+  resp$parsed <- parsed
+  resp$warnings <- warnings
+  resp$messages <- messages
+  resp$session <- get_url(resp, "session")
+
+  class(resp) <- c("james_httr", "response")
+  return(resp)
 }

@@ -8,7 +8,7 @@ inspect_demodata(
   name,
   cabinet,
   format = c("2.0", "1.0", "1.1"),
-  host = "https://groeidiagrammen.nl"
+  host = "http://localhost"
 )
 }
 \arguments{
@@ -24,9 +24,10 @@ for new applications.}
 \item{host}{Full host name}
 }
 \description{
-Uploads JSON child demo data to JAMES and downloads the processed data for inspection.
+Uploads JSON child demo data to localhost and downloads the processed data
+for inspection.
 }
 \examples{
-data <- inspect_demodata(name = "Anne_S", "smocc", format = "2.0", host = "http://localhost")
+data <- inspect_demodata(name = "Anne_S", cabinet = "smocc")
 head(data)
 }
