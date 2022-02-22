@@ -18,3 +18,13 @@ test_that(
                query = list(height = 29.7/2.54, width = 21/2.54))$response),
     201)
 )
+
+test_that(
+  "Reads data from previous location with session",
+  expect_equal(status_code(
+    james_post(host = host, path = "/charts/draw/svglite",
+               session = resp$session,
+               chartcode = "PMAAN27", selector = "chartcode",
+               query = list(height = 29.7/2.54, width = 21/2.54))$response),
+    201)
+)
