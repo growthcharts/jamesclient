@@ -1,3 +1,11 @@
+# jamesclient 0.26.0
+
+- `get_url()` now works without the location header
+- Redefines the response values of `james_get()` and `james_post` to conform to `httr` response object
+- Adds new tests for `james_post()`
+- Makes now only one reference to `x-ocpu-session` header
+- Redefines `james_post()` so that it return a response in case of a request error
+
 # jamesclient 0.25.0
 
 - Sets `https://james.groeidiagrammen.nl` as default host in `upload_txt()`
