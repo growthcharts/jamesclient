@@ -64,36 +64,33 @@ james_post <- function(host = "http://localhost",
     stop("Cannot process 'txt' argument.")
   }
 
+  # parse contents
+  parsed <- ""
   if (http_error(resp)) {
-    message <- content(resp, type = "text/plain", encoding = "UTF-8")
-    stop(
-      sprintf(
-        "JAMES API request failed [%s]\n%s\n<%s>",
-        status_code(resp),
-        message,
-        url
-      ),
-      call. = FALSE
-    )
+    msg <- content(resp, type = "text/plain", encoding = "UTF-8")
+    parsed <- sprintf(
+      "JAMES API request failed [%s]\n%s\n<%s>",
+      status_code(resp), msg, url)
+  } else {
+
+    if (http_type(resp) == "application/json") {
+      parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "UTF-8"))
+    }
+
+    if (http_type(resp) == "text/plain") {
+      parsed <- content(resp, "text", encoding = "UTF-8")
+    }
+
+    if (http_type(resp) == "image/svg+xml") {
+      parsed <- content(resp, "text", encoding = "UTF-8")
+    }
+
+    if (is.null(parsed)) {
+      parsed <- content(resp, as = "parsed")
+    }
   }
 
-  parsed <- NULL
-  if (http_type(resp) == "application/json") {
-    parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "UTF-8"))
-  }
-
-  if (http_type(resp) == "text/plain") {
-    parsed <- content(resp, "text", encoding = "UTF-8")
-  }
-
-  if (http_type(resp) == "image/svg+xml") {
-    parsed <- content(resp, "text", encoding = "UTF-8")
-  }
-
-  if (is.null(parsed)) {
-    parsed <- content(resp, as = "parsed")
-  }
-
+  # extract warnings
   urlw <- file.path(host, get_url(resp, "session"), "warnings")
   if (length(urlw)) {
     warnings <- content(GET(urlw), "text", type = "text/plain", encoding = "UTF-8")
@@ -101,6 +98,7 @@ james_post <- function(host = "http://localhost",
     warnings <- ""
   }
 
+  # extract messages
   urlm <- file.path(host, get_url(resp, "session"), "messages")
   if (length(urlm)) {
     messages <- content(GET(urlm), "text", type = "text/plain", encoding = "UTF-8")
