@@ -1,3 +1,7 @@
+# jamesclient 0.26.1
+
+- Prevents redirects for messages and warnings in `james_get()` and `james_post()`
+
 # jamesclient 0.26.0
 
 ### Breaking changes
