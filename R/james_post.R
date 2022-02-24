@@ -91,7 +91,7 @@ james_post <- function(host = "http://localhost",
   }
 
   # extract warnings
-  urlw <- file.path(host, get_url(resp, "session"), "warnings")
+  urlw <- file.path(host, get_url(resp, "session"), "warnings/text")
   if (length(urlw)) {
     warnings <- content(GET(urlw), "text", type = "text/plain", encoding = "UTF-8")
   } else {
@@ -99,7 +99,7 @@ james_post <- function(host = "http://localhost",
   }
 
   # extract messages
-  urlm <- file.path(host, get_url(resp, "session"), "messages")
+  urlm <- file.path(host, get_url(resp, "session"), "messages/text")
   if (length(urlm)) {
     messages <- content(GET(urlm), "text", type = "text/plain", encoding = "UTF-8")
   } else {
