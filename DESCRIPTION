@@ -13,7 +13,6 @@ Description: Client-sided functions for the
 License: GPL-3
 Encoding: UTF-8
 Imports: 
-    bdsreader (>= 0.17.0),
     curl,
     httr,
     jsonlite
@@ -21,7 +20,6 @@ Suggests:
     jamesdemodata (>= 0.7.1),
     testthat (>= 2.1.0)
 Remotes: 
-    growthcharts/bdsreader,
     growthcharts/jamesdemodata
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/growthcharts/jamesclient

@@ -1,4 +1,3 @@
-#' @importFrom bdsreader    set_schema
 #' @importFrom curl         curl
 #' @importFrom httr         add_headers build_url content GET headers
 #'                          http_error http_type message_for_status

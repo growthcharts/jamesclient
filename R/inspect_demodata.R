@@ -4,8 +4,11 @@
 #' for inspection.
 #' @param name Name of the child
 #' @param cabinet Name of cabinet
+#' @param format String. JSON data schema version number. There are currently
+#'   three schemas supported: `"1.0"`, `"1.1"` and `"2.0"`. Formats `"1.0"` and
+#'   `"1.1"` are included for backward compatibility only. Use `format = "2.0"`
+#'   for new applications.
 #' @inheritParams james_post
-#' @inheritParams bdsreader::set_schema
 #' @examples
 #' data <- inspect_demodata(name = "Anne_S", cabinet = "smocc")
 #' head(data)

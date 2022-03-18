@@ -5,7 +5,15 @@
 #' and returns an object of class [httr::response()]
 #' that contains the results of the request.
 #' @param verbose Logical. Print diagnostic information of POST request to console.
-#' @inheritParams bdsreader::set_schema
+#' @param format String. JSON data schema version number. There are currently
+#'   three schemas supported: `"1.0"`, `"1.1"` and `"2.0"`. Formats `"1.0"` and
+#'   `"1.1"` are included for backward compatibility only. Use `format = "2.0"`
+#'   for new applications.
+#' @param schema A file name (optionally including the path) with the JSON
+#'   validation schema.
+#'   The `schema` argument overrides `format`. The function extracts the
+#'   version number for the basename, and overwrites the
+#'   `format` argument by version number.
 #' @inheritParams james_post
 #' @return An object of class [httr::response()]
 #' @details
@@ -66,7 +74,6 @@ upload_txt <- function(txt,
                        format = "2.0",
                        schema = NULL,
                        verbose = FALSE) {
-  fmt <- set_schema(format, schema)$format
   path <- "ocpu/library/james/R/upload_data"
   if (length(mod) == 1L && nchar(mod) > 0L) path <- paste(mod, path, sep = "/")
   done <- FALSE
