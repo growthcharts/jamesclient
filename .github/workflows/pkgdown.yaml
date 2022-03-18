@@ -10,7 +10,7 @@ jobs:
   pkgdown:
     runs-on: macOS-latest
     env:
-      GITHUB_PAT: ${{ secrets.PRIVATE_REPOSITORIES }}
+      GITHUB_PAT: ${{ secrets.READ_JAMES_PACKAGE }}
     steps:
       - uses: actions/checkout@v2
 
@@ -34,7 +34,7 @@ jobs:
 
       - name: Install dependencies
         env:
-          GITHUB_PAT: ${{ secrets.PRIVATE_REPOSITORIES }}
+          GITHUB_PAT: ${{ secrets.READ_JAMES_PACKAGE }}
         run: |
           remotes::install_deps(dependencies = TRUE)
           install.packages("pkgdown", type = "binary")
