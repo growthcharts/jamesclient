@@ -1,6 +1,12 @@
+# jamesclient 0.28.0
+
+- Simplifies `james_get()`
+- Updates README
+- Removes dependency on `bdsreader` package
+
 # jamesclient 0.27.0
 
-- Add `mod` parameters to handle "hosts" with a module path. The contents of `mod` is prepended to the `path`.
+- Adds `mod` parameters to handle "hosts" with a module path. The contents of `mod` is prepended to the `path`.
 
 # jamesclient 0.26.1
 
