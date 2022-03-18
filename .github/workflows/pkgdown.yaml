@@ -33,8 +33,6 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
       - name: Install dependencies
-        env:
-          GITHUB_PAT: ${{ secrets.READ_JAMES_PACKAGE }}
         run: |
           remotes::install_deps(dependencies = TRUE)
           install.packages("pkgdown", type = "binary")
