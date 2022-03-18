@@ -4,7 +4,7 @@
 #' for inspection.
 #' @param name Name of the child
 #' @param cabinet Name of cabinet
-#' @param host Full host name
+#' @inheritParams james_post
 #' @inheritParams bdsreader::set_schema
 #' @examples
 #' data <- inspect_demodata(name = "Anne_S", cabinet = "smocc")
@@ -12,7 +12,8 @@
 #' @export
 inspect_demodata <- function(name, cabinet,
                              format = c("2.0", "1.0", "1.1"),
-                             host = "http://localhost") {
+                             host = "http://localhost",
+                             mod = character(0)) {
   format <- match.arg(format)
 
   # fetch demodata
@@ -23,6 +24,7 @@ inspect_demodata <- function(name, cabinet,
   target <- readLines(con = fn)
   resp <- upload_txt(txt = target,
                      host = host,
+                     mod = mod,
                      format = format)
   url <- file.path(host, get_url(resp, "session"), "rda")
   con <- curl::curl(url = url, open = "rb")

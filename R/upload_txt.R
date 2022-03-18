@@ -4,14 +4,9 @@
 #' stores its contents as a tibble with a person attribute on host,
 #' and returns an object of class [httr::response()]
 #' that contains the results of the request.
-#' @param txt A JSON string, URL or file with the data in JSON
-#' format. The input data adhere to specification
-#' [BDS JGZ 3.2.5](https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12),
-#' and are converted to JSON according to `schema`.
-#' @param host String with URL of the JAMES host machine. Defaults to
-#' `https://james.groeidiagrammen.nl`.
 #' @param verbose Logical. Print diagnostic information of POST request to console.
 #' @inheritParams bdsreader::set_schema
+#' @inheritParams james_post
 #' @return An object of class [httr::response()]
 #' @details
 #' JSON format: See
@@ -66,12 +61,14 @@
 #' r
 #' @export
 upload_txt <- function(txt,
-                       host = "https://james.groeidiagrammen.nl",
+                       host = "http://localhost",
+                       mod = character(0),
                        format = "2.0",
                        schema = NULL,
                        verbose = FALSE) {
   fmt <- set_schema(format, schema)$format
   path <- "ocpu/library/james/R/upload_data"
+  if (length(mod) == 1L && nchar(mod) > 0L) path <- paste(mod, path, sep = "/")
   done <- FALSE
 
   if (file.exists(txt[1L])) {

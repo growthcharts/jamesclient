@@ -1,13 +1,15 @@
 #' Make JAMES GET request
 #'
-#' @param host String with the host. The default is `"http://localhost"`
-#' @param path String with the path
+#' @inheritParams james_post
 #' @param \dots Extra arguments to create the URI in GET()
 #' @return Object of class `james_get`
 #' @export
 james_get <- function(host = "http://localhost",
+                      mod = character(0),
                       path = character(0),
                       ...) {
+  stopifnot(length(mod) <= 1L)
+  if (length(mod) == 1L && nchar(mod) > 0L) path <- paste(mod, path, sep = "/")
   url <- modify_url(url = host, path = path)
   ua <- user_agent("https://github.com/growthcharts/jamesclient/blob/master/R/james_get.R")
   ask_json <- grepl("/json", path)

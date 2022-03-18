@@ -6,20 +6,20 @@
 \usage{
 upload_txt(
   txt,
-  host = "https://james.groeidiagrammen.nl",
+  host = "http://localhost",
+  mod = character(0),
   format = "2.0",
   schema = NULL,
   verbose = FALSE
 )
 }
 \arguments{
-\item{txt}{A JSON string, URL or file with the data in JSON
-format. The input data adhere to specification
-\href{https://www.ncj.nl/themadossiers/informatisering/basisdataset/documentatie/?cat=12}{BDS JGZ 3.2.5},
-and are converted to JSON according to \code{schema}.}
+\item{txt}{Data set. Could be a URL, local file, JSON string or JSON object.
+See \code{\link[bdsreader:read_bds]{bdsreader::read_bds()}}.}
 
-\item{host}{String with URL of the JAMES host machine. Defaults to
-\verb{https://james.groeidiagrammen.nl}.}
+\item{host}{String with the host. The default is \code{"http://localhost"}.}
+
+\item{mod}{String with the module path, if any. The default is \code{""}.}
 
 \item{format}{String. JSON data schema version number. There are currently
 three schemas supported: \code{"1.0"}, \code{"1.1"} and \code{"2.0"}. Formats \code{"1.0"} and
