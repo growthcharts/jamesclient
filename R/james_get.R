@@ -10,39 +10,28 @@ james_get <- function(host = "http://localhost",
                       ...) {
   stopifnot(length(mod) <= 1L)
   if (length(mod) == 1L && nchar(mod) > 0L) path <- paste(mod, path, sep = "/")
+
   url <- modify_url(url = host, path = path)
   ua <- user_agent("https://github.com/growthcharts/jamesclient/blob/master/R/james_get.R")
-  ask_json <- grepl("/json", path)
-
   resp <- GET(url, ua, ...)
 
-  if (ask_json) {
-    if (http_type(resp) != "application/json") {
-      stop("API did not return json", call. = FALSE)
-    }
-    parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "UTF-8"))
-  }
-
-  if (!ask_json) {
-    if (http_type(resp) != "text/plain") {
-      stop("API did not return text", call. = FALSE)
-    }
-    parsed <- content(resp, "text", encoding = "UTF-8")
-  }
-
+  # parse contents
+  parsed <- ""
   if (http_error(resp)) {
-    message <- content(resp, type = "text/plain", encoding = "UTF-8")
-    stop(
-      sprintf(
-        "JAMES API request failed [%s]\n%s\n<%s>",
-        status_code(resp),
-        message,
-        url
-      ),
-      call. = FALSE
-    )
+    msg <- content(resp, type = "text/plain", encoding = "UTF-8")
+    parsed <- sprintf(
+      "JAMES API request failed [%s]\n%s\n<%s>",
+      status_code(resp), msg, url)
+  } else {
+
+    if (http_type(resp) == "application/json") {
+      parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "UTF-8"))
+    } else {
+      parsed <- content(resp, encoding = "UTF-8")
+    }
   }
 
+  # extract warnings
   urlw <- file.path(host, get_url(resp, "session"), "warnings/text")
   if (length(urlw)) {
     warnings <- content(GET(urlw), "text", type = "text/plain", encoding = "UTF-8")
@@ -50,6 +39,7 @@ james_get <- function(host = "http://localhost",
     warnings <- ""
   }
 
+  # extract messages
   urlm <- file.path(host, get_url(resp, "session"), "messages/text")
   if (length(urlm)) {
     messages <- content(GET(urlm), "text", type = "text/plain", encoding = "UTF-8")
