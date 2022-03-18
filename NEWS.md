@@ -1,3 +1,7 @@
+# jamesclient 0.27.0
+
+- Add `mod` parameters to handle "hosts" with a module path. The contents of `mod` is prepended to the `path`.
+
 # jamesclient 0.26.1
 
 - Prevents redirects for messages and warnings in `james_get()` and `james_post()`
