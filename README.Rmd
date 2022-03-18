@@ -20,8 +20,7 @@ knitr::opts_chunk$set(
 
 The goal of `jamesclient` is to facilitate interaction for `R` users with the 
 **Joint Automatic Measurement and Evaluation System (JAMES)**.
-JAMES is an **experimental** online resource for creating and analysing
-growth charts.
+JAMES is an online resource for creating growth charts and analysing growth curves.
 
 ## Installation
 
@@ -37,9 +36,45 @@ The primary functions are:
 
 Function            | Description
 ------------------- | -------------
-`upload_txt()`      | Upload and parse data for JAMES
-`request_chart()`   | Upload BDS-data, draw chart with child data
+`james_post`        | Send POST request to JAMES
+`james_get`         | Send GET request to JAMES
 `inspect_demodata()`| Upload demo child data and download parsed file
+
+### `james_post()`
+
+Upload BDS data
+
+```{r}
+library(jamesclient)
+fn <- system.file("extdata", "allegrosultum", "client3.json", 
+                  package = "jamesdemodata", mustWork = TRUE)
+host <- "https://james.groeidiagrammen.nl"
+r1 <- james_post(host = host, path = "data/upload/json", txt = fn)
+r1$parsed
+```
+
+### `james_get()`
+
+Get output from R console (just for checking)
+
+```{r}
+r2 <- james_get(host = host, path = paste(r1$session, "console", sep = "/"))
+cat(r2$parsed, "\n")
+```
+
+For other end points, see <https://james.groeidiagrammen.nl>.
+
+### `inspect_demodata()`
+
+```{r example3}
+library(jamesclient)
+data <- inspect_demodata(name = "Anne_S", "smocc", format = "1.0")
+data
+```
+
+## Some older functions
+
+Everything can be done with `james_post()` and `james_get()`. The functions below are not needed anymore, and will be deprecated in the future.
 
 ### `upload_txt()`
 
@@ -61,18 +96,10 @@ r2 <- request_chart(fn, chartcode = "PJAHN27")
 browseURL(get_url(r2, "svg"))
 ```
 
-### `inspect_demodata()`
-
-```{r example3}
-library(jamesclient)
-data <- inspect_demodata(name = "Anne_S", "smocc", format = "1.0")
-data
-```
-
 
 ## Removed functions
 
 Function          | Description                          | Alternative             |
 ----------------- | -------------------------------------| ----------------------- |
-`request_site()`  | Create personalised site             | `james::request_site()` |
-`upload_bds()`    | Upload and parse data                | `upload_txt()`          |
+`request_site()`  | Create personalised site             | `james_post()`          |
+`upload_bds()`    | Upload and parse data                | `james_post()`          |
