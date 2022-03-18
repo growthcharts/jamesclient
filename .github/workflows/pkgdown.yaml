@@ -10,7 +10,7 @@ jobs:
   pkgdown:
     runs-on: macOS-latest
     env:
-      GITHUB_PAT: ${{ secrets.READ_JAMES_PACKAGE }}
+      GITHUB_PAT: ${{ secrets.PRIVATE_REPOSITORIES }}
     steps:
       - uses: actions/checkout@v2
 
