@@ -1,3 +1,8 @@
+# jamesclient 0.28.1
+
+- Disables testing (services may be offline)
+- Refreshes github actions scripts
+
 # jamesclient 0.28.0
 
 - Simplifies `james_get()`
