@@ -16,7 +16,8 @@
 #' @param chartcode The code of the requested growth chart. If not
 #' specified, the server will automatically plot child height for
 #' the most recent age period.
-#' @param selector See [james::draw_chart()].
+#' @param selector Either `"chartcode"`, `"data"` or `"derive"`. See
+#' `james::draw_chart()` docs for more detail.
 #' @param curve_interpolation Logical. Smooth growth curve along centiles?
 #' @return An object of class [httr::response()]
 #' @seealso [upload_txt()].
@@ -25,6 +26,7 @@
 #' One of `txt` or `resp` need to be specified. If both
 #' are given, a non-NULL `txt` takes precedence over `resp`.
 #' @examples
+#' \dontrun{
 #' # examples with direct uploads
 #' url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 #' fn <- system.file("testdata", "client3.json", package = "jamesclient")
@@ -47,6 +49,7 @@
 #' resp6 <- upload_txt(fn, host = host)
 #' loc <- get_url(resp6, "loc")
 #' resp7 <- request_chart(loc = loc, host = host, chartcode = "PMAHN30")
+#' }
 #' @export
 request_chart <- function(txt = NULL,
                           loc = NULL,

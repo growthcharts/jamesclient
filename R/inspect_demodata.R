@@ -10,8 +10,10 @@
 #'   for new applications.
 #' @inheritParams james_post
 #' @examples
+#' \dontrun{
 #' data <- inspect_demodata(name = "Anne_S", cabinet = "smocc")
 #' head(data)
+#' }
 #' @export
 inspect_demodata <- function(name, cabinet,
                              format = c("2.0", "1.0", "1.1"),

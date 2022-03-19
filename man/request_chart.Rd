@@ -28,7 +28,8 @@ and converted to internal server format.}
 specified, the server will automatically plot child height for
 the most recent age period.}
 
-\item{selector}{See \code{\link[james:draw_chart]{james::draw_chart()}}.}
+\item{selector}{Either \code{"chartcode"}, \code{"data"} or \code{"derive"}. See
+\code{james::draw_chart()} docs for more detail.}
 
 \item{curve_interpolation}{Logical. Smooth growth curve along centiles?}
 }
@@ -48,6 +49,7 @@ One of \code{txt} or \code{resp} need to be specified. If both
 are given, a non-NULL \code{txt} takes precedence over \code{resp}.
 }
 \examples{
+\dontrun{
 # examples with direct uploads
 url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 fn <- system.file("testdata", "client3.json", package = "jamesclient")
@@ -70,6 +72,7 @@ resp5 <- request_chart(js2, host = host, chartcode = "PMAHN30")
 resp6 <- upload_txt(fn, host = host)
 loc <- get_url(resp6, "loc")
 resp7 <- request_chart(loc = loc, host = host, chartcode = "PMAHN30")
+}
 }
 \seealso{
 \code{\link[=upload_txt]{upload_txt()}}.

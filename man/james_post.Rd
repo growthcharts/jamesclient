@@ -24,8 +24,7 @@ e.g. \code{"version"}, \code{"data/upload"} or \code{"data/upload/json"}.}
 \item{query}{A list with query arguments, for example, \code{list(auto_unbox = TRUE)} for
 \code{json} output, or \code{list(width = 7.09, height = 7.09)} for \code{svglite}.}
 
-\item{txt}{Data set. Could be a URL, local file, JSON string or JSON object.
-See \code{\link[bdsreader:read_bds]{bdsreader::read_bds()}}.}
+\item{txt}{Data set. Could be a URL, local file, JSON string or JSON object.}
 
 \item{\dots}{Any other arguments passed to james functions via POST body}
 }
@@ -40,6 +39,7 @@ by JAMES), \code{parsed} (parsed return value of the called end point), \code{se
 Make JAMES POST request
 }
 \examples{
+\dontrun{
 url <- paste("http://localhost", "ocpu/library/jamesdemodata",
   "extdata/bds_v1.0/smocc/Laura_S.json", sep = "/")
 fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
@@ -54,7 +54,7 @@ m1 <- james_post(path = "data/upload/json", txt = fn)
 m2 <- james_post(path = "data/upload/json", txt = js)
 m3 <- james_post(path = "data/upload/json", txt = url)
 m4 <- james_post(path = "data/upload/json", txt = jo)
-
+}
 \dontrun{
 # create, store and view an A4 SVG plot
 r5 <- james_post(path = "/charts/draw/svglite", txt = url,

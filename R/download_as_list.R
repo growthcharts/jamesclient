@@ -12,10 +12,12 @@
 #'   `pattern`. The result has length 0 if the pattern was
 #'   not found.
 #' @examples
+#' \dontrun{
 #' file <- file.path(path.package("jamesclient"), "testdata", "client3.json")
 #' resp <- upload_txt(file)
 #' resp
 #' download_as_list(resp, pattern = "stdout")
+#' }
 #' @export
 download_as_list <- function(resp, pattern = "R/.val") {
   parsed <- parse_url(resp$url)

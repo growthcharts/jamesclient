@@ -18,6 +18,7 @@ Function \code{read_json_js()} returns a string, while \code{read_json_jo()} ret
 an object of class \code{jsonlite::class-json}.
 }
 \examples{
+\dontrun{
 url <- paste("http://localhost", "ocpu/library/jamesdemodata",
   "extdata/bds_v2.0/smocc/Laura_S.json", sep = "/")
 fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
@@ -28,4 +29,5 @@ js1 <- read_json_js(url)
 js2 <- read_json_js(fn)
 jo1 <- read_json_jo(url)
 jo2 <- read_json_jo(fn)
+}
 }

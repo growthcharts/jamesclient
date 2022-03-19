@@ -14,8 +14,7 @@ upload_txt(
 )
 }
 \arguments{
-\item{txt}{Data set. Could be a URL, local file, JSON string or JSON object.
-See \code{\link[bdsreader:read_bds]{bdsreader::read_bds()}}.}
+\item{txt}{Data set. Could be a URL, local file, JSON string or JSON object.}
 
 \item{host}{String with the host. The default is \code{"http://localhost"}.}
 
@@ -68,6 +67,7 @@ components from the internal structure (e.g. Z-scores, brokenstick estimates) it
 is better to develop a dedicated API for obtaining these.
 }
 \examples{
+\dontrun{
 library(httr)
 
 host <- "http://localhost"
@@ -95,4 +95,5 @@ identical(status_code(r3), 201L)
 
 r <- GET(paste(get_url(r3), "json", sep = "/"))
 r
+}
 }

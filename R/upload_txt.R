@@ -40,6 +40,7 @@
 #' components from the internal structure (e.g. Z-scores, brokenstick estimates) it
 #' is better to develop a dedicated API for obtaining these.
 #' @examples
+#' \dontrun{
 #' library(httr)
 #'
 #' host <- "http://localhost"
@@ -67,6 +68,7 @@
 #'
 #' r <- GET(paste(get_url(r3), "json", sep = "/"))
 #' r
+#' }
 #' @export
 upload_txt <- function(txt,
                        host = "http://localhost",

@@ -31,6 +31,8 @@ Uploads JSON child demo data to localhost and downloads the processed data
 for inspection.
 }
 \examples{
+\dontrun{
 data <- inspect_demodata(name = "Anne_S", cabinet = "smocc")
 head(data)
+}
 }
