@@ -19,6 +19,7 @@ reference:
 
   - title: Superseeded functions
     desc: Functions whose functionality has now been taken over.
+    contents:
     - download_as_list
     - read_json
     - request_chart
