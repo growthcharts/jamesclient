@@ -16,12 +16,12 @@ reference:
     - james_post
     - james_get
     - inspect_demodata
+    - read_json_js
+    - read_json_jo
 
   - title: Superseeded functions
     desc: Functions whose functionality has now been taken over.
     contents:
     - download_as_list
-    - read_json
     - request_chart
-    - run_remote
     - upload_txt
