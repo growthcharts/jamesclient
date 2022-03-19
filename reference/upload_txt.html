@@ -20,7 +20,7 @@ that contains the results of the request."><!-- mathjax --><script src="https://
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">jamesclient</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.28.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.28.1</span>
       </span>
     </div>
 
@@ -72,8 +72,7 @@ that contains the results of the request.</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>txt</dt>
-<dd><p>Data set. Could be a URL, local file, JSON string or JSON object.
-See <code>bdsreader::read_bds()</code>.</p></dd>
+<dd><p>Data set. Could be a URL, local file, JSON string or JSON object.</p></dd>
 <dt>host</dt>
 <dd><p>String with the host. The default is <code>"http://localhost"</code>.</p></dd>
 <dt>mod</dt>
@@ -122,7 +121,8 @@ is better to develop a dedicated API for obtaining these.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://httr.r-lib.org/" class="external-link">httr</a></span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://httr.r-lib.org/" class="external-link">httr</a></span><span class="op">)</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">host</span> <span class="op">&lt;-</span> <span class="st">"http://localhost"</span></span>
 <span class="r-in"><span class="va">url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="va">host</span>, <span class="st">"ocpu/library/jamesdemodata"</span>,</span>
@@ -130,38 +130,26 @@ is better to develop a dedicated API for obtaining these.</p>
 <span class="r-in"><span class="va">fn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"bds_v2.0"</span>, <span class="st">"smocc"</span>, <span class="st">"Laura_S.json"</span>,</span>
 <span class="r-in"> package <span class="op">=</span> <span class="st">"jamesdemodata"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">js1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>URL 'http://localhost/ocpu/library/jamesdemodata/extdata/bds_v2.0/smocc/Laura_S.json': status was 'Couldn't connect to server'</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(con, "r"):</span> cannot open the connection to 'http://localhost/ocpu/library/jamesdemodata/extdata/bds_v2.0/smocc/Laura_S.json'</span>
 <span class="r-in"><span class="va">js2</span> <span class="op">&lt;-</span> <span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">toJSON</a></span><span class="op">(</span><span class="fu">jsonlite</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/jsonlite/man/fromJSON.html" class="external-link">fromJSON</a></span><span class="op">(</span><span class="va">url</span><span class="op">)</span>, auto_unbox <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in open.connection(con, "rb"):</span> Failed to connect to localhost port 80: Connection refused</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># upload JSON file</span></span>
 <span class="r-in"><span class="va">r1</span> <span class="op">&lt;-</span> <span class="fu">upload_txt</span><span class="op">(</span><span class="va">fn</span>, <span class="va">host</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in curl::curl_fetch_memory(url, handle = handle):</span> Failed to connect to localhost port 80: Connection refused</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://httr.r-lib.org/reference/status_code.html" class="external-link">status_code</a></span><span class="op">(</span><span class="va">r1</span><span class="op">)</span>, <span class="fl">201L</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in status_code(r1):</span> object 'r1' not found</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># upload JSON string</span></span>
 <span class="r-in"><span class="va">r2a</span> <span class="op">&lt;-</span> <span class="fu">upload_txt</span><span class="op">(</span><span class="va">js1</span>, <span class="va">host</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file.exists(txt[1L]):</span> object 'js1' not found</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://httr.r-lib.org/reference/status_code.html" class="external-link">status_code</a></span><span class="op">(</span><span class="va">r2a</span><span class="op">)</span>, <span class="fl">201L</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in status_code(r2a):</span> object 'r2a' not found</span>
 <span class="r-in"><span class="va">r2b</span> <span class="op">&lt;-</span> <span class="fu">upload_txt</span><span class="op">(</span><span class="va">js2</span>, <span class="va">host</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file.exists(txt[1L]):</span> object 'js2' not found</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://httr.r-lib.org/reference/status_code.html" class="external-link">status_code</a></span><span class="op">(</span><span class="va">r2b</span><span class="op">)</span>, <span class="fl">201L</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in status_code(r2b):</span> object 'r2b' not found</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># upload JSON from external URL.</span></span>
 <span class="r-in"><span class="va">r3</span> <span class="op">&lt;-</span> <span class="fu">upload_txt</span><span class="op">(</span><span class="va">url</span>, <span class="va">host</span>, format <span class="op">=</span> <span class="st">"1.0"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in open.connection(con, open = mode):</span> Failed to connect to localhost port 80: Connection refused</span>
 <span class="r-in"><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://httr.r-lib.org/reference/status_code.html" class="external-link">status_code</a></span><span class="op">(</span><span class="va">r3</span><span class="op">)</span>, <span class="fl">201L</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in status_code(r3):</span> object 'r3' not found</span>
 <span class="r-in"><span class="co"># browseURL(get_url(r3))</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="get_url.html">get_url</a></span><span class="op">(</span><span class="va">r3</span><span class="op">)</span>, <span class="st">"json"</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is.response(x):</span> object 'r3' not found</span>
 <span class="r-in"><span class="va">r</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'r' not found</span>
+<span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
     </div>
   </div>

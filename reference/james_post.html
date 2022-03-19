@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">jamesclient</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.28.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.28.1</span>
       </span>
     </div>
 
@@ -76,8 +76,7 @@ e.g. <code>"version"</code>, <code>"data/upload"</code> or <code>"data/upload/js
 <dd><p>A list with query arguments, for example, <code>list(auto_unbox = TRUE)</code> for
 <code>json</code> output, or <code>list(width = 7.09, height = 7.09)</code> for <code>svglite</code>.</p></dd>
 <dt>txt</dt>
-<dd><p>Data set. Could be a URL, local file, JSON string or JSON object.
-See <code>bdsreader::read_bds()</code>.</p></dd>
+<dd><p>Data set. Could be a URL, local file, JSON string or JSON object.</p></dd>
 <dt>...</dt>
 <dd><p>Any other arguments passed to james functions via POST body</p></dd>
 </dl></div>
@@ -91,7 +90,8 @@ by JAMES), <code>parsed</code> (parsed return value of the called end point), <c
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"http://localhost"</span>, <span class="st">"ocpu/library/jamesdemodata"</span>,</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="va">url</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"http://localhost"</span>, <span class="st">"ocpu/library/jamesdemodata"</span>,</span>
 <span class="r-in">  <span class="st">"extdata/bds_v1.0/smocc/Laura_S.json"</span>, sep <span class="op">=</span> <span class="st">"/"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">fn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"bds_v2.0"</span>, <span class="st">"smocc"</span>, <span class="st">"Laura_S.json"</span>,</span>
 <span class="r-in"> package <span class="op">=</span> <span class="st">"jamesdemodata"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
@@ -102,15 +102,10 @@ by JAMES), <code>parsed</code> (parsed return value of the called end point), <c
 <span class="r-in"></span>
 <span class="r-in"><span class="co">#' try all inputs</span></span>
 <span class="r-in"><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu">james_post</span><span class="op">(</span>path <span class="op">=</span> <span class="st">"data/upload/json"</span>, txt <span class="op">=</span> <span class="va">fn</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in curl::curl_fetch_memory(url, handle = handle):</span> Failed to connect to localhost port 80: Connection refused</span>
 <span class="r-in"><span class="va">m2</span> <span class="op">&lt;-</span> <span class="fu">james_post</span><span class="op">(</span>path <span class="op">=</span> <span class="st">"data/upload/json"</span>, txt <span class="op">=</span> <span class="va">js</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in curl::curl_fetch_memory(url, handle = handle):</span> Failed to connect to localhost port 80: Connection refused</span>
 <span class="r-in"><span class="va">m3</span> <span class="op">&lt;-</span> <span class="fu">james_post</span><span class="op">(</span>path <span class="op">=</span> <span class="st">"data/upload/json"</span>, txt <span class="op">=</span> <span class="va">url</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>URL 'http://localhost/ocpu/library/jamesdemodata/extdata/bds_v1.0/smocc/Laura_S.json': status was 'Couldn't connect to server'</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(description = txt, open = "rt"):</span> cannot open the connection to 'http://localhost/ocpu/library/jamesdemodata/extdata/bds_v1.0/smocc/Laura_S.json'</span>
 <span class="r-in"><span class="va">m4</span> <span class="op">&lt;-</span> <span class="fu">james_post</span><span class="op">(</span>path <span class="op">=</span> <span class="st">"data/upload/json"</span>, txt <span class="op">=</span> <span class="va">jo</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in curl::curl_fetch_memory(url, handle = handle):</span> Failed to connect to localhost port 80: Connection refused</span>
-<span class="r-in"></span>
+<span class="r-in"><span class="op">}</span></span>
 <span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
 <span class="r-in"><span class="co"># create, store and view an A4 SVG plot</span></span>
 <span class="r-in"><span class="va">r5</span> <span class="op">&lt;-</span> <span class="fu">james_post</span><span class="op">(</span>path <span class="op">=</span> <span class="st">"/charts/draw/svglite"</span>, txt <span class="op">=</span> <span class="va">url</span>,</span>

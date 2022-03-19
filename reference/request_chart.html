@@ -22,7 +22,7 @@ location on the server."><!-- mathjax --><script src="https://cdnjs.cloudflare.c
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">jamesclient</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.28.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.28.1</span>
       </span>
     </div>
 
@@ -90,7 +90,8 @@ and converted to internal server format.</p></dd>
 specified, the server will automatically plot child height for
 the most recent age period.</p></dd>
 <dt>selector</dt>
-<dd><p>See <code>james::draw_chart()</code>.</p></dd>
+<dd><p>Either <code>"chartcode"</code>, <code>"data"</code> or <code>"derive"</code>. See
+<code>james::draw_chart()</code> docs for more detail.</p></dd>
 <dt>curve_interpolation</dt>
 <dd><p>Logical. Smooth growth curve along centiles?</p></dd>
 </dl></div>
@@ -110,7 +111,8 @@ are given, a non-NULL <code>txt</code> takes precedence over <code>resp</code>.<
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># examples with direct uploads</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="co"># examples with direct uploads</span></span>
 <span class="r-in"><span class="va">url</span> <span class="op">&lt;-</span> <span class="st">"https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"</span></span>
 <span class="r-in"><span class="va">fn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"testdata"</span>, <span class="st">"client3.json"</span>, package <span class="op">=</span> <span class="st">"jamesclient"</span><span class="op">)</span></span>
 <span class="r-in"><span class="va">host</span> <span class="op">&lt;-</span> <span class="st">"http://localhost"</span></span>
@@ -120,26 +122,19 @@ are given, a non-NULL <code>txt</code> takes precedence over <code>resp</code>.<
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># request default chart (PMAHN27)</span></span>
 <span class="r-in"><span class="va">resp1</span> <span class="op">&lt;-</span> <span class="fu">request_chart</span><span class="op">(</span><span class="va">url</span>, host <span class="op">=</span> <span class="va">host</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in curl::curl_fetch_memory(url, handle = handle):</span> Failed to connect to localhost port 80: Connection refused</span>
 <span class="r-in"><span class="co"># browseURL(get_url(resp1, "svglite"))</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># request 30 weeks chart ((PMAHN30)</span></span>
 <span class="r-in"><span class="va">resp2</span> <span class="op">&lt;-</span> <span class="fu">request_chart</span><span class="op">(</span><span class="va">url</span>, host <span class="op">=</span> <span class="va">host</span>, chartcode <span class="op">=</span> <span class="st">"PMAHN30"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in curl::curl_fetch_memory(url, handle = handle):</span> Failed to connect to localhost port 80: Connection refused</span>
 <span class="r-in"><span class="va">resp3</span> <span class="op">&lt;-</span> <span class="fu">request_chart</span><span class="op">(</span><span class="va">fn</span>, host <span class="op">=</span> <span class="va">host</span>, chartcode <span class="op">=</span> <span class="st">"PMAHN30"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in curl::curl_fetch_memory(url, handle = handle):</span> Failed to connect to localhost port 80: Connection refused</span>
 <span class="r-in"><span class="va">resp4</span> <span class="op">&lt;-</span> <span class="fu">request_chart</span><span class="op">(</span><span class="va">js1</span>, host <span class="op">=</span> <span class="va">host</span>, chartcode <span class="op">=</span> <span class="st">"PMAHN30"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in curl::curl_fetch_memory(url, handle = handle):</span> Failed to connect to localhost port 80: Connection refused</span>
 <span class="r-in"><span class="va">resp5</span> <span class="op">&lt;-</span> <span class="fu">request_chart</span><span class="op">(</span><span class="va">js2</span>, host <span class="op">=</span> <span class="va">host</span>, chartcode <span class="op">=</span> <span class="st">"PMAHN30"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in curl::curl_fetch_memory(url, handle = handle):</span> Failed to connect to localhost port 80: Connection refused</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># in two steps: first upload then request chart</span></span>
 <span class="r-in"><span class="va">resp6</span> <span class="op">&lt;-</span> <span class="fu"><a href="upload_txt.html">upload_txt</a></span><span class="op">(</span><span class="va">fn</span>, host <span class="op">=</span> <span class="va">host</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in curl::curl_fetch_memory(url, handle = handle):</span> Failed to connect to localhost port 80: Connection refused</span>
 <span class="r-in"><span class="va">loc</span> <span class="op">&lt;-</span> <span class="fu"><a href="get_url.html">get_url</a></span><span class="op">(</span><span class="va">resp6</span>, <span class="st">"loc"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is.url(url):</span> object 'resp6' not found</span>
 <span class="r-in"><span class="va">resp7</span> <span class="op">&lt;-</span> <span class="fu">request_chart</span><span class="op">(</span>loc <span class="op">=</span> <span class="va">loc</span>, host <span class="op">=</span> <span class="va">host</span>, chartcode <span class="op">=</span> <span class="st">"PMAHN30"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in is.url(loc):</span> object 'loc' not found</span>
+<span class="r-in"><span class="op">}</span></span>
 </code></pre></div>
     </div>
   </div>
