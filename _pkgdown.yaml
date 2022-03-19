@@ -23,5 +23,6 @@ reference:
     desc: Functions whose functionality has now been taken over.
     contents:
     - download_as_list
+    - get_url
     - request_chart
     - upload_txt
