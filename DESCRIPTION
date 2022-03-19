@@ -1,9 +1,9 @@
 Package: jamesclient
 Type: Package
 Title: Client-side R Functions for JAMES
-Version: 0.28.1
+Version: 0.28.2
 Authors@R: person("Stef", "van Buuren", email = "stef.vanbuuren@tno.nl",
-    role = c("aut", "cre"))
+    role = c("aut", "cre"), comment = c(ORCID = "0000-0003-1098-2119"))
 Maintainer: Stef van Buuren <stef.vanbuuren@tno.nl>
 Description: Client-sided functions for the 
     API of the TNO Joint Automatic Measurement and Evaluation 
@@ -18,6 +18,7 @@ Imports:
     jsonlite
 Suggests: 
     jamesdemodata (>= 0.7.1),
+    pkgdown,
     testthat (>= 2.1.0)
 Remotes: 
     growthcharts/jamesdemodata

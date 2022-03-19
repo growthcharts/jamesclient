@@ -1,3 +1,7 @@
+# jamesclient 0.28.2
+
+- Add `_pkgdown.yaml` to automate site building
+
 # jamesclient 0.28.1
 
 - Disables testing (services may be offline)
