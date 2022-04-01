@@ -6,3 +6,4 @@
 ^README\.Rmd$
 ^\.github$
 ^_pkgdown.yaml$
+^LICENSE\.md$
