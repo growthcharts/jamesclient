@@ -1,9 +1,10 @@
 library(httr)
 
 host <- "http://localhost"
-url <- file.path(host, "ocpu/library/bdsreader/examples/maria.json")
 
 if (valid_url(host)) {
+  url <- file.path(host, "ocpu/library/bdsreader/examples/maria.json")
+
   resp <- james_post(host = host, path = "data/upload/json", txt = url)
 
   test_that(
