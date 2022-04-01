@@ -1,6 +1,12 @@
+# jamesclient 0.29.0
+
+- Adds `valid_url()` to test for existence of URL
+- Executes examples and tests conditional on a valid URL
+- Adds AGPL-3 licence
+
 # jamesclient 0.28.2
 
-- Add `_pkgdown.yaml` to automate site building
+- Adds `_pkgdown.yaml` to automate site building
 
 # jamesclient 0.28.1
 
