@@ -4,6 +4,9 @@
     <loc>https://growthcharts.org/jamesclient/404.html</loc>
   </url>
   <url>
+    <loc>https://growthcharts.org/jamesclient/LICENSE.html</loc>
+  </url>
+  <url>
     <loc>https://growthcharts.org/jamesclient/authors.html</loc>
   </url>
   <url>
@@ -38,5 +41,8 @@
   </url>
   <url>
     <loc>https://growthcharts.org/jamesclient/reference/upload_txt.html</loc>
+  </url>
+  <url>
+    <loc>https://growthcharts.org/jamesclient/reference/valid_url.html</loc>
   </url>
 </urlset>
