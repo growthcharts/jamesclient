@@ -23,10 +23,12 @@ for (host in hosts) {
       paste("js2 uploads to host", host),
       expect_equal(status_code(upload_txt(js2, host = host)), 201)
     )
-    test_that(
-      paste("url uploads to host", host),
-      expect_equal(status_code(upload_txt(url, host = host)), 201)
-    )
+    if (jamesclient::valid_url(url)) {
+      test_that(
+        paste("url uploads to host", host),
+        expect_equal(status_code(upload_txt(url, host = host)), 201)
+      )
+    }
   }
 }
 
