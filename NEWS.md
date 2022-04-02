@@ -1,3 +1,8 @@
+# jamesclient 0.30.0
+
+- Removes the `mod` parameter
+- Support `host` specification as `"http://myhost.nl/module"`
+
 # jamesclient 0.29.0
 
 - Adds `valid_url()` to test for existence of URL
