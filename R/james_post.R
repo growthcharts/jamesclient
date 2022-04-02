@@ -1,7 +1,6 @@
 #' Make JAMES POST request
 #'
 #' @param host String with the host. The default is `"http://localhost"`.
-#' @param mod String with the module path, if any. The default is `""`.
 #' @param path String with the path to the called end point,
 #' e.g. `"version"`, `"data/upload"` or `"data/upload/json"`.
 #' @param query A list with query arguments, for example, `list(auto_unbox = TRUE)` for
@@ -42,17 +41,15 @@
 #' }
 #' @export
 james_post <- function(host = "http://localhost",
-                       mod = character(0),
                        path = character(0),
                        query = list(),
                        txt = NULL,
                        ...) {
-  stopifnot(length(mod) <= 1L)
   stopifnot(length(path) == 1L)
   stopifnot(length(txt) <= 1L)
-  if (length(mod) == 1L && nchar(mod) > 0L) path <- paste(mod, path, sep = "/")
-  url <- modify_url(url = host, path = path)
   ua <- user_agent("https://github.com/growthcharts/jamesclient/blob/master/R/james_post.R")
+  url <- parse_url(host)
+  url <- modify_url(url = url, path = file.path(url$path, path), query = query)
 
   # if we have a file name or URL, read into string
   txt <- read_json_js(txt = txt)
@@ -62,7 +59,6 @@ james_post <- function(host = "http://localhost",
     resp <- POST(url, ua,
                  body = list(txt = txt,
                              ...),
-                 query = query,
                  encode = "json")
   } else {
     stop("Cannot process 'txt' argument.")

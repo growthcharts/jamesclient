@@ -7,7 +7,6 @@
 upload_txt(
   txt,
   host = "http://localhost",
-  mod = character(0),
   format = "2.0",
   schema = NULL,
   verbose = FALSE
@@ -17,8 +16,6 @@ upload_txt(
 \item{txt}{Data set. Could be a URL, local file, JSON string or JSON object.}
 
 \item{host}{String with the host. The default is \code{"http://localhost"}.}
-
-\item{mod}{String with the module path, if any. The default is \code{""}.}
 
 \item{format}{String. JSON data schema version number. There are currently
 three schemas supported: \code{"1.0"}, \code{"1.1"} and \code{"2.0"}. Formats \code{"1.0"} and

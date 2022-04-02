@@ -17,8 +17,7 @@
 #' @export
 inspect_demodata <- function(name, cabinet,
                              format = c("2.0", "1.0", "1.1"),
-                             host = "http://localhost",
-                             mod = character(0)) {
+                             host = "http://localhost") {
   format <- match.arg(format)
 
   # fetch demodata
@@ -29,7 +28,6 @@ inspect_demodata <- function(name, cabinet,
   target <- readLines(con = fn)
   resp <- upload_txt(txt = target,
                      host = host,
-                     mod = mod,
                      format = format)
   url <- file.path(host, get_url(resp, "session"), "rda")
   con <- curl::curl(url = url, open = "rb")

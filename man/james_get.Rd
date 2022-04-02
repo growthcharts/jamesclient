@@ -4,17 +4,10 @@
 \alias{james_get}
 \title{Make JAMES GET request}
 \usage{
-james_get(
-  host = "http://localhost",
-  mod = character(0),
-  path = character(0),
-  ...
-)
+james_get(host = "http://localhost", path = character(0), ...)
 }
 \arguments{
 \item{host}{String with the host. The default is \code{"http://localhost"}.}
-
-\item{mod}{String with the module path, if any. The default is \code{""}.}
 
 \item{path}{String with the path to the called end point,
 e.g. \code{"version"}, \code{"data/upload"} or \code{"data/upload/json"}.}

@@ -72,12 +72,12 @@
 #' @export
 upload_txt <- function(txt,
                        host = "http://localhost",
-                       mod = character(0),
                        format = "2.0",
                        schema = NULL,
                        verbose = FALSE) {
   path <- "ocpu/library/james/R/upload_data"
-  if (length(mod) == 1L && nchar(mod) > 0L) path <- paste(mod, path, sep = "/")
+  url <- parse_url(host)
+  url <- modify_url(url = url, path = file.path(url$path, path))
   done <- FALSE
 
   if (file.exists(txt[1L])) {
@@ -90,12 +90,12 @@ upload_txt <- function(txt,
   if (validate(txt)) {
     if (verbose) {
       resp <- POST(
-        url = host, path = path,
+        url = url,
         body = list(txt = txt),
         encode = "json", verbose())
     } else {
       resp <- POST(
-        url = host, path = path,
+        url = url,
         body = list(txt = txt),
         encode = "json")
     }

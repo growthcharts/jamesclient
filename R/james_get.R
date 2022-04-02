@@ -5,14 +5,11 @@
 #' @return Object of class `james_get`
 #' @export
 james_get <- function(host = "http://localhost",
-                      mod = character(0),
                       path = character(0),
                       ...) {
-  stopifnot(length(mod) <= 1L)
-  if (length(mod) == 1L && nchar(mod) > 0L) path <- paste(mod, path, sep = "/")
-
-  url <- modify_url(url = host, path = path)
   ua <- user_agent("https://github.com/growthcharts/jamesclient/blob/master/R/james_get.R")
+  url <- parse_url(host)
+  url <- modify_url(url = url, path = file.path(url$path, path))
   resp <- GET(url, ua, ...)
 
   # parse contents
