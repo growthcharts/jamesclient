@@ -1,3 +1,7 @@
+# jamesclient 0.31.0
+
+- Make `upload_txt()` work for JSON files in pretty format
+
 # jamesclient 0.30.0
 
 - Removes the `mod` parameter
