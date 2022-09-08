@@ -4,7 +4,6 @@ fn <- system.file("extdata", "allegrosultum", "client3.json", package = "jamesde
 js1 <- read_json_js(fn)
 js2 <- read_json_jo(fn)
 url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
-url <- "https://james.groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 
 hosts <- c("https://james.groeidiagrammen.nl",
            "http://localhost")

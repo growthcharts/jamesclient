@@ -79,12 +79,8 @@ upload_txt <- function(txt,
   url <- modify_url(url = url, path = file.path(url$path, path))
   done <- FALSE
 
-  if (file.exists(txt[1L])) {
-    txt <- readLines(txt)
-  } else if (is.url(txt[1L])) {
-    con <- curl(txt[1L], open = "r")
-    txt <- readLines(con)
-    close(con)
+  if (file.exists(txt[1L]) || is.url(txt[1L])) {
+    txt <- read_json_js(txt[1L])
   }
   if (validate(txt)) {
     if (verbose) {
