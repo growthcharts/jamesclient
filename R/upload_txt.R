@@ -64,10 +64,9 @@
 #' # upload JSON from external URL.
 #' r3 <- upload_txt(url, host, format = "1.0")
 #' identical(status_code(r3), 201L)
-#' # browseURL(get_url(r3))
 #'
-#' r <- GET(paste(get_url(r3), "json", sep = "/"))
-#' r
+#' # browseURL(file.path(get_url(r3), "print"))
+#' # browseURL(file.path(get_url(r3), "json"))
 #' }
 #' @export
 upload_txt <- function(txt,
