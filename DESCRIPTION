@@ -25,4 +25,4 @@ Remotes:
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/growthcharts/jamesclient
 BugReports: https://github.com/growthcharts/jamesclient/issues
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
