@@ -6,8 +6,8 @@
 #' that contains the results of the request.
 #' @param verbose Logical. Print diagnostic information of POST request to console.
 #' @param format String. JSON data schema version number. There are currently
-#'   three schemas supported: `"1.0"`, `"1.1"` and `"2.0"`. Formats `"1.0"` and
-#'   `"1.1"` are included for backward compatibility only. Use `format = "2.0"`
+#'   three schemas supported: `"1.0"`, `"1.1"`, `"2.0"` and `"3.0"`. Formats `"1.0"` and
+#'   `"1.1"` are included for backward compatibility only. Use `format = "3.0"`
 #'   for new applications.
 #' @param schema A file name (optionally including the path) with the JSON
 #'   validation schema.
