@@ -46,7 +46,7 @@ Upload BDS data
 
 ```{r}
 library(jamesclient)
-fn <- system.file("extdata", "allegrosultum", "client3.json", 
+fn <- system.file("extdata", "bds_v3.0", "smocc", "Laura_S.json",
                   package = "jamesdemodata", mustWork = TRUE)
 host <- "https://james.groeidiagrammen.nl"
 r1 <- james_post(host = host, path = "data/upload/json", txt = fn)
@@ -68,7 +68,7 @@ For other end points, see <https://james.groeidiagrammen.nl>.
 
 ```{r example3}
 library(jamesclient)
-data <- inspect_demodata(name = "Anne_S", "smocc", format = "1.0")
+data <- inspect_demodata(name = "Anne_S", "smocc")
 data
 ```
 

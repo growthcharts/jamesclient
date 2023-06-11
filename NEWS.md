@@ -1,3 +1,15 @@
+# jamesclient 0.32.0
+
+- Make all example code work
+- Replaces `readLines()` by more robust `read_json_js()`
+- Updates examples to bds V3.0 data schema
+- Update README
+- Removes several `\dontrun` to elaborate code checking
+
+# jamesclient 0.31.1
+
+- Patch a problem with `readLines()` in the tests  
+
 # jamesclient 0.31.0
 
 - Make `upload_txt()` work for JSON files in pretty format
