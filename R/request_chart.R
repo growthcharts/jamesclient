@@ -26,14 +26,10 @@
 #' One of `txt` or `resp` need to be specified. If both
 #' are given, a non-NULL `txt` takes precedence over `resp`.
 #' @examples
-#' \dontrun{
 #' # examples with direct uploads
 #' url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 #' fn <- system.file("testdata", "client3.json", package = "jamesclient")
 #' host <- "http://localhost"
-#'
-#' js1 <- readLines(fn)
-#' js2 <- jsonlite::toJSON(jsonlite::fromJSON(fn), auto_unbox = TRUE)
 #'
 #' # request default chart (PMAHN27)
 #' resp1 <- request_chart(url, host = host)
@@ -42,14 +38,15 @@
 #' # request 30 weeks chart ((PMAHN30)
 #' resp2 <- request_chart(url, host = host, chartcode = "PMAHN30")
 #' resp3 <- request_chart(fn, host = host, chartcode = "PMAHN30")
-#' resp4 <- request_chart(js1, host = host, chartcode = "PMAHN30")
-#' resp5 <- request_chart(js2, host = host, chartcode = "PMAHN30")
+#' js <- read_json_js(fn)
+#' resp4 <- request_chart(js, host = host, chartcode = "PMAHN30")
+#' jo <- read_json_jo(fn)
+#' resp5 <- request_chart(jo, host = host, chartcode = "PMAHN30")
 #'
 #' # in two steps: first upload then request chart
 #' resp6 <- upload_txt(fn, host = host)
 #' loc <- get_url(resp6, "loc")
 #' resp7 <- request_chart(loc = loc, host = host, chartcode = "PMAHN30")
-#' }
 #' @export
 request_chart <- function(txt = NULL,
                           loc = NULL,
@@ -66,11 +63,9 @@ request_chart <- function(txt = NULL,
   done <- FALSE
   if (!is.null(txt)) {
     if (file.exists(txt[1L])) {
-      txt <- readLines(txt)
+      txt <- read_json_js(txt)
     } else if (is.url(txt[1L])) {
-      con <- curl(txt[1L], open = "r")
-      txt <- readLines(con)
-      close(con)
+      txt <- read_json_js(txt)
     }
     if (validate(txt)) {
       resp <- POST(

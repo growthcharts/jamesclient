@@ -21,14 +21,14 @@ A list with the contents under the url's that match
 not found.
 }
 \description{
-Obtains thecontents of one or more url's from the OpenCPU server response
+Obtains the contents of one or more url's from the OpenCPU server response
 in a list.
 }
 \examples{
 \dontrun{
-file <- file.path(path.package("jamesclient"), "testdata", "client3.json")
-resp <- upload_txt(file)
+fn <- system.file("testdata", "client3.json", package = "jamesclient")
+resp <- upload_txt(fn)
 resp
-download_as_list(resp, pattern = "stdout")
+download_as_list(resp, pattern = "")
 }
 }

@@ -64,25 +64,24 @@ components from the internal structure (e.g. Z-scores, brokenstick estimates) it
 is better to develop a dedicated API for obtaining these.
 }
 \examples{
-\dontrun{
 library(httr)
 
 host <- "http://localhost"
 url <- paste(host, "ocpu/library/jamesdemodata",
-  "extdata/bds_v2.0/smocc/Laura_S.json", sep = "/")
-fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
+  "extdata/bds_v3.0/smocc/Laura_S.json", sep = "/")
+fn <- system.file("extdata", "bds_v3.0", "smocc", "Laura_S.json",
  package = "jamesdemodata", mustWork = TRUE)
-js1 <- readLines(url)
-js2 <- jsonlite::toJSON(jsonlite::fromJSON(url), auto_unbox = TRUE)
+js <- read_json_js(url)
+jo <- read_json_jo(url)
 
 # upload JSON file
 r1 <- upload_txt(fn, host)
 identical(status_code(r1), 201L)
 
 # upload JSON string
-r2a <- upload_txt(js1, host)
+r2a <- upload_txt(js, host)
 identical(status_code(r2a), 201L)
-r2b <- upload_txt(js2, host)
+r2b <- upload_txt(jo, host)
 identical(status_code(r2b), 201L)
 
 # upload JSON from external URL.
@@ -91,5 +90,4 @@ identical(status_code(r3), 201L)
 
 # browseURL(file.path(get_url(r3), "print"))
 # browseURL(file.path(get_url(r3), "json"))
-}
 }

@@ -7,7 +7,7 @@
 inspect_demodata(
   name,
   cabinet,
-  format = c("2.0", "1.0", "1.1"),
+  format = c("3.0", "2.0", "1.0", "1.1"),
   host = "http://localhost"
 )
 }

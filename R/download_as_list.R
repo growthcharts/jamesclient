@@ -1,6 +1,6 @@
 #' Download results from ocpu server as a list
 #'
-#' Obtains thecontents of one or more url's from the OpenCPU server response
+#' Obtains the contents of one or more url's from the OpenCPU server response
 #' in a list.
 #' @param resp    An object of class
 #'   [httr::response()], typically returned by a
@@ -13,10 +13,10 @@
 #'   not found.
 #' @examples
 #' \dontrun{
-#' file <- file.path(path.package("jamesclient"), "testdata", "client3.json")
-#' resp <- upload_txt(file)
+#' fn <- system.file("testdata", "client3.json", package = "jamesclient")
+#' resp <- upload_txt(fn)
 #' resp
-#' download_as_list(resp, pattern = "stdout")
+#' download_as_list(resp, pattern = "")
 #' }
 #' @export
 download_as_list <- function(resp, pattern = "R/.val") {

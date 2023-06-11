@@ -5,18 +5,15 @@
 #' an object of class `jsonlite::class-json`.
 #' @param txt A file name or URL
 #' @examples
-#' \dontrun{
 #' url <- paste("http://localhost", "ocpu/library/jamesdemodata",
-#'   "extdata/bds_v2.0/smocc/Laura_S.json", sep = "/")
-#' fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
+#'   "extdata/bds_v3.0/smocc/Laura_S.json", sep = "/")
+#' fn <- system.file("extdata", "bds_v3.0", "smocc", "Laura_S.json",
 #'  package = "jamesdemodata", mustWork = TRUE)
-#' fn <- system.file("extdata", "allegrosultum", "client3.json",
-#'  package = "jamesdemodata", mustWork = TRUE)
+#'
 #' js1 <- read_json_js(url)
 #' js2 <- read_json_js(fn)
 #' jo1 <- read_json_jo(url)
 #' jo2 <- read_json_jo(fn)
-#' }
 #' @export
 read_json_js <- function(txt = NULL) {
   if (is.null(txt)) {

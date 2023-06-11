@@ -16,7 +16,7 @@
 #' }
 #' @export
 inspect_demodata <- function(name, cabinet,
-                             format = c("2.0", "1.0", "1.1"),
+                             format = c("3.0", "2.0", "1.0", "1.1"),
                              host = "http://localhost") {
   format <- match.arg(format)
 
@@ -25,7 +25,7 @@ inspect_demodata <- function(name, cabinet,
                     package = "jamesdemodata", mustWork = TRUE)
   if (fn == "") stop("Child data not found.")
 
-  target <- readLines(con = fn)
+  target <- read_json_jo(fn)
   resp <- upload_txt(txt = target,
                      host = host,
                      format = format)

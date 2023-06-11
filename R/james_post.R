@@ -15,10 +15,8 @@
 #' @examples
 #' \dontrun{
 #' url <- paste("http://localhost", "ocpu/library/jamesdemodata",
-#'   "extdata/bds_v1.0/smocc/Laura_S.json", sep = "/")
-#' fn <- system.file("extdata", "bds_v2.0", "smocc", "Laura_S.json",
-#'  package = "jamesdemodata", mustWork = TRUE)
-#' fn <- system.file("extdata", "allegrosultum", "client3.json",
+#'   "extdata/bds_v3.0/smocc/Laura_S.json", sep = "/")
+#' fn <- system.file("extdata", "bds_v3.0", "smocc", "Laura_S.json",
 #'  package = "jamesdemodata", mustWork = TRUE)
 #' js <- read_json_js(txt = fn)
 #' jo <- read_json_jo(txt = fn)
