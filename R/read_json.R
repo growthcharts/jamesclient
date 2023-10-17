@@ -5,8 +5,7 @@
 #' an object of class `jsonlite::class-json`.
 #' @param txt A file name or URL
 #' @examples
-#' url <- paste("http://localhost", "ocpu/library/jamesdemodata",
-#'   "extdata/bds_v3.0/smocc/Laura_S.json", sep = "/")
+#' url <- "http://localhost/ocpu/library/bdsreader/examples/Laura_S.json"
 #' fn <- system.file("extdata", "bds_v3.0", "smocc", "Laura_S.json",
 #'  package = "jamesdemodata", mustWork = TRUE)
 #'

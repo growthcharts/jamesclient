@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/growthcharts/jamesclient/workflows/R-CMD-check/badge.svg)](https://github.com/growthcharts/jamesclient/actions)
 <!-- badges: end -->
 
-The goal of `jamesclient` is to facilitate interaction for `R` users with the 
+The goal  of `jamesclient` is to facilitate interaction for `R` users with the 
 **Joint Automatic Measurement and Evaluation System (JAMES)**.
 JAMES is an online resource for creating growth charts and analysing growth curves.
 
