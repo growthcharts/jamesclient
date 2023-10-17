@@ -1,3 +1,7 @@
+# jamesclient 0.32.1
+
+- Use example URL from bdsreader instead of jamesdemodata (not in docker)
+
 # jamesclient 0.32.0
 
 - Make all example code work
