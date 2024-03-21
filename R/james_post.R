@@ -6,6 +6,7 @@
 #' @param query A list with query arguments, for example, `list(auto_unbox = TRUE)` for
 #' `json` output, or `list(width = 7.09, height = 7.09)` for `svglite`.
 #' @param txt Data set. Could be a URL, local file, JSON string or JSON object.
+#' @param auth Bearer token for authentication.
 #' @param \dots Any other arguments passed to james functions via POST body
 #' @return Object of class `c("james_httr", "response")`. The object extends
 #' the [httr::response] object with the components:
@@ -41,12 +42,16 @@ james_post <- function(host = "http://localhost",
                        path = character(0),
                        query = list(),
                        txt = NULL,
+                       auth = NULL,
                        ...) {
   stopifnot(length(path) == 1L)
   stopifnot(length(txt) <= 1L)
   ua <- user_agent("https://github.com/growthcharts/jamesclient/blob/master/R/james_post.R")
   url <- parse_url(host)
   url <- modify_url(url = url, path = file.path(url$path, path), query = query)
+  if (!is.null(auth)) {
+    headers <- add_headers("Authorization" = paste("Bearer", auth))
+  } else headers <- add_headers
 
   # if we have a file name or URL, read into string
   txt <- read_json_js(txt = txt)
@@ -54,6 +59,7 @@ james_post <- function(host = "http://localhost",
   # check JSON
   if (is.null(txt) || validate(txt)) {
     resp <- POST(url, ua,
+                 headers,
                  body = list(txt = txt,
                              ...),
                  encode = "json")

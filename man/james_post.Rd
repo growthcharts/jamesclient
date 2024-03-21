@@ -9,6 +9,7 @@ james_post(
   path = character(0),
   query = list(),
   txt = NULL,
+  auth = NULL,
   ...
 )
 }
@@ -22,6 +23,8 @@ e.g. \code{"version"}, \code{"data/upload"} or \code{"data/upload/json"}.}
 \code{json} output, or \code{list(width = 7.09, height = 7.09)} for \code{svglite}.}
 
 \item{txt}{Data set. Could be a URL, local file, JSON string or JSON object.}
+
+\item{auth}{Bearer token for authentication.}
 
 \item{\dots}{Any other arguments passed to james functions via POST body}
 }
