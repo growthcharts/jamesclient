@@ -13,7 +13,7 @@ james_get <- function(host = "http://localhost",
   url <- modify_url(url = url, path = file.path(url$path, path))
   if (!is.null(auth)) {
     headers <- add_headers("Authorization" = paste("Bearer", auth))
-  } else headers <- add_headers
+  } else headers <- add_headers("")
 
   resp <- GET(url, ua, headers, ...)
 

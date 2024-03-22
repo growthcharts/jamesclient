@@ -51,7 +51,7 @@ james_post <- function(host = "http://localhost",
   url <- modify_url(url = url, path = file.path(url$path, path), query = query)
   if (!is.null(auth)) {
     headers <- add_headers("Authorization" = paste("Bearer", auth))
-  } else headers <- add_headers
+  } else headers <- add_headers("")
 
   # if we have a file name or URL, read into string
   txt <- read_json_js(txt = txt)
