@@ -6,11 +6,16 @@
 #' @export
 james_get <- function(host = "http://localhost",
                       path = character(0),
+                      auth = NULL,
                       ...) {
   ua <- user_agent("https://github.com/growthcharts/jamesclient/blob/master/R/james_get.R")
   url <- parse_url(host)
   url <- modify_url(url = url, path = file.path(url$path, path))
-  resp <- GET(url, ua, ...)
+  if (!is.null(auth)) {
+    headers <- add_headers("Authorization" = paste("Bearer", auth))
+  } else headers <- add_headers
+
+  resp <- GET(url, ua, headers, ...)
 
   # parse contents
   parsed <- ""

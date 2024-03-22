@@ -4,13 +4,15 @@
 \alias{james_get}
 \title{Make JAMES GET request}
 \usage{
-james_get(host = "http://localhost", path = character(0), ...)
+james_get(host = "http://localhost", path = character(0), auth = NULL, ...)
 }
 \arguments{
 \item{host}{String with the host. The default is \code{"http://localhost"}.}
 
 \item{path}{String with the path to the called end point,
 e.g. \code{"version"}, \code{"data/upload"} or \code{"data/upload/json"}.}
+
+\item{auth}{Bearer token for authentication.}
 
 \item{\dots}{Extra arguments to create the URI in GET()}
 }
