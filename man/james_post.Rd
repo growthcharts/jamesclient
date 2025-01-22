@@ -37,6 +37,8 @@ Make JAMES POST request
 }
 \examples{
 \dontrun{
+host <- "https://james.groeidiagrammen.nl"
+# host <- "http://localhost"
 url <- "http://localhost/ocpu/library/bdsreader/examples/Laura_S.json"
 fn <- system.file("extdata", "bds_v3.0", "smocc", "Laura_S.json",
  package = "jamesdemodata", mustWork = TRUE)
@@ -44,10 +46,10 @@ js <- read_json_js(txt = fn)
 jo <- read_json_jo(txt = fn)
 
 #' try all inputs
-m1 <- james_post(path = "data/upload/json", txt = fn)
-m2 <- james_post(path = "data/upload/json", txt = js)
-m3 <- james_post(path = "data/upload/json", txt = url)
-m4 <- james_post(path = "data/upload/json", txt = jo)
+m1 <- james_post(host = host, path = "data/upload/json", txt = fn)
+m2 <- james_post(host = host, path = "data/upload/json", txt = js)
+m3 <- james_post(host = host, path = "data/upload/json", txt = url)
+m4 <- james_post(host = host, path = "data/upload/json", txt = jo)
 }
 \dontrun{
 # create, store and view an A4 SVG plot
