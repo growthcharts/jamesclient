@@ -27,9 +27,9 @@
 #' are given, a non-NULL `txt` takes precedence over `resp`.
 #' @examples
 #' # examples with direct uploads
-#' url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
+#' url <- "https://raw.githubusercontent.com/growthcharts/jamesdemodata/refs/heads/master/inst/json/examples/client3.json"
 #' fn <- system.file("testdata", "client3.json", package = "jamesclient")
-#' host <- "http://localhost"
+#' host <- "https://james.groeidiagrammen.nl"
 #'
 #' # request default chart (PMAHN27)
 #' resp1 <- request_chart(url, host = host)

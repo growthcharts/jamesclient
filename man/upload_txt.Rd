@@ -66,8 +66,8 @@ is better to develop a dedicated API for obtaining these.
 \examples{
 library(httr)
 
-host <- "http://localhost"
-url <- "http://localhost/ocpu/library/bdsreader/examples/Laura_S.json"
+host <- "https://james.groeidiagrammen.nl"
+url <- "https://raw.githubusercontent.com/growthcharts/jamesdemodata/refs/heads/master/inst/json/examples/Laura_S.json"
 fn <- system.file("extdata", "bds_v3.0", "smocc", "Laura_S.json",
  package = "jamesdemodata", mustWork = TRUE)
 js <- read_json_js(url)

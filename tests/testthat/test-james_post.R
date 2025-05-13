@@ -1,8 +1,8 @@
 library(httr)
 
-host <- "http://localhost"
-# host <- "https://james.groeidiagrammen.nl"
-url <- file.path(host, "ocpu/library/bdsreader/examples/maria.json")
+# host <- "http://localhost"
+host <- "https://james.groeidiagrammen.nl"
+url <- "https://raw.githubusercontent.com/growthcharts/jamesdemodata/refs/heads/master/inst/json/examples/Laura_S.json"
 
 if (valid_url(host) && valid_url(url)) {
   resp <- james_post(host = host, path = "data/upload/json", txt = url)
