@@ -1,3 +1,7 @@
+# jamesclient 0.33.0
+
+- Loads the example data from `jamesdemodata` instead of `bdsreader`
+
 # jamesclient 0.32.1
 
 - Use example URL from bdsreader instead of jamesdemodata (not in docker)
