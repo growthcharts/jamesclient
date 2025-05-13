@@ -12,6 +12,7 @@ knitr::opts_chunk$set(
   out.width = "100%"
 )
 ```
+
 # jamesclient
 
 <!-- badges: start -->
@@ -68,7 +69,7 @@ For other end points, see <https://james.groeidiagrammen.nl>.
 
 ```{r example3}
 library(jamesclient)
-data <- inspect_demodata(name = "Anne_S", "smocc")
+data <- inspect_demodata(name = "Anne_S", "smocc", host = host)
 data
 ```
 
@@ -83,7 +84,7 @@ Upload BDS data and create a tibble on the server:
 ```{r example, eval=FALSE}
 library(jamesclient)
 fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
-r1 <- upload_txt(fn)
+r1 <- upload_txt(fn, host = host)
 browseURL(get_url(r1, "return"))
 ```
 
@@ -92,7 +93,7 @@ browseURL(get_url(r1, "return"))
 Make a combined upload and automatic chartcode choice:
 
 ```{r example2, eval = FALSE}
-r2 <- request_chart(fn, chartcode = "PJAHN27")
+r2 <- request_chart(fn, chartcode = "PJAHN27", host = host)
 browseURL(get_url(r2, "svg"))
 ```
 

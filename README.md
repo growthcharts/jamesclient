@@ -45,10 +45,8 @@ host <- "https://james.groeidiagrammen.nl"
 r1 <- james_post(host = host, path = "data/upload/json", txt = fn)
 r1$parsed
 #> $psn
-#>   id    name        dob       dobm src    sex gad ga smo   bw hgtm hgtf agem
-#> 1 -1 Laura S 1989-01-21 1961-07-22   0 female 276 39   0 2950  164  179   27
-#>   etn
-#> 1  NL
+#>   id    name        dob       dobm src    sex gad ga smo   bw hgtm hgtf
+#> 1 -1 Laura S 1989-01-21 1961-07-22   0 female 276 39   0 2950  164  179
 #> 
 #> $xyz
 #>      age xname yname zname                   zref      x     y      z
@@ -91,15 +89,15 @@ r1$parsed
 #> 37 1.251   age   bmi bmi_z  nl_1997_bmi_female_nl  1.251 18.59  1.394
 #> 38 1.539   age   bmi bmi_z  nl_1997_bmi_female_nl  1.539 18.14  1.277
 #> 39 2.040   age   bmi bmi_z  nl_1997_bmi_female_nl  2.040 17.16  0.825
-#> 40 0.101   age   dsc dsc_z  ph_2023_dsc_female_40  0.101 14.79 -0.321
-#> 41 0.159   age   dsc dsc_z  ph_2023_dsc_female_40  0.159 16.01 -0.569
-#> 42 0.235   age   dsc dsc_z  ph_2023_dsc_female_40  0.235 19.85 -0.337
-#> 43 0.485   age   dsc dsc_z  ph_2023_dsc_female_40  0.485 23.93 -1.897
-#> 44 0.753   age   dsc dsc_z  ph_2023_dsc_female_40  0.753 40.96 -0.113
-#> 45 1.021   age   dsc dsc_z  ph_2023_dsc_female_40  1.021 48.74  0.087
-#> 46 1.251   age   dsc dsc_z  ph_2023_dsc_female_40  1.251 52.47 -0.207
-#> 47 1.539   age   dsc dsc_z  ph_2023_dsc_female_40  1.539 54.65 -0.913
-#> 48 2.040   age   dsc dsc_z  ph_2023_dsc_female_40  2.040 68.34  1.041
+#> 40 0.101   age   dsc dsc_z  ph_2023_dsc_female_40  0.101 15.56 -0.094
+#> 41 0.159   age   dsc dsc_z  ph_2023_dsc_female_40  0.159 17.69 -0.075
+#> 42 0.235   age   dsc dsc_z  ph_2023_dsc_female_40  0.235 20.57 -0.125
+#> 43 0.485   age   dsc dsc_z  ph_2023_dsc_female_40  0.485 25.55 -1.553
+#> 44 0.753   age   dsc dsc_z  ph_2023_dsc_female_40  0.753 43.75  0.672
+#> 45 1.021   age   dsc dsc_z  ph_2023_dsc_female_40  1.021 50.92  0.708
+#> 46 1.251   age   dsc dsc_z  ph_2023_dsc_female_40  1.251 54.34  0.319
+#> 47 1.539   age   dsc dsc_z  ph_2023_dsc_female_40  1.539 56.65 -0.385
+#> 48 2.040   age   dsc dsc_z  ph_2023_dsc_female_40  2.040 70.05  1.536
 #> 49 0.000   hgt   wfh wfh_z nl_1997_wfh_female_nla 48.000  2.95     NA
 #> 50 0.101   hgt   wfh wfh_z nl_1997_wfh_female_nla 53.500  4.18  0.215
 #> 51 0.159   hgt   wfh wfh_z nl_1997_wfh_female_nla 56.000  5.00  0.764
@@ -131,7 +129,7 @@ For other end points, see <https://james.groeidiagrammen.nl>.
 
 ``` r
 library(jamesclient)
-data <- inspect_demodata(name = "Anne_S", "smocc")
+data <- inspect_demodata(name = "Anne_S", "smocc", host = host)
 data
 #> $psn
 #>   id   name        dob       dobm dobf src  dnr    sex gad ga smo   bw hgtm
@@ -180,15 +178,15 @@ data
 #> 37 1.2485   age   bmi bmi_z  nl_1997_bmi_female_nl  1.2485 17.73  0.824
 #> 38 1.5140   age   bmi bmi_z  nl_1997_bmi_female_nl  1.5140 17.23  0.641
 #> 39 1.9740   age   bmi bmi_z  nl_1997_bmi_female_nl  1.9740 16.65  0.436
-#> 40 0.0986   age   dsc dsc_z  ph_2023_dsc_female_40  0.0986 14.85 -0.276
-#> 41 0.1369   age   dsc dsc_z  ph_2023_dsc_female_40  0.1369 16.04 -0.325
-#> 42 0.2327   age   dsc dsc_z  ph_2023_dsc_female_40  0.2327 18.18 -0.778
-#> 43 0.5010   age   dsc dsc_z  ph_2023_dsc_female_40  0.5010 28.06 -1.132
-#> 44 0.7885   age   dsc dsc_z  ph_2023_dsc_female_40  0.7885 36.28 -1.543
-#> 45 0.9610   age   dsc dsc_z  ph_2023_dsc_female_40  0.9610 45.89 -0.300
-#> 46 1.2485   age   dsc dsc_z  ph_2023_dsc_female_40  1.2485 54.51  0.382
-#> 47 1.5140   age   dsc dsc_z  ph_2023_dsc_female_40  1.5140 59.74  0.598
-#> 48 1.9740   age   dsc dsc_z  ph_2023_dsc_female_40  1.9740 63.81 -0.051
+#> 40 0.0986   age   dsc dsc_z  ph_2023_dsc_female_40  0.0986 16.38  0.180
+#> 41 0.1369   age   dsc dsc_z  ph_2023_dsc_female_40  0.1369 16.96 -0.052
+#> 42 0.2327   age   dsc dsc_z  ph_2023_dsc_female_40  0.2327 20.12 -0.224
+#> 43 0.5010   age   dsc dsc_z  ph_2023_dsc_female_40  0.5010 30.67 -0.459
+#> 44 0.7885   age   dsc dsc_z  ph_2023_dsc_female_40  0.7885 37.98 -1.153
+#> 45 0.9610   age   dsc dsc_z  ph_2023_dsc_female_40  0.9610 48.14  0.328
+#> 46 1.2485   age   dsc dsc_z  ph_2023_dsc_female_40  1.2485 56.56  0.972
+#> 47 1.5140   age   dsc dsc_z  ph_2023_dsc_female_40  1.5140 60.66  0.865
+#> 48 1.9740   age   dsc dsc_z  ph_2023_dsc_female_40  1.9740 66.79  0.811
 #> 49 0.0000   hgt   wfh wfh_z nl_1997_wfh_female_nla 51.0000  3.30 -0.858
 #> 50 0.0986   hgt   wfh wfh_z nl_1997_wfh_female_nla 54.7000  4.10 -0.780
 #> 51 0.1369   hgt   wfh wfh_z nl_1997_wfh_female_nla 56.0000  4.52 -0.419
@@ -214,7 +212,7 @@ Upload BDS data and create a tibble on the server:
 ``` r
 library(jamesclient)
 fn <- file.path(path.package("jamesclient"), "testdata", "client3.json")
-r1 <- upload_txt(fn)
+r1 <- upload_txt(fn, host = host)
 browseURL(get_url(r1, "return"))
 ```
 
@@ -223,7 +221,7 @@ browseURL(get_url(r1, "return"))
 Make a combined upload and automatic chartcode choice:
 
 ``` r
-r2 <- request_chart(fn, chartcode = "PJAHN27")
+r2 <- request_chart(fn, chartcode = "PJAHN27", host = host)
 browseURL(get_url(r2, "svg"))
 ```
 
