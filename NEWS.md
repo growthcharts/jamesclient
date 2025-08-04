@@ -1,3 +1,7 @@
+# jamesclient 0.35.0
+
+- Improves robustness of `james_post()` and `upload_txt()`
+
 # jamesclient 0.34.0
 
 - Sets localhost port to 8080
