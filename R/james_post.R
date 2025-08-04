@@ -16,7 +16,9 @@
 #' \dontrun{
 #' host <- "https://james.groeidiagrammen.nl"
 #' # host <- "http://localhost:8080"
-#' url <- "https://raw.githubusercontent.com/growthcharts/jamesdemodata/refs/heads/master/inst/json/examples/Laura_S.json"
+#' url <- paste0(
+#'   "https://raw.githubusercontent.com/growthcharts/jamesdemodata/",
+#'   "refs/heads/master/inst/json/examples/Laura_S.json")
 #' fn <- system.file("extdata", "bds_v3.0", "smocc", "Laura_S.json",
 #'  package = "jamesdemodata", mustWork = TRUE)
 #' js <- read_json_js(txt = fn)

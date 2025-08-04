@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/growthcharts/jamesclient/workflows/R-CMD-check/badge.svg)](https://github.com/growthcharts/jamesclient/actions)
+[![R-CMD-check](https://github.com/growthcharts/jamesclient/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/growthcharts/jamesclient/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of `jamesclient` is to facilitate interaction for `R` users

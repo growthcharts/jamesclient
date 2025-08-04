@@ -50,7 +50,9 @@ are given, a non-NULL \code{txt} takes precedence over \code{resp}.
 }
 \examples{
 # examples with direct uploads
-url <- "https://raw.githubusercontent.com/growthcharts/jamesdemodata/refs/heads/master/inst/json/examples/client3.json"
+url <- paste0(
+  "https://raw.githubusercontent.com/growthcharts/jamesdemodata/",
+  "refs/heads/master/inst/json/examples/client3.json")
 fn <- system.file("testdata", "client3.json", package = "jamesclient")
 host <- "https://james.groeidiagrammen.nl"
 

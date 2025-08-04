@@ -1,4 +1,7 @@
+# jamesclient 0.34.0
+
 - Sets localhost port to 8080
+- Updates GH workflows
 
 # jamesclient 0.33.0
 
