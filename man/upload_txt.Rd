@@ -2,93 +2,70 @@
 % Please edit documentation in R/upload_txt.R
 \name{upload_txt}
 \alias{upload_txt}
-\title{Upload and parse data for JAMES}
+\title{Upload BDS JSON Data to JAMES Server}
 \usage{
 upload_txt(
   txt,
   host = "http://localhost:8080",
-  format = "2.0",
+  format = "3.0",
   schema = NULL,
   verbose = FALSE
 )
 }
 \arguments{
-\item{txt}{Data set. Could be a URL, local file, JSON string or JSON object.}
+\item{txt}{The input data to upload. Can be a local JSON file path, a URL
+pointing to JSON data, or a JSON string or object.}
 
-\item{host}{String with the host. The default is \code{"http://localhost:8080"}.}
+\item{host}{Character. URL of the JAMES server. Default: \code{"http://localhost:8080"}.}
 
-\item{format}{String. JSON data schema version number. There are currently
-three schemas supported: \code{"1.0"}, \code{"1.1"}, \code{"2.0"} and \code{"3.0"}. Formats \code{"1.0"} and
-\code{"1.1"} are included for backward compatibility only. Use \code{format = "3.0"}
-for new applications.}
+\item{format}{Character. JSON schema version number. Supported formats are
+\code{"1.0"}, \code{"1.1"}, \code{"2.0"}, and \code{"3.0"}. Format \code{"3.0"} is recommended.
+If \code{schema} is provided, it overrides \code{format}.}
 
-\item{schema}{A file name (optionally including the path) with the JSON
-validation schema.
-The \code{schema} argument overrides \code{format}. The function extracts the
-version number for the basename, and overwrites the
-\code{format} argument by version number.}
+\item{schema}{Optional character. File path to a JSON schema for validation.
+Overrides \code{format}. The version number is extracted from the file name.}
 
-\item{verbose}{Logical. Print diagnostic information of POST request to console.}
+\item{verbose}{Logical. If \code{TRUE}, prints diagnostic output of the POST request.}
 }
 \value{
-An object of class \code{\link[httr:response]{httr::response()}}
+An object of class \code{\link[httr:response]{httr::response()}} containing the server's response.
 }
 \description{
-Client side upload of a JSON file, string or URL with BDS data, checks the data,
-stores its contents as a tibble with a person attribute on host,
-and returns an object of class \code{\link[httr:response]{httr::response()}}
-that contains the results of the request.
+Uploads and validates BDS data from a JSON file, URL, or string, sends it to a
+JAMES server, and returns the server response. On success, the data is stored
+as a tibble with a person attribute on the host.
 }
 \details{
-JSON format: See
-\url{https://stefvanbuuren.name/jamesdocs/getting-data-into-james.html}
-for the specification of the JSON format.
+If an object named \code{ua} (a user agent created via \code{\link[httr:user_agent]{httr::user_agent()}})
+exists in the environment, it will be added to the request headers.
+While optional, identifying yourself can be useful for diagnostics.
 
-User agent: The function \code{upload_txt()} searches for an object called \code{ua} on the search
-list. The \code{ua} object is an optional user agent, a request that identifies
-yourself to the API. For example, run
-\code{httr::user_agent("https://github.com/myaccount")} (with
-\code{myaccount} replaced by your github user name) before
-calling \code{upload_txt()}. See
-\url{https://httr.r-lib.org/articles/api-packages.html} for details. Setting
-the user agent is not required.
-
-Append \code{"/json"} to \code{path} and set \code{query = "auto_unbox=TRUE&force=TRUE"}
-to obtain a partial JSON representation of the S4 class \code{individual}. At present, it is not
-possible to rebuild the S4 class \code{individual} from its JSON representation because
-the S4 class depends on environments, and these are not converted to JSON.
-Warning: The S4 class
-\code{individual} is an internal format that is in development. It is likely to
-change, so don't build applications based on this data structure. If you need
-components from the internal structure (e.g. Z-scores, brokenstick estimates) it
-is better to develop a dedicated API for obtaining these.
+To retrieve a partial JSON representation of the internal S4 class \code{individual},
+append \code{"/json"} to the \code{path} and set \code{query = list(auto_unbox = TRUE, force = TRUE)}.
+Note: This representation is not intended for reconstructing the class, and may
+change without notice. Use dedicated APIs to access internal data elements such
+as Z-scores or brokenstick estimates.
 }
 \examples{
-library(httr)
-
 host <- "https://james.groeidiagrammen.nl"
-url <- paste0(
-  "https://raw.githubusercontent.com/growthcharts/jamesdemodata/",
-  "refs/heads/master/inst/json/examples/Laura_S.json")
+url <- paste0("https://raw.githubusercontent.com/growthcharts/jamesdemodata/",
+              "refs/heads/master/inst/json/examples/Laura_S.json")
 fn <- system.file("extdata", "bds_v3.0", "smocc", "Laura_S.json",
- package = "jamesdemodata", mustWork = TRUE)
+                  package = "jamesdemodata", mustWork = TRUE)
 js <- read_json_js(url)
 jo <- read_json_jo(url)
 
-# upload JSON file
 r1 <- upload_txt(fn, host)
-identical(status_code(r1), 201L)
+stopifnot(httr::status_code(r1) == 201L)
 
-# upload JSON string
 r2a <- upload_txt(js, host)
-identical(status_code(r2a), 201L)
 r2b <- upload_txt(jo, host)
-identical(status_code(r2b), 201L)
 
-# upload JSON from external URL.
 r3 <- upload_txt(url, host, format = "1.0")
-identical(status_code(r3), 201L)
+stopifnot(httr::status_code(r3) == 201L)
 
+# View server response URLs
 # browseURL(file.path(get_url(r3), "print"))
 # browseURL(file.path(get_url(r3), "json"))
+
 }

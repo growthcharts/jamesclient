@@ -48,71 +48,70 @@ james_post <- function(host = "http://localhost:8080",
                        ...) {
   stopifnot(length(path) == 1L)
   stopifnot(length(txt) <= 1L)
-  ua <- user_agent("https://github.com/growthcharts/jamesclient/blob/master/R/james_post.R")
-  url <- parse_url(host)
-  url <- modify_url(url = url, path = file.path(url$path, path), query = query)
 
-  # if we have a file name or URL, read into string
+  ua <- httr::user_agent("https://github.com/growthcharts/jamesclient/blob/master/R/james_post.R")
+
+  # Safely build POST URL
+  url <- httr::modify_url(host, path = path, query = query)
+
+  # Read JSON
   txt <- read_json_js(txt = txt)
 
-  # check JSON
   if (is.null(txt) || validate(txt)) {
-    resp <- POST(url, ua,
-                 body = list(txt = txt,
-                             ...),
-                 encode = "json")
+    resp <- httr::POST(url, ua,
+                       body = list(txt = txt, ...),
+                       encode = "json")
   } else {
-    stop("Cannot process 'txt' argument.")
+    stop("Cannot process 'txt' argument: Invalid JSON.")
   }
 
-  # parse contents
-  parsed <- ""
-  if (http_error(resp)) {
-    msg <- content(resp, type = "text/plain", encoding = "UTF-8")
+  # Parse content
+  parsed <- NULL
+  if (httr::http_error(resp)) {
+    msg <- httr::content(resp, type = "text/plain", encoding = "UTF-8")
     parsed <- sprintf(
       "JAMES API request failed [%s]\n%s\n<%s>",
-      status_code(resp), msg, url)
+      httr::status_code(resp), msg, url
+    )
   } else {
-
-    if (http_type(resp) == "application/json") {
-      parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "UTF-8"))
-    }
-
-    if (http_type(resp) == "text/plain") {
-      parsed <- content(resp, "text", encoding = "UTF-8")
-    }
-
-    if (http_type(resp) == "image/svg+xml") {
-      parsed <- content(resp, "text", encoding = "UTF-8")
-    }
-
-    if (is.null(parsed)) {
-      parsed <- content(resp, as = "parsed")
+    type <- httr::http_type(resp)
+    if (type %in% c("application/json", "text/plain", "image/svg+xml")) {
+      parsed <- httr::content(resp, "text", encoding = "UTF-8")
+      if (type == "application/json") {
+        parsed <- jsonlite::fromJSON(parsed)
+      }
+    } else {
+      parsed <- httr::content(resp, as = "parsed")
     }
   }
 
-  # extract warnings
-  urlw <- file.path(host, get_url(resp, "session"), "warnings/text")
-  if (length(urlw)) {
-    warnings <- content(GET(urlw), "text", type = "text/plain", encoding = "UTF-8")
-  } else {
-    warnings <- ""
+  # Extract session ID
+  session_id <- get_url(resp, "session")
+
+  # Build URLs for warnings and messages
+  warnings <- ""
+  messages <- ""
+
+  if (!is.null(session_id) && nzchar(session_id)) {
+    urlw <- httr::modify_url(host, path = paste0(session_id, "/warnings/text"))
+    urlm <- httr::modify_url(host, path = paste0(session_id, "/messages/text"))
+
+    warnings <- tryCatch(
+      httr::content(httr::GET(urlw), "text", type = "text/plain", encoding = "UTF-8"),
+      error = function(e) ""
+    )
+    messages <- tryCatch(
+      httr::content(httr::GET(urlm), "text", type = "text/plain", encoding = "UTF-8"),
+      error = function(e) ""
+    )
   }
 
-  # extract messages
-  urlm <- file.path(host, get_url(resp, "session"), "messages/text")
-  if (length(urlm)) {
-    messages <- content(GET(urlm), "text", type = "text/plain", encoding = "UTF-8")
-  } else {
-    messages <- ""
-  }
-
-  # extend standard httr response
+  # Extend response
   resp$request_path <- path
   resp$parsed <- parsed
   resp$warnings <- warnings
   resp$messages <- messages
-  resp$session <- get_url(resp, "session")
+  resp$session <- session_id
 
   class(resp) <- c("james_httr", "response")
   return(resp)
@@ -120,9 +119,33 @@ james_post <- function(host = "http://localhost:8080",
 
 #' @export
 print.james_httr <- function(x, ...) {
-  cat("JAMES request: ", x$request_path, "\n", sep = "")
-  if (nchar(x$messages)) str(x$messages)
-  if (nchar(x$warnings)) str(x$warnings)
-  str(x$parsed)
+  cat("JAMES request:\n")
+  cat("  Path    : ", x$request_path, "\n", sep = "")
+  cat("  Status  : ", httr::status_code(x), "\n", sep = "")
+  cat("  Session : ", x$session %||% "None", "\n", sep = "")
+
+  # Print messages if available
+  if (nzchar(x$messages)) {
+    cat("\nMessages:\n")
+    cat(x$messages, "\n")
+  }
+
+  # Print warnings if available
+  if (nzchar(x$warnings)) {
+    cat("\nWarnings:\n")
+    cat(x$warnings, "\n")
+  }
+
+  # Print parsed content
+  cat("\nParsed response:\n")
+
+  if (is.character(x$parsed) && nchar(x$parsed) > 1000) {
+    cat(substr(x$parsed, 1, 1000), "...\n[truncated]\n")
+  } else if (is.atomic(x$parsed) || is.null(x$parsed)) {
+    print(x$parsed)
+  } else {
+    str(x$parsed, ...)
+  }
+
   invisible(x)
 }
