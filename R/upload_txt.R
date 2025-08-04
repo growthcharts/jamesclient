@@ -67,7 +67,7 @@
 #' # browseURL(file.path(get_url(r3), "json"))
 #' @export
 upload_txt <- function(txt,
-                       host = "http://localhost",
+                       host = "http://localhost:8080",
                        format = "2.0",
                        schema = NULL,
                        verbose = FALSE) {

@@ -1,3 +1,5 @@
+- Sets localhost port to 8080
+
 # jamesclient 0.33.0
 
 - Loads the example data from `jamesdemodata` instead of `bdsreader`

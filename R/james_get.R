@@ -4,7 +4,7 @@
 #' @param \dots Extra arguments to create the URI in GET()
 #' @return Object of class `james_get`
 #' @export
-james_get <- function(host = "http://localhost",
+james_get <- function(host = "http://localhost:8080",
                       path = character(0),
                       ...) {
   ua <- user_agent("https://github.com/growthcharts/jamesclient/blob/master/R/james_get.R")

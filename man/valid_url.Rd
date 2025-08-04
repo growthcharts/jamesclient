@@ -17,6 +17,6 @@ Taken from \url{https://stackoverflow.com/questions/52911812/check-if-url-exists
 \examples{
 urls <- c(
   "http://www.amazon.com", "http://this.isafakelink.biz",
-  "https://stackoverflow.com", "http://localhost:80")
+  "https://stackoverflow.com", "http://localhost:8080")
 sapply(urls, valid_url)
 }

@@ -6,7 +6,7 @@
 \usage{
 upload_txt(
   txt,
-  host = "http://localhost",
+  host = "http://localhost:8080",
   format = "2.0",
   schema = NULL,
   verbose = FALSE
@@ -15,7 +15,7 @@ upload_txt(
 \arguments{
 \item{txt}{Data set. Could be a URL, local file, JSON string or JSON object.}
 
-\item{host}{String with the host. The default is \code{"http://localhost"}.}
+\item{host}{String with the host. The default is \code{"http://localhost:8080"}.}
 
 \item{format}{String. JSON data schema version number. There are currently
 three schemas supported: \code{"1.0"}, \code{"1.1"}, \code{"2.0"} and \code{"3.0"}. Formats \code{"1.0"} and

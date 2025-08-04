@@ -17,7 +17,7 @@
 #           expect_equal(status_code(upload_bds(url, host = host, path = path)), 201))
 #
 # # run the following only if localhost is running
-# host <- "http://localhost:5656"
+# host <- "http://localhost:80"
 # path <- "ocpu/apps/growthcharts/james/R/convert_bds_ind"
 # # upload JSON file to localhost
 # # r <- upload_bds(fn, host = host, path = path)

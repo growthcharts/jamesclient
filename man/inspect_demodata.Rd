@@ -8,7 +8,7 @@ inspect_demodata(
   name,
   cabinet,
   format = c("3.0", "2.0", "1.0", "1.1"),
-  host = "http://localhost"
+  host = "http://localhost:8080"
 )
 }
 \arguments{
@@ -21,7 +21,7 @@ three schemas supported: \code{"1.0"}, \code{"1.1"} and \code{"2.0"}. Formats \c
 \code{"1.1"} are included for backward compatibility only. Use \code{format = "2.0"}
 for new applications.}
 
-\item{host}{String with the host. The default is \code{"http://localhost"}.}
+\item{host}{String with the host. The default is \code{"http://localhost:8080"}.}
 }
 \description{
 Uploads JSON child demo data to localhost and downloads the processed data

@@ -1,6 +1,6 @@
 #' Make JAMES POST request
 #'
-#' @param host String with the host. The default is `"http://localhost"`.
+#' @param host String with the host. The default is `"http://localhost:8080"`.
 #' @param path String with the path to the called end point,
 #' e.g. `"version"`, `"data/upload"` or `"data/upload/json"`.
 #' @param query A list with query arguments, for example, `list(auto_unbox = TRUE)` for
@@ -15,7 +15,7 @@
 #' @examples
 #' \dontrun{
 #' host <- "https://james.groeidiagrammen.nl"
-#' # host <- "http://localhost"
+#' # host <- "http://localhost:8080"
 #' url <- "https://raw.githubusercontent.com/growthcharts/jamesdemodata/refs/heads/master/inst/json/examples/Laura_S.json"
 #' fn <- system.file("extdata", "bds_v3.0", "smocc", "Laura_S.json",
 #'  package = "jamesdemodata", mustWork = TRUE)
@@ -39,7 +39,7 @@
 #' unlink(tmp)
 #' }
 #' @export
-james_post <- function(host = "http://localhost",
+james_post <- function(host = "http://localhost:8080",
                        path = character(0),
                        query = list(),
                        txt = NULL,

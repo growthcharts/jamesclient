@@ -17,7 +17,7 @@
 #' @export
 inspect_demodata <- function(name, cabinet,
                              format = c("3.0", "2.0", "1.0", "1.1"),
-                             host = "http://localhost") {
+                             host = "http://localhost:8080") {
   format <- match.arg(format)
 
   # fetch demodata

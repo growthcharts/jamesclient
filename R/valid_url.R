@@ -7,7 +7,7 @@
 #' @examples
 #' urls <- c(
 #'   "http://www.amazon.com", "http://this.isafakelink.biz",
-#'   "https://stackoverflow.com", "http://localhost:80")
+#'   "https://stackoverflow.com", "http://localhost:8080")
 #' sapply(urls, valid_url)
 #' @export
 valid_url <- function(url_in, t = 2) {

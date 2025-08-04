@@ -1,6 +1,6 @@
 library(httr)
 
-# host <- "http://localhost"
+# host <- "http://localhost:8080"
 host <- "https://james.groeidiagrammen.nl"
 url <- "https://raw.githubusercontent.com/growthcharts/jamesdemodata/refs/heads/master/inst/json/examples/Laura_S.json"
 

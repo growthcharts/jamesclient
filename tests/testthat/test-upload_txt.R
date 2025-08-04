@@ -6,7 +6,7 @@ js2 <- read_json_jo(fn)
 url <- "https://groeidiagrammen.nl/ocpu/library/james/testdata/client3.json"
 
 hosts <- c("https://james.groeidiagrammen.nl",
-           "http://localhost")
+           "http://localhost:8080")
 
 for (host in hosts) {
   if (valid_url(host)) {

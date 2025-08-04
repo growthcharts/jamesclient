@@ -5,7 +5,7 @@
 \title{Make JAMES POST request}
 \usage{
 james_post(
-  host = "http://localhost",
+  host = "http://localhost:8080",
   path = character(0),
   query = list(),
   txt = NULL,
@@ -13,7 +13,7 @@ james_post(
 )
 }
 \arguments{
-\item{host}{String with the host. The default is \code{"http://localhost"}.}
+\item{host}{String with the host. The default is \code{"http://localhost:8080"}.}
 
 \item{path}{String with the path to the called end point,
 e.g. \code{"version"}, \code{"data/upload"} or \code{"data/upload/json"}.}
@@ -38,7 +38,7 @@ Make JAMES POST request
 \examples{
 \dontrun{
 host <- "https://james.groeidiagrammen.nl"
-# host <- "http://localhost"
+# host <- "http://localhost:8080"
 url <- "https://raw.githubusercontent.com/growthcharts/jamesdemodata/refs/heads/master/inst/json/examples/Laura_S.json"
 fn <- system.file("extdata", "bds_v3.0", "smocc", "Laura_S.json",
  package = "jamesdemodata", mustWork = TRUE)
