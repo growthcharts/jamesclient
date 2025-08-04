@@ -1,48 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://growthcharts.org/jamesclient/404.html</loc>
-  </url>
-  <url>
-    <loc>https://growthcharts.org/jamesclient/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://growthcharts.org/jamesclient/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://growthcharts.org/jamesclient/index.html</loc>
-  </url>
-  <url>
-    <loc>https://growthcharts.org/jamesclient/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://growthcharts.org/jamesclient/reference/download_as_list.html</loc>
-  </url>
-  <url>
-    <loc>https://growthcharts.org/jamesclient/reference/get_url.html</loc>
-  </url>
-  <url>
-    <loc>https://growthcharts.org/jamesclient/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://growthcharts.org/jamesclient/reference/inspect_demodata.html</loc>
-  </url>
-  <url>
-    <loc>https://growthcharts.org/jamesclient/reference/james_get.html</loc>
-  </url>
-  <url>
-    <loc>https://growthcharts.org/jamesclient/reference/james_post.html</loc>
-  </url>
-  <url>
-    <loc>https://growthcharts.org/jamesclient/reference/read_json_js.html</loc>
-  </url>
-  <url>
-    <loc>https://growthcharts.org/jamesclient/reference/request_chart.html</loc>
-  </url>
-  <url>
-    <loc>https://growthcharts.org/jamesclient/reference/upload_txt.html</loc>
-  </url>
-  <url>
-    <loc>https://growthcharts.org/jamesclient/reference/valid_url.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://growthcharts.org/jamesclient/404.html</loc></url>
+<url><loc>https://growthcharts.org/jamesclient/LICENSE.html</loc></url>
+<url><loc>https://growthcharts.org/jamesclient/authors.html</loc></url>
+<url><loc>https://growthcharts.org/jamesclient/index.html</loc></url>
+<url><loc>https://growthcharts.org/jamesclient/news/index.html</loc></url>
+<url><loc>https://growthcharts.org/jamesclient/reference/download_as_list.html</loc></url>
+<url><loc>https://growthcharts.org/jamesclient/reference/get_url.html</loc></url>
+<url><loc>https://growthcharts.org/jamesclient/reference/index.html</loc></url>
+<url><loc>https://growthcharts.org/jamesclient/reference/inspect_demodata.html</loc></url>
+<url><loc>https://growthcharts.org/jamesclient/reference/james_get.html</loc></url>
+<url><loc>https://growthcharts.org/jamesclient/reference/james_post.html</loc></url>
+<url><loc>https://growthcharts.org/jamesclient/reference/read_json_js.html</loc></url>
+<url><loc>https://growthcharts.org/jamesclient/reference/request_chart.html</loc></url>
+<url><loc>https://growthcharts.org/jamesclient/reference/upload_txt.html</loc></url>
+<url><loc>https://growthcharts.org/jamesclient/reference/valid_url.html</loc></url>
 </urlset>
+
