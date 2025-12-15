@@ -1,3 +1,6 @@
+# jamesclient 0.36.0
+- Adds support for `config = httr::config()` in `httr::GET` and `httr::POST ` requests
+
 # jamesclient 0.35.0
 
 - Improves robustness of `james_post()` and `upload_txt()`
