@@ -67,7 +67,7 @@ james_post <- function(
       ua,
       body = list(txt = txt, ...),
       encode = "json",
-      httr::config()
+      config = httr::config()
     )
   } else {
     stop("Cannot process 'txt' argument: Invalid JSON.")
