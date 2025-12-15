@@ -41,15 +41,19 @@
 #' unlink(tmp)
 #' }
 #' @export
-james_post <- function(host = "http://localhost:8080",
-                       path = character(0),
-                       query = list(),
-                       txt = NULL,
-                       ...) {
+james_post <- function(
+  host = "http://localhost:8080",
+  path = character(0),
+  query = list(),
+  txt = NULL,
+  ...
+) {
   stopifnot(length(path) == 1L)
   stopifnot(length(txt) <= 1L)
 
-  ua <- httr::user_agent("https://github.com/growthcharts/jamesclient/blob/master/R/james_post.R")
+  ua <- httr::user_agent(
+    "https://github.com/growthcharts/jamesclient/blob/master/R/james_post.R"
+  )
 
   # Safely build POST URL
   url <- httr::modify_url(host, path = path, query = query)
@@ -58,9 +62,13 @@ james_post <- function(host = "http://localhost:8080",
   txt <- read_json_js(txt = txt)
 
   if (is.null(txt) || validate(txt)) {
-    resp <- httr::POST(url, ua,
-                       body = list(txt = txt, ...),
-                       encode = "json")
+    resp <- httr::POST(
+      url,
+      ua,
+      body = list(txt = txt, ...),
+      encode = "json",
+      httr::config()
+    )
   } else {
     stop("Cannot process 'txt' argument: Invalid JSON.")
   }
@@ -71,7 +79,9 @@ james_post <- function(host = "http://localhost:8080",
     msg <- httr::content(resp, type = "text/plain", encoding = "UTF-8")
     parsed <- sprintf(
       "JAMES API request failed [%s]\n%s\n<%s>",
-      httr::status_code(resp), msg, url
+      httr::status_code(resp),
+      msg,
+      url
     )
   } else {
     type <- httr::http_type(resp)
@@ -97,11 +107,21 @@ james_post <- function(host = "http://localhost:8080",
     urlm <- httr::modify_url(host, path = paste0(session_id, "/messages/text"))
 
     warnings <- tryCatch(
-      httr::content(httr::GET(urlw), "text", type = "text/plain", encoding = "UTF-8"),
+      httr::content(
+        httr::GET(urlw, config = httr::config()),
+        "text",
+        type = "text/plain",
+        encoding = "UTF-8"
+      ),
       error = function(e) ""
     )
     messages <- tryCatch(
-      httr::content(httr::GET(urlm), "text", type = "text/plain", encoding = "UTF-8"),
+      httr::content(
+        httr::GET(urlm, config = httr::config()),
+        "text",
+        type = "text/plain",
+        encoding = "UTF-8"
+      ),
       error = function(e) ""
     )
   }

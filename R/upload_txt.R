@@ -50,11 +50,13 @@
 #' # browseURL(file.path(get_url(r3), "json"))
 #'
 #' @export
-upload_txt <- function(txt,
-                       host = "http://localhost:8080",
-                       format = "3.0",
-                       schema = NULL,
-                       verbose = FALSE) {
+upload_txt <- function(
+  txt,
+  host = "http://localhost:8080",
+  format = "3.0",
+  schema = NULL,
+  verbose = FALSE
+) {
   # Define target API endpoint
   path <- "ocpu/library/james/R/upload_data"
   url <- httr::modify_url(host, path = path)
@@ -83,15 +85,35 @@ upload_txt <- function(txt,
   # Fetch and print server warnings/messages if any
   session <- get_url(resp, "session")
   if (!is.null(session) && nzchar(session)) {
-    url_warnings <- httr::modify_url(host, path = paste0(session, "/warnings/text"))
-    url_messages <- httr::modify_url(host, path = paste0(session, "/messages/text"))
+    url_warnings <- httr::modify_url(
+      host,
+      path = paste0(session, "/warnings/text")
+    )
+    url_messages <- httr::modify_url(
+      host,
+      path = paste0(session, "/messages/text")
+    )
 
-    msg <- tryCatch(httr::content(httr::GET(url_messages), "text", encoding = "UTF-8"),
-                    error = function(e) NULL)
-    warn <- tryCatch(httr::content(httr::GET(url_warnings), "text", encoding = "UTF-8"),
-                     error = function(e) NULL)
+    msg <- tryCatch(
+      httr::content(
+        httr::GET(url_messages, config = httr::config()),
+        "text",
+        encoding = "UTF-8"
+      ),
+      error = function(e) NULL
+    )
+    warn <- tryCatch(
+      httr::content(
+        httr::GET(url_warnings, config = httr::config()),
+        "text",
+        encoding = "UTF-8"
+      ),
+      error = function(e) NULL
+    )
 
-    if (!is.null(msg) && nzchar(msg)) message(msg)
+    if (!is.null(msg) && nzchar(msg)) {
+      message(msg)
+    }
     if (!is.null(warn) && nzchar(warn)) warning(warn)
   }
 

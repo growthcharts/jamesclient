@@ -4,13 +4,17 @@
 #' @param \dots Extra arguments to create the URI in GET()
 #' @return Object of class `james_get`
 #' @export
-james_get <- function(host = "http://localhost:8080",
-                      path = character(0),
-                      ...) {
-  ua <- user_agent("https://github.com/growthcharts/jamesclient/blob/master/R/james_get.R")
+james_get <- function(
+  host = "http://localhost:8080",
+  path = character(0),
+  ...
+) {
+  ua <- user_agent(
+    "https://github.com/growthcharts/jamesclient/blob/master/R/james_get.R"
+  )
   url <- parse_url(host)
   url <- modify_url(url = url, path = file.path(url$path, path))
-  resp <- GET(url, ua, ...)
+  resp <- httr::GET(url, config = httr::config(), ua, ...)
 
   # parse contents
   parsed <- ""
@@ -18,9 +22,11 @@ james_get <- function(host = "http://localhost:8080",
     msg <- content(resp, type = "text/plain", encoding = "UTF-8")
     parsed <- sprintf(
       "JAMES API request failed [%s]\n%s\n<%s>",
-      status_code(resp), msg, url)
+      status_code(resp),
+      msg,
+      url
+    )
   } else {
-
     if (http_type(resp) == "application/json") {
       parsed <- jsonlite::fromJSON(content(resp, "text", encoding = "UTF-8"))
     } else {
@@ -31,7 +37,12 @@ james_get <- function(host = "http://localhost:8080",
   # extract warnings
   urlw <- file.path(host, get_url(resp, "session"), "warnings/text")
   if (length(urlw)) {
-    warnings <- content(GET(urlw), "text", type = "text/plain", encoding = "UTF-8")
+    warnings <- content(
+      GET(urlw, config = httr::config()),
+      "text",
+      type = "text/plain",
+      encoding = "UTF-8"
+    )
   } else {
     warnings <- ""
   }
@@ -39,7 +50,12 @@ james_get <- function(host = "http://localhost:8080",
   # extract messages
   urlm <- file.path(host, get_url(resp, "session"), "messages/text")
   if (length(urlm)) {
-    messages <- content(GET(urlm), "text", type = "text/plain", encoding = "UTF-8")
+    messages <- content(
+      GET(urlm, config = httr::config()),
+      "text",
+      type = "text/plain",
+      encoding = "UTF-8"
+    )
   } else {
     messages <- ""
   }
