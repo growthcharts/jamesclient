@@ -14,7 +14,24 @@ james_get <- function(
   )
   url <- parse_url(host)
   url <- modify_url(url = url, path = file.path(url$path, path))
-  resp <- httr::GET(url, config = httr::config(), ua, ...)
+
+  # Get auth token from environment variable
+  auth_token <- Sys.getenv("JAMES_BEARER_TOKEN", "")
+
+  if (nchar(auth_token) > 0) {
+    resp <- httr::GET(
+      url,
+      ua,
+      httr::add_headers(Authorization = auth_token),
+      ...
+    )
+  } else {
+    resp <- httr::GET(
+      url,
+      ua,
+      ...
+    )
+  }
 
   # parse contents
   parsed <- ""
@@ -34,30 +51,58 @@ james_get <- function(
     }
   }
 
-  # extract warnings
-  urlw <- file.path(host, get_url(resp, "session"), "warnings/text")
-  if (length(urlw)) {
-    warnings <- content(
-      GET(urlw, config = httr::config()),
-      "text",
-      type = "text/plain",
-      encoding = "UTF-8"
-    )
-  } else {
-    warnings <- ""
-  }
+  # Extract session ID
+  session_id <- get_url(resp, "session")
 
-  # extract messages
-  urlm <- file.path(host, get_url(resp, "session"), "messages/text")
-  if (length(urlm)) {
-    messages <- content(
-      GET(urlm, config = httr::config()),
-      "text",
-      type = "text/plain",
-      encoding = "UTF-8"
+  # Build URLs for warnings and messages
+  warnings <- ""
+  messages <- ""
+
+  if (!is.null(session_id) && nzchar(session_id)) {
+    urlw <- httr::modify_url(host, path = paste0(session_id, "/warnings/text"))
+    urlm <- httr::modify_url(host, path = paste0(session_id, "/messages/text"))
+
+    warnings <- tryCatch(
+      {
+        if (nchar(auth_token) > 0) {
+          httr::content(
+            httr::GET(urlw, httr::add_headers(Authorization = auth_token)),
+            "text",
+            type = "text/plain",
+            encoding = "UTF-8"
+          )
+        } else {
+          httr::content(
+            httr::GET(urlw),
+            "text",
+            type = "text/plain",
+            encoding = "UTF-8"
+          )
+        }
+      },
+      error = function(e) ""
     )
-  } else {
-    messages <- ""
+
+    messages <- tryCatch(
+      {
+        if (nchar(auth_token) > 0) {
+          httr::content(
+            httr::GET(urlm, httr::add_headers(Authorization = auth_token)),
+            "text",
+            type = "text/plain",
+            encoding = "UTF-8"
+          )
+        } else {
+          httr::content(
+            httr::GET(urlm),
+            "text",
+            type = "text/plain",
+            encoding = "UTF-8"
+          )
+        }
+      },
+      error = function(e) ""
+    )
   }
 
   # extend standard httr response
@@ -65,7 +110,7 @@ james_get <- function(
   resp$parsed <- parsed
   resp$warnings <- warnings
   resp$messages <- messages
-  resp$session <- get_url(resp, "session")
+  resp$session <- session_id
 
   class(resp) <- c("james_httr", "response")
   return(resp)

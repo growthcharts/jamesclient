@@ -55,6 +55,9 @@ james_post <- function(
     "https://github.com/growthcharts/jamesclient/blob/master/R/james_post.R"
   )
 
+  # Get auth token from environment variable
+  auth_token <- Sys.getenv("JAMES_BEARER_TOKEN", "")
+
   # Safely build POST URL
   url <- httr::modify_url(host, path = path, query = query)
 
@@ -62,13 +65,22 @@ james_post <- function(
   txt <- read_json_js(txt = txt)
 
   if (is.null(txt) || validate(txt)) {
-    resp <- httr::POST(
-      url,
-      ua,
-      body = list(txt = txt, ...),
-      encode = "json",
-      config = httr::config()
-    )
+    if (nchar(auth_token) > 0) {
+      resp <- httr::POST(
+        url,
+        ua,
+        httr::add_headers(Authorization = auth_token),
+        body = list(txt = txt, ...),
+        encode = "json"
+      )
+    } else {
+      resp <- httr::POST(
+        url,
+        ua,
+        body = list(txt = txt, ...),
+        encode = "json"
+      )
+    }
   } else {
     stop("Cannot process 'txt' argument: Invalid JSON.")
   }
@@ -107,21 +119,44 @@ james_post <- function(
     urlm <- httr::modify_url(host, path = paste0(session_id, "/messages/text"))
 
     warnings <- tryCatch(
-      httr::content(
-        httr::GET(urlw, config = httr::config()),
-        "text",
-        type = "text/plain",
-        encoding = "UTF-8"
-      ),
+      {
+        if (nchar(auth_token) > 0) {
+          httr::content(
+            httr::GET(urlw, httr::add_headers(Authorization = auth_token)),
+            "text",
+            type = "text/plain",
+            encoding = "UTF-8"
+          )
+        } else {
+          httr::content(
+            httr::GET(urlw),
+            "text",
+            type = "text/plain",
+            encoding = "UTF-8"
+          )
+        }
+      },
       error = function(e) ""
     )
+
     messages <- tryCatch(
-      httr::content(
-        httr::GET(urlm, config = httr::config()),
-        "text",
-        type = "text/plain",
-        encoding = "UTF-8"
-      ),
+      {
+        if (nchar(auth_token) > 0) {
+          httr::content(
+            httr::GET(urlm, httr::add_headers(Authorization = auth_token)),
+            "text",
+            type = "text/plain",
+            encoding = "UTF-8"
+          )
+        } else {
+          httr::content(
+            httr::GET(urlm),
+            "text",
+            type = "text/plain",
+            encoding = "UTF-8"
+          )
+        }
+      },
       error = function(e) ""
     )
   }
