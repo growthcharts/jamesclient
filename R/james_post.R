@@ -19,8 +19,7 @@
 #' url <- paste0(
 #'   "https://raw.githubusercontent.com/growthcharts/jamesdemodata/",
 #'   "refs/heads/master/inst/json/examples/Laura_S.json")
-#' fn <- system.file("extdata", "bds_v3.0", "smocc", "Laura_S.json",
-#'  package = "jamesdemodata", mustWork = TRUE)
+#' fn <- system.file("extdata", "bds_v3.0", "smocc", "Laura_S.json", package = "jamesdemodata", mustWork = TRUE)
 #' js <- read_json_js(txt = fn)
 #' jo <- read_json_jo(txt = fn)
 #'
@@ -58,8 +57,11 @@ james_post <- function(
   # Get auth token from environment variable
   auth_token <- Sys.getenv("JAMES_BEARER_TOKEN", "")
 
-  # Safely build POST URL
-  url <- httr::modify_url(host, path = path, query = query)
+  # Safely build POST URL, preserving any base path in host
+  parsed_host <- httr::parse_url(host)
+  combined_path <- paste(parsed_host$path, path, sep = "/")
+  combined_path <- gsub("//+", "/", combined_path) # Remove duplicate slashes
+  url <- httr::modify_url(host, path = combined_path, query = query)
 
   # Read JSON
   txt <- read_json_js(txt = txt)
@@ -115,8 +117,21 @@ james_post <- function(
   messages <- ""
 
   if (!is.null(session_id) && nzchar(session_id)) {
-    urlw <- httr::modify_url(host, path = paste0(session_id, "/warnings/text"))
-    urlm <- httr::modify_url(host, path = paste0(session_id, "/messages/text"))
+    # Preserve base path when building session URLs
+    path_w <- paste(
+      parsed_host$path,
+      paste0(session_id, "/warnings/text"),
+      sep = "/"
+    )
+    path_w <- gsub("//+", "/", path_w)
+    path_m <- paste(
+      parsed_host$path,
+      paste0(session_id, "/messages/text"),
+      sep = "/"
+    )
+    path_m <- gsub("//+", "/", path_m)
+    urlw <- httr::modify_url(host, path = path_w)
+    urlm <- httr::modify_url(host, path = path_m)
 
     warnings <- tryCatch(
       {
