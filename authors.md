@@ -11,12 +11,12 @@ Source:
 [`DESCRIPTION`](https://github.com/growthcharts/jamesclient/blob/master/DESCRIPTION)
 
 van Buuren S (2025). *jamesclient: Client-side R Functions for JAMES*. R
-package version 0.36.2, <https://github.com/growthcharts/jamesclient>.
+package version 0.36.3, <https://github.com/growthcharts/jamesclient>.
 
     @Manual{,
       title = {jamesclient: Client-side R Functions for JAMES},
       author = {Stef {van Buuren}},
       year = {2025},
-      note = {R package version 0.36.2},
+      note = {R package version 0.36.3},
       url = {https://github.com/growthcharts/jamesclient},
     }

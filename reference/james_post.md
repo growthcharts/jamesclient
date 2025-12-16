@@ -57,7 +57,7 @@ url <- paste0(
   "https://raw.githubusercontent.com/growthcharts/jamesdemodata/",
   "refs/heads/master/inst/json/examples/Laura_S.json")
 fn <- system.file("extdata", "bds_v3.0", "smocc", "Laura_S.json",
- package = "jamesdemodata", mustWork = TRUE)
+  package = "jamesdemodata", mustWork = TRUE)
 js <- read_json_js(txt = fn)
 jo <- read_json_jo(txt = fn)
 
