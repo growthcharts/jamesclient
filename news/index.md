@@ -1,5 +1,12 @@
 # Changelog
 
+## jamesclient 0.36.1
+
+- Use system variable `JAMES_BEARER_TOKEN` to add authentication to
+  [`james_get()`](https://growthcharts.org/jamesclient/reference/james_get.md)
+  and
+  [`james_post()`](https://growthcharts.org/jamesclient/reference/james_post.md)
+
 ## jamesclient 0.36.0
 
 - Adds support for `config = httr::config()` in
