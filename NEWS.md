@@ -1,3 +1,7 @@
+# jamesclient 0.36.2
+
+- Preserve base path when `path` is an absolute URL in `james_get()` and `james_post()`
+
 # jamesclient 0.36.1
 
 - Use system variable `JAMES_BEARER_TOKEN` to add authentication to `james_get()` and `james_post()`
