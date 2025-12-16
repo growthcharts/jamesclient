@@ -1,3 +1,7 @@
+# jamesclient 0.36.3
+
+- Shortens long line is `james_post()` examples
+
 # jamesclient 0.36.2
 
 - Preserve base path when `path` is an absolute URL in `james_get()` and `james_post()`
