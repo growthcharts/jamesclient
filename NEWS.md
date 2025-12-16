@@ -1,4 +1,9 @@
+# jamesclient 0.36.1
+
+- Use system variable `JAMES_BEARER_TOKEN` to add authentication to `james_get()` and `james_post()`
+
 # jamesclient 0.36.0
+
 - Adds support for `config = httr::config()` in `httr::GET` and `httr::POST ` requests
 
 # jamesclient 0.35.0
